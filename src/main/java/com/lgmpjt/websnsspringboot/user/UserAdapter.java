@@ -1,5 +1,8 @@
 package com.lgmpjt.websnsspringboot.user;
 
+import org.springframework.stereotype.Component;
+
+@Component
 class UserAdapter implements UserPort {
 	private final UserRepository userRepository;
 

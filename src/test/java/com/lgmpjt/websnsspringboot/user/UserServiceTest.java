@@ -1,20 +1,16 @@
 package com.lgmpjt.websnsspringboot.user;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
+@SpringBootTest
+@ActiveProfiles(value = "test")
 class UserServiceTest {
 
+	@Autowired
 	private UserService userService;
-	private UserPort userPort;
-	private UserRepository userRepository;
-
-	@BeforeEach
-	void setUp() {
-		userRepository = new UserRepository();
-		userPort = new UserAdapter(userRepository);
-		userService = new UserService(userPort);
-	}
 
 	@Test
 	void createUser() {

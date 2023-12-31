@@ -1,5 +1,8 @@
 package com.lgmpjt.websnsspringboot.user;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class UserService {
 	private final UserPort userPort;
 
