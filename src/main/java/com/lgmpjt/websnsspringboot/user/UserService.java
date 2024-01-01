@@ -1,6 +1,7 @@
 package com.lgmpjt.websnsspringboot.user;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
@@ -10,6 +11,7 @@ public class UserService {
 		this.userPort = userPort;
 	}
 
+	@Transactional
 	public void createUser(final UserCreateDto userCreateDto) {
 		final User user = new User(userCreateDto.getUserId(),
 				userCreateDto.getPassword(),

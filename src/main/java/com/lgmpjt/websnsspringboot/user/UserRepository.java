@@ -1,17 +1,6 @@
 package com.lgmpjt.websnsspringboot.user;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.HashMap;
-import java.util.Map;
-
-@Repository
-public class UserRepository {
-	private Long sequence = 0L;
-	private Map<Long, User> persistence = new HashMap<>();
-
-	public void save(User user) {
-		user.assignId(++sequence);
-		persistence.put(user.getUserSeq(), user);
-	}
+interface UserRepository extends JpaRepository<User, Long> {
 }
