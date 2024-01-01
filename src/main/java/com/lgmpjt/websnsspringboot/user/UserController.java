@@ -12,13 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
-	private final UserPort userPort;
+	private final UserService userService;
 
 	@PostMapping
 	public ResponseEntity<Void> createNewUser(@RequestBody final UserCreateDto userCreateDto) {
-		final User user = new User(userCreateDto.getUserId(), userCreateDto.getPassword(), userCreateDto.getUserName(), userCreateDto.getUserEmail());
-
-		userPort.save(user);
+		userService.createUser(userCreateDto);
 
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
