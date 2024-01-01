@@ -1,6 +1,7 @@
 package com.lgmpjt.websnsspringboot.user;
 
 import com.lgmpjt.websnsspringboot.ApiTest;
+import com.lgmpjt.websnsspringboot.user.data.UserCreateDto;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;

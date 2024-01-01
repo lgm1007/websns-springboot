@@ -1,5 +1,7 @@
-package com.lgmpjt.websnsspringboot.user;
+package com.lgmpjt.websnsspringboot.user.service;
 
+import com.lgmpjt.websnsspringboot.user.data.UserCreateDto;
+import com.lgmpjt.websnsspringboot.user.model.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

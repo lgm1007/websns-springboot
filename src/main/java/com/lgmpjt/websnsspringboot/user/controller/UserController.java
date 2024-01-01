@@ -1,5 +1,7 @@
-package com.lgmpjt.websnsspringboot.user;
+package com.lgmpjt.websnsspringboot.user.controller;
 
+import com.lgmpjt.websnsspringboot.user.data.UserCreateDto;
+import com.lgmpjt.websnsspringboot.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
