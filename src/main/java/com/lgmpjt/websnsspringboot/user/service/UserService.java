@@ -1,5 +1,6 @@
 package com.lgmpjt.websnsspringboot.user.service;
 
+import com.lgmpjt.websnsspringboot.mapper.user.UserMapper;
 import com.lgmpjt.websnsspringboot.user.data.UserCreateDto;
 import com.lgmpjt.websnsspringboot.user.model.User;
 import org.springframework.stereotype.Service;
@@ -15,10 +16,7 @@ public class UserService {
 
 	@Transactional
 	public void createUser(final UserCreateDto userCreateDto) {
-		final User user = new User(userCreateDto.getUserId(),
-				userCreateDto.getPassword(),
-				userCreateDto.getUserName(),
-				userCreateDto.getUserEmail());
+		final User user = UserMapper.INSTANCE.toUser(userCreateDto);
 		userPort.save(user);
 	}
 }
