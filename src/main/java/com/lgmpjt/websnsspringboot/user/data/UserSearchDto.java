@@ -17,4 +17,20 @@ public class UserSearchDto {
 		this.userName = userName;
 		this.userEmail = userEmail;
 	}
+
+	public Long getUserSeq() {
+		return userSeq;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
 }
