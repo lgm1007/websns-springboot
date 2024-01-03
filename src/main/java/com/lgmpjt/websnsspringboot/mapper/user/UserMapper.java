@@ -1,7 +1,7 @@
 package com.lgmpjt.websnsspringboot.mapper.user;
 
 import com.lgmpjt.websnsspringboot.user.data.UserCreateDto;
-import com.lgmpjt.websnsspringboot.user.data.UserSerchDto;
+import com.lgmpjt.websnsspringboot.user.data.UserSearchDto;
 import com.lgmpjt.websnsspringboot.user.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -17,5 +17,5 @@ public interface UserMapper {
 
 	User toUser(UserCreateDto userCreateDto);
 
-	UserSerchDto toUserSearchDto(User entity);
+	UserSearchDto toUserSearchDto(User entity);
 }
