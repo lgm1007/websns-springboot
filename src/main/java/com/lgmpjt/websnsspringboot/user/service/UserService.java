@@ -17,7 +17,7 @@ public class UserService {
 
 	@Transactional
 	public void createUser(final UserCreateDto userCreateDto) {
-		final User user = UserMapper.INSTANCE.toUser(userCreateDto);
+		final User user = UserMapper.INSTANCE.createDtoToUser(userCreateDto);
 		userPort.save(user);
 	}
 

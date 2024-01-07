@@ -15,7 +15,7 @@ unmappedTargetPolicy = ReportingPolicy.IGNORE: target class에 매핑되지 않�
 public interface UserMapper {
 	UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-	User toUser(UserCreateDto userCreateDto);
+	User createDtoToUser(UserCreateDto userCreateDto);
 
 	UserSearchDto toUserSearchDto(User entity);
 }

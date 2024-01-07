@@ -1,17 +1,16 @@
 package com.lgmpjt.websnsspringboot.user.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.util.Assert;
 
 @Entity
 @Table(name = "User")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class User {
 
 	@Id
@@ -26,13 +25,4 @@ public class User {
 
 	private String userEmail;
 
-	public User(String userId, String password, String userName, String userEmail) {
-		Assert.hasText(userId, "유저 아이디 값은 필수입니다.");
-		Assert.notNull(password, "패스워드 값은 필수입니다.");
-		Assert.hasText(userName, "유저 이름 값은 필수입니다.");
-		this.userId = userId;
-		this.password = password;
-		this.userName = userName;
-		this.userEmail = userEmail;
-	}
 }
