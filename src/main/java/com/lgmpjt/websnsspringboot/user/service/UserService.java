@@ -21,6 +21,7 @@ public class UserService {
 		userPort.save(user);
 	}
 
+	@Transactional(readOnly = true)
 	public UserSearchDto findUser(final Long userSeq) {
 		final User user = userPort.findUser(userSeq);
 		return UserMapper.INSTANCE.toUserSearchDto(user);
