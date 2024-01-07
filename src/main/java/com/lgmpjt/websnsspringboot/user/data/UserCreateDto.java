@@ -1,7 +1,9 @@
 package com.lgmpjt.websnsspringboot.user.data;
 
+import lombok.Builder;
 import org.springframework.util.Assert;
 
+@Builder
 public class UserCreateDto {
 	private String userId;
 	private String password;

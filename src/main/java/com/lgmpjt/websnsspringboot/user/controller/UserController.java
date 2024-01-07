@@ -1,7 +1,7 @@
 package com.lgmpjt.websnsspringboot.user.controller;
 
 import com.lgmpjt.websnsspringboot.user.data.UserCreateDto;
-import com.lgmpjt.websnsspringboot.user.data.UserSearchDto;
+import com.lgmpjt.websnsspringboot.user.data.UserSearchUpdateDto;
 import com.lgmpjt.websnsspringboot.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,7 @@ public class UserController {
 	private final UserService userService;
 
 	@GetMapping("/{userSeq}")
-	public ResponseEntity<UserSearchDto> findOneUser(@PathVariable final Long userSeq) {
+	public ResponseEntity<UserSearchUpdateDto> findOneUser(@PathVariable final Long userSeq) {
 		return ResponseEntity.ok(userService.findUser(userSeq));
 	}
 
@@ -24,5 +24,13 @@ public class UserController {
 		userService.createUser(userCreateDto);
 
 		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+
+	@PutMapping("/{userSeq}")
+	public ResponseEntity<Long> updateOneUser(@PathVariable final Long userSeq,
+											  @RequestBody final UserSearchUpdateDto userDto) {
+		userService.updateUser(userDto);
+
+		return ResponseEntity.ok(userSeq);
 	}
 }
