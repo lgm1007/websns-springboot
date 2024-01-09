@@ -33,4 +33,11 @@ public class UserController {
 
 		return ResponseEntity.ok(userSeq);
 	}
+
+	@DeleteMapping("/{userSeq}")
+	public ResponseEntity<Long> deleteOneUser(@PathVariable final Long userSeq) {
+		userService.withdrawUser(userSeq);
+
+		return ResponseEntity.ok(userSeq);
+	}
 }

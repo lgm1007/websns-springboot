@@ -35,4 +35,10 @@ public class UserService {
 		user.setUserEmail(userDto.getUserEmail());
 		userPort.save(user);
 	}
+
+	@Transactional
+	public void withdrawUser(final Long userSeq) {
+		final User user = userPort.findUser(userSeq);
+		userPort.delete(user);
+	}
 }

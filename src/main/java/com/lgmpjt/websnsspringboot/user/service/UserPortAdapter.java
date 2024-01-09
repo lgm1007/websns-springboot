@@ -21,4 +21,9 @@ class UserPortAdapter implements UserPort {
 	public User findUser(final Long userSeq) {
 		return userRepository.findById(userSeq).orElseThrow(() -> new UnsupportedOperationException("Not found user"));
 	}
+
+	@Override
+	public void delete(final User user) {
+		userRepository.delete(user);
+	}
 }
