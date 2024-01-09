@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 	private final UserService userService;
 
-	@GetMapping("/{userSeq}")
-	public ResponseEntity<UserSearchUpdateDto> findOneUser(@PathVariable final Long userSeq) {
-		return ResponseEntity.ok(userService.findUser(userSeq));
-	}
-
 	@PostMapping
 	public ResponseEntity<Void> createNewUser(@RequestBody final UserCreateDto userCreateDto) {
 		userService.createUser(userCreateDto);
 
 		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+
+	@GetMapping("/{userSeq}")
+	public ResponseEntity<UserSearchUpdateDto> findOneUser(@PathVariable final Long userSeq) {
+		return ResponseEntity.ok(userService.findUser(userSeq));
 	}
 
 	@PutMapping("/{userSeq}")

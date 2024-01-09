@@ -7,6 +7,8 @@ import com.lgmpjt.websnsspringboot.user.model.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 public class UserService {
 	private final UserPort userPort;
@@ -33,6 +35,7 @@ public class UserService {
 		user.setPassword(userDto.getPassword());
 		user.setUserName(userDto.getUserName());
 		user.setUserEmail(userDto.getUserEmail());
+		user.setLastModifiedDate(LocalDateTime.now());
 		userPort.save(user);
 	}
 

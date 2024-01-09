@@ -1,9 +1,6 @@
 package com.lgmpjt.websnsspringboot.user.data;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
@@ -12,6 +9,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserSearchUpdateDto {
 	Long userSeq;
 	String userId;
