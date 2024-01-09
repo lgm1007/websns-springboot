@@ -60,6 +60,21 @@ class UserApiTest extends ApiTest {
 		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
 	}
 
+	@Test
+	void withdrawUser() {
+		// 유저 생성
+		userService.createUser(requestUserCreateDto());
+
+		final Long userSeq = 1L;
+		// 유저 회원탈퇴
+		ExtractableResponse<Response> response = requestUserWithdrawApi(userSeq);
+		
+		// 유저 회원탈퇴 응답 검증
+		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+	}
+
+
+
 	private static ExtractableResponse<Response> requestUserCreateApi(UserCreateDto userCreateDto) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -89,12 +104,21 @@ class UserApiTest extends ApiTest {
 				.log().all().extract();
 	}
 
+	private static ExtractableResponse<Response> requestUserWithdrawApi(Long userSeq) {
+		return RestAssured.given().log().all()
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.when()
+				.delete("/users/{userSeq}", userSeq)
+				.then()
+				.log().all().extract();
+	}
+
 	private static UserCreateDto requestUserCreateDto() {
 		String userId = "userId";
 		String password = "password";
 		String userName = "홍길동";
 		String userEmail = "mysns@example.com";
-		return new UserCreateDto(userId, password, userName, userEmail);
+		return new UserCreateDto(userId, password, userName, userEmail, false);
 	}
 
 }

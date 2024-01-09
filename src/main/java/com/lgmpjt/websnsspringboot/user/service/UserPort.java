@@ -6,4 +6,6 @@ interface UserPort {
 	void save(final User user);
 
 	User findUser(final Long userSeq);
+
+	void delete(final User user);
 }

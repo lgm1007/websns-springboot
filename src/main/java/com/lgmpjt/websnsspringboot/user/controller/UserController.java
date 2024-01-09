@@ -14,11 +14,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 	private final UserService userService;
 
-	@GetMapping("/{userSeq}")
-	public ResponseEntity<UserSearchUpdateDto> findOneUser(@PathVariable final Long userSeq) {
-		return ResponseEntity.ok(userService.findUser(userSeq));
-	}
-
 	@PostMapping
 	public ResponseEntity<Void> createNewUser(@RequestBody final UserCreateDto userCreateDto) {
 		userService.createUser(userCreateDto);
@@ -26,10 +21,22 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
+	@GetMapping("/{userSeq}")
+	public ResponseEntity<UserSearchUpdateDto> findOneUser(@PathVariable final Long userSeq) {
+		return ResponseEntity.ok(userService.findUser(userSeq));
+	}
+
 	@PutMapping("/{userSeq}")
 	public ResponseEntity<Long> updateOneUser(@PathVariable final Long userSeq,
 											  @RequestBody final UserSearchUpdateDto userDto) {
 		userService.updateUser(userDto);
+
+		return ResponseEntity.ok(userSeq);
+	}
+
+	@DeleteMapping("/{userSeq}")
+	public ResponseEntity<Long> deleteOneUser(@PathVariable final Long userSeq) {
+		userService.withdrawUser(userSeq);
 
 		return ResponseEntity.ok(userSeq);
 	}
