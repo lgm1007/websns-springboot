@@ -1,8 +1,8 @@
-package com.lgmpjt.websnsspringboot.user.controller;
+package com.lgmpjt.websnsspringboot.domain.user.controller;
 
-import com.lgmpjt.websnsspringboot.user.data.UserCreateDto;
-import com.lgmpjt.websnsspringboot.user.data.UserSearchUpdateDto;
-import com.lgmpjt.websnsspringboot.user.service.UserService;
+import com.lgmpjt.websnsspringboot.domain.user.data.UserCreateDto;
+import com.lgmpjt.websnsspringboot.domain.user.data.UserSearchUpdateDto;
+import com.lgmpjt.websnsspringboot.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

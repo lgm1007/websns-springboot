@@ -1,7 +1,7 @@
-package com.lgmpjt.websnsspringboot.user.service;
+package com.lgmpjt.websnsspringboot.domain.user.service;
 
-import com.lgmpjt.websnsspringboot.user.model.User;
-import com.lgmpjt.websnsspringboot.user.repository.UserRepository;
+import com.lgmpjt.websnsspringboot.domain.user.model.User;
+import com.lgmpjt.websnsspringboot.domain.user.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,8 +13,8 @@ class UserPortAdapter implements UserPort {
 	}
 
 	@Override
-	public void save(final User user) {
-		userRepository.save(user);
+	public User save(final User user) {
+		return userRepository.save(user);
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package com.lgmpjt.websnsspringboot.user.model;
+package com.lgmpjt.websnsspringboot.domain.user.model;
 
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,4 +1,4 @@
-package com.lgmpjt.websnsspringboot.user.data;
+package com.lgmpjt.websnsspringboot.domain.user.data;
 
 import lombok.*;
 import org.springframework.util.Assert;
