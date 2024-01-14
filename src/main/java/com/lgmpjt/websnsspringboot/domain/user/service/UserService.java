@@ -21,10 +21,10 @@ public class UserService {
 	private final SHA256 sha256;
 
 	@Transactional
-	public void createUser(final UserCreateDto userCreateDto) {
+	public User createUser(final UserCreateDto userCreateDto) {
 		encryptPassword(userCreateDto);
 		final User user = UserMapper.INSTANCE.createDtoToUser(userCreateDto);
-		userPort.save(user);
+		return userPort.save(user);
 	}
 
 	private void encryptPassword(UserCreateDto userCreateDto) {

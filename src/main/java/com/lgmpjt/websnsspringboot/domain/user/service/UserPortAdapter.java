@@ -13,8 +13,8 @@ class UserPortAdapter implements UserPort {
 	}
 
 	@Override
-	public void save(final User user) {
-		userRepository.save(user);
+	public User save(final User user) {
+		return userRepository.save(user);
 	}
 
 	@Override
