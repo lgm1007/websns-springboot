@@ -1,6 +1,6 @@
-package com.lgmpjt.websnsspringboot.user.service;
+package com.lgmpjt.websnsspringboot.domain.user.service;
 
-import com.lgmpjt.websnsspringboot.user.model.User;
+import com.lgmpjt.websnsspringboot.domain.user.model.User;
 
 interface UserPort {
 	void save(final User user);
