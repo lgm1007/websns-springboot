@@ -35,11 +35,38 @@ public class FollowApiTest extends ApiTest {
 		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
 	}
 
+	@Test
+	void doUnfollow() {
+		// 팔로우 수행, 팔로우 대상 유저 생성
+		Long fromFollow = userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+				.getUserSeq();
+		Long toFollow = userService.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
+				.getUserSeq();
+
+		// 팔로우 생성
+		followService.saveFollow(fromFollow, toFollow);
+		
+		// 언팔로우 API 요청
+		ExtractableResponse<Response> response = requestDoUnfollow(fromFollow, toFollow);
+
+		// 응답값 검증
+		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+	}
+
 	private static ExtractableResponse<Response> requestDoFollow(Long fromFollow, Long toFollow) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
 				.post("/follows/{fromFollow}/to/{toFollow}", fromFollow, toFollow)
+				.then()
+				.log().all().extract();
+	}
+
+	private static ExtractableResponse<Response> requestDoUnfollow(Long fromFollow, Long toFollow) {
+		return RestAssured.given().log().all()
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.when()
+				.delete("/follows/{fromFollow}/to/{toFollow}", fromFollow, toFollow)
 				.then()
 				.log().all().extract();
 	}
