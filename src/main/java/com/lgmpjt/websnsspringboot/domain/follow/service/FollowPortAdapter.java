@@ -17,4 +17,14 @@ public class FollowPortAdapter implements FollowPort {
 		return followRepository.save(follow);
 	}
 
+	@Override
+	public Follow findByFromAndTo(final Long fromFollowUserSeq, final Long toFollowUserSeq) {
+		return followRepository.findByFromFollowAndToFollow(fromFollowUserSeq, toFollowUserSeq);
+	}
+
+	@Override
+	public void delete(final Follow follow) {
+		followRepository.delete(follow);
+	}
+
 }

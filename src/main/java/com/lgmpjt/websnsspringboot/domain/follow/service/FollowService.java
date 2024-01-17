@@ -19,4 +19,10 @@ public class FollowService {
 		final Follow follow = FollowMapper.INSTANCE.createDtoToFollow(followDto);
 		return followPort.save(follow);
 	}
+
+	@Transactional
+	public void deleteFollow(final Long fromFollowUserSeq, final Long toFollowUserSeq) {
+		final Follow follow = followPort.findByFromAndTo(fromFollowUserSeq, toFollowUserSeq);
+		followPort.delete(follow);
+	}
 }
