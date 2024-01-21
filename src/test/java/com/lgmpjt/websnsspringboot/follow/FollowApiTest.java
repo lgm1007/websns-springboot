@@ -7,11 +7,14 @@ import com.lgmpjt.websnsspringboot.domain.user.service.UserService;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+
+import java.util.ArrayList;
 
 public class FollowApiTest extends ApiTest {
 	@Autowired
@@ -53,6 +56,27 @@ public class FollowApiTest extends ApiTest {
 		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
 	}
 
+	@Test
+	void doSearchFollowing() {
+		// 팔로우 수행, 팔로우 대상 유저 생성
+		Long fromUserSeq = userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+				.getUserSeq();
+		Long toFollow1 = userService.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
+				.getUserSeq();
+		Long toFollow2 = userService.createUser(requestUserCreateDto("userId3", "9012", "Raychel", "raychel@example.com"))
+				.getUserSeq();
+
+		// 팔로우 생성
+		followService.saveFollow(fromUserSeq, toFollow1);
+		followService.saveFollow(fromUserSeq, toFollow2);
+		
+		// 조회 API 요청
+		ResponseBody body = requestSearchFollowing(fromUserSeq);
+		
+		// API 응답값 검증
+		AssertionsForClassTypes.assertThat(body.as(ArrayList.class).size()).isEqualTo(2);
+	}
+
 	private static ExtractableResponse<Response> requestDoFollow(Long fromFollow, Long toFollow) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -69,6 +93,16 @@ public class FollowApiTest extends ApiTest {
 				.delete("/follows/{fromFollow}/to/{toFollow}", fromFollow, toFollow)
 				.then()
 				.log().all().extract();
+	}
+
+	private static ResponseBody requestSearchFollowing(Long fromUserSeq) {
+		return RestAssured.given().log().all()
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.when()
+				.get("/follows/{userSeq}/following", fromUserSeq)
+				.then()
+				.log().all().extract().response()
+				.getBody();
 	}
 
 	private static UserCreateDto requestUserCreateDto(String userId, String password, String userName, String userEmail) {
