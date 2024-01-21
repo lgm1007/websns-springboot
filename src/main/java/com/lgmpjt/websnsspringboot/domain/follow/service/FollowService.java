@@ -28,6 +28,11 @@ public class FollowService {
 		return FollowMapper.INSTANCE.followToSearchDtos(followPort.findAllByFrom(userSeq));
 	}
 
+	@Transactional(readOnly = true)
+	public List<FollowSearchDto> searchFollowerByUser(final Long userSeq) {
+		return FollowMapper.INSTANCE.followToSearchDtos(followPort.findAllByTo(userSeq));
+	}
+
 	@Transactional
 	public void deleteFollow(final Long fromFollowUserSeq, final Long toFollowUserSeq) {
 		final Follow follow = followPort.findByFromAndTo(fromFollowUserSeq, toFollowUserSeq);

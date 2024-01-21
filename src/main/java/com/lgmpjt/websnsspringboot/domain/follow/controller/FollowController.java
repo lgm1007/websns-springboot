@@ -28,6 +28,11 @@ public class FollowController {
 		return followService.searchFollowingByUser(userSeq);
 	}
 
+	@GetMapping("/{userSeq}/follower")
+	public List<FollowSearchDto> searchFollower(@PathVariable final Long userSeq) {
+		return followService.searchFollowerByUser(userSeq);
+	}
+
 	@DeleteMapping("/{fromFollow}/to/{toFollow}")
 	public ResponseEntity<Pair<Long, Long>> doUnfollow(@PathVariable final Long fromFollow, @PathVariable final Long toFollow) {
 		followService.deleteFollow(fromFollow, toFollow);

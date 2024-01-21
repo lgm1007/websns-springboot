@@ -9,6 +9,8 @@ public interface FollowPort {
 
 	List<Follow> findAllByFrom(final Long fromFollowUserSeq);
 
+	List<Follow> findAllByTo(final Long toFollowUserSeq);
+
 	Follow findByFromAndTo(final Long fromFollowUserSeq, final Long toFollowUserSeq);
 
 	void delete(final Follow follow);

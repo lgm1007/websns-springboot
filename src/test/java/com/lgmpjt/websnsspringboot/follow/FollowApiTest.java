@@ -77,6 +77,30 @@ public class FollowApiTest extends ApiTest {
 		AssertionsForClassTypes.assertThat(body.as(ArrayList.class).size()).isEqualTo(2);
 	}
 
+	@Test
+	void doSearchFollower() {
+		// 팔로우 수행, 팔로우 대상 유저 생성
+		Long fromUserSeq1 = userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+				.getUserSeq();
+		Long fromUserSeq2 = userService.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
+				.getUserSeq();
+		Long fromUserSeq3 = userService.createUser(requestUserCreateDto("userId3", "9012", "Raychel", "raychel@example.com"))
+				.getUserSeq();
+		Long toUserSeq = userService.createUser(requestUserCreateDto("userId4", "1111", "Celeb", "celeb@example.com"))
+				.getUserSeq();
+
+		// 팔로우 생성
+		followService.saveFollow(fromUserSeq1, toUserSeq);
+		followService.saveFollow(fromUserSeq2, toUserSeq);
+		followService.saveFollow(fromUserSeq3, toUserSeq);
+
+		// 조회 API 요청
+		ResponseBody body = requestSearchFollower(toUserSeq);
+
+		// API 응답값 검증
+		AssertionsForClassTypes.assertThat(body.as(ArrayList.class).size()).isEqualTo(3);
+	}
+
 	private static ExtractableResponse<Response> requestDoFollow(Long fromFollow, Long toFollow) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -100,6 +124,16 @@ public class FollowApiTest extends ApiTest {
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
 				.get("/follows/{userSeq}/following", fromUserSeq)
+				.then()
+				.log().all().extract().response()
+				.getBody();
+	}
+
+	private static ResponseBody requestSearchFollower(Long toUserSeq) {
+		return RestAssured.given().log().all()
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.when()
+				.get("/follows/{userSeq}/follower", toUserSeq)
 				.then()
 				.log().all().extract().response()
 				.getBody();
