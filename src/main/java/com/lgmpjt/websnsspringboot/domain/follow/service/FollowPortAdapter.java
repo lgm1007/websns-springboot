@@ -4,6 +4,8 @@ import com.lgmpjt.websnsspringboot.domain.follow.model.Follow;
 import com.lgmpjt.websnsspringboot.domain.follow.repository.FollowRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class FollowPortAdapter implements FollowPort {
 	private final FollowRepository followRepository;
@@ -15,6 +17,16 @@ public class FollowPortAdapter implements FollowPort {
 	@Override
 	public Follow save(final Follow follow) {
 		return followRepository.save(follow);
+	}
+
+	@Override
+	public List<Follow> findAllByFrom(final Long fromFollowUserSeq) {
+		return followRepository.findAllByFromFollow(fromFollowUserSeq);
+	}
+
+	@Override
+	public List<Follow> findAllByTo(final Long toFollowUserSeq) {
+		return followRepository.findAllByToFollow(toFollowUserSeq);
 	}
 
 	@Override
