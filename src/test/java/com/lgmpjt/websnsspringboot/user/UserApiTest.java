@@ -7,6 +7,7 @@ import com.lgmpjt.websnsspringboot.domain.user.service.UserService;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +36,10 @@ class UserApiTest extends ApiTest {
 		final Long userSeq = 1L;
 
 		// 유저 조회
-		ExtractableResponse<Response> response = requestFindUserApi(userSeq);
+		ResponseBody body = requestFindUserApi(userSeq);
 
 		// 조회 응답 검증
-		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+		AssertionsForClassTypes.assertThat(body.as(UserSearchUpdateDto.class).getUserName()).isEqualTo("홍길동");
 	}
 
 	@Test
@@ -85,13 +86,14 @@ class UserApiTest extends ApiTest {
 				.log().all().extract();
 	}
 
-	private static ExtractableResponse<Response> requestFindUserApi(Long userSeq) {
+	private static ResponseBody requestFindUserApi(Long userSeq) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
 				.get("/users/{userSeq}", userSeq)
 				.then()
-				.log().all().extract();
+				.log().all().extract().response()
+				.getBody();
 	}
 
 	private static ExtractableResponse<Response> requestUpdateUserApi(Long userSeq, UserSearchUpdateDto userDto) {
