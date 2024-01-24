@@ -1,5 +1,12 @@
 package com.lgmpjt.websnsspringboot.board;
 
+import com.lgmpjt.websnsspringboot.ApiTest;
+import com.lgmpjt.websnsspringboot.domain.board.data.BoardCreateDto;
+import com.lgmpjt.websnsspringboot.domain.board.service.BoardService;
+import com.lgmpjt.websnsspringboot.domain.user.data.UserCreateDto;
+import com.lgmpjt.websnsspringboot.domain.user.data.UserSearchUpdateDto;
+import com.lgmpjt.websnsspringboot.domain.user.service.UserService;
+import com.lgmpjt.websnsspringboot.mapper.user.UserMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -11,19 +18,26 @@ import org.springframework.http.MediaType;
 
 import java.time.LocalDateTime;
 
-public class BoardApiTest {
+public class BoardApiTest extends ApiTest {
+
+	@Autowired
+	private UserService userService;
+
 	@Autowired
 	private BoardService boardService;
 
 	@Test
 	void createBoard() {
-		final Long userSeq = 1L;
+		// 유저 생성
+		UserSearchUpdateDto userDto = UserMapper.INSTANCE.toUserSearchDto(
+			userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com", false))
+		);
 
 		// 게시물 생성
-		BoardCreateDto boardDto = requestBoardCreateDto(userSeq);
+		BoardCreateDto boardDto = requestBoardCreateDto(userDto);
 
 		// 게시물 업로드 API 요청
-		ExtractableResponse<Response> response = requestBoardCreateApi(userSeq, boardDto);
+		ExtractableResponse<Response> response = requestBoardCreateApi(userDto.getUserSeq(), boardDto);
 
 		// 업로드 응답 검증
 		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
@@ -39,10 +53,14 @@ public class BoardApiTest {
 				.log().all().extract();
 	}
 
-	private static BoardCreateDto requestBoardCreateDto(Long userSeq) {
+	private static BoardCreateDto requestBoardCreateDto(UserSearchUpdateDto userDto) {
 		String content = "새로운 게시물입니다.";
 		String boardImage = "images/img01.jpg";
 		LocalDateTime createdDate = LocalDateTime.now();
-		return new BoardCreateDto(userSeq, content, boardImage, createdDate);
+		return new BoardCreateDto(userDto, content, boardImage, createdDate);
+	}
+
+	private static UserCreateDto requestUserCreateDto(String userId, String password, String userName, String userEmail, boolean isAdmin) {
+		return new UserCreateDto(userId, password, userName, userEmail, isAdmin);
 	}
 }
