@@ -2,6 +2,7 @@ package com.lgmpjt.websnsspringboot.board;
 
 import com.lgmpjt.websnsspringboot.ApiTest;
 import com.lgmpjt.websnsspringboot.domain.board.data.BoardCreateDto;
+import com.lgmpjt.websnsspringboot.domain.board.data.BoardDto;
 import com.lgmpjt.websnsspringboot.domain.board.service.BoardService;
 import com.lgmpjt.websnsspringboot.domain.user.data.UserCreateDto;
 import com.lgmpjt.websnsspringboot.domain.user.data.UserSearchUpdateDto;
@@ -10,13 +11,12 @@ import com.lgmpjt.websnsspringboot.mapper.user.UserMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-
-import java.time.LocalDateTime;
 
 public class BoardApiTest extends ApiTest {
 
@@ -43,6 +43,23 @@ public class BoardApiTest extends ApiTest {
 		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
 	}
 
+	@Test
+	void searchBoard() {
+		// 유저 생성
+		UserSearchUpdateDto userDto = UserMapper.INSTANCE.toUserSearchDto(
+				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com", false))
+		);
+
+		// 게시물 생성
+		Long boardSeq = boardService.createBoard(requestBoardCreateDto(userDto)).getBoardSeq();
+
+		// 게시물 조회 API 요청
+		ResponseBody body = requestSearchBoardApi(boardSeq);
+
+		// 조회 응답 검증
+		AssertionsForClassTypes.assertThat(body.as(BoardDto.class).getBoardSeq()).isEqualTo(boardSeq);
+	}
+
 	private static ExtractableResponse<Response> requestBoardCreateApi(Long userSeq, BoardCreateDto boardCreateDto) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -51,6 +68,16 @@ public class BoardApiTest extends ApiTest {
 				.post("/boards/{userSeq}/upload", userSeq)
 				.then()
 				.log().all().extract();
+	}
+
+	private static ResponseBody requestSearchBoardApi(Long boardSeq) {
+		return RestAssured.given().log().all()
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.when()
+				.get("/boards/{boardSeq}",boardSeq)
+				.then()
+				.log().all().extract().response()
+				.getBody();
 	}
 
 	private static BoardCreateDto requestBoardCreateDto(UserSearchUpdateDto userDto) {
