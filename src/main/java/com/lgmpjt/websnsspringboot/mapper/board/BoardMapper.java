@@ -1,6 +1,7 @@
 package com.lgmpjt.websnsspringboot.mapper.board;
 
 import com.lgmpjt.websnsspringboot.domain.board.data.BoardCreateDto;
+import com.lgmpjt.websnsspringboot.domain.board.data.BoardDto;
 import com.lgmpjt.websnsspringboot.domain.board.model.Board;
 import com.lgmpjt.websnsspringboot.domain.user.data.UserSearchUpdateDto;
 import com.lgmpjt.websnsspringboot.domain.user.model.User;
@@ -36,4 +37,6 @@ public interface BoardMapper {
 
 		return user.build();
 	}
+
+	BoardDto boardToDto(Board board);
 }

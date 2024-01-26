@@ -1,6 +1,7 @@
 package com.lgmpjt.websnsspringboot.domain.board.service;
 
 import com.lgmpjt.websnsspringboot.domain.board.data.BoardCreateDto;
+import com.lgmpjt.websnsspringboot.domain.board.data.BoardDto;
 import com.lgmpjt.websnsspringboot.domain.board.model.Board;
 import com.lgmpjt.websnsspringboot.mapper.board.BoardMapper;
 import lombok.RequiredArgsConstructor;
@@ -16,5 +17,10 @@ public class BoardService {
 	public Board createBoard(final BoardCreateDto boardCreateDto) {
 		Board board = BoardMapper.INSTANCE.createDtoToBoard(boardCreateDto);
 		return boardPort.save(board);
+	}
+
+	public BoardDto searchBoard(final Long boardSeq) {
+		Board board = boardPort.findBoard(boardSeq);
+		return BoardMapper.INSTANCE.boardToDto(board);
 	}
 }

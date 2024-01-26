@@ -5,4 +5,6 @@ import com.lgmpjt.websnsspringboot.domain.board.model.Board;
 public interface BoardPort {
 	Board save(final Board board);
 
+	Board findBoard(final Long boardSeq);
+
 }

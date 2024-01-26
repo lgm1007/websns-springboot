@@ -16,4 +16,9 @@ public class BoardPortAdapter implements BoardPort {
 	public Board save(final Board board) {
 		return boardRepository.save(board);
 	}
+
+	@Override
+	public Board findBoard(Long boardSeq) {
+		return boardRepository.findById(boardSeq).orElseThrow(() -> new UnsupportedOperationException("Not found board"));
+	}
 }
