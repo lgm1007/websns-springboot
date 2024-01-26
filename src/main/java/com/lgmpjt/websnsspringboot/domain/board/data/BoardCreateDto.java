@@ -17,6 +17,7 @@ public class BoardCreateDto {
 	private String content;
 	private String boardImage;
 	private LocalDateTime createdDate;
+	private LocalDateTime lastModifiedDate;
 
 	public BoardCreateDto(UserSearchUpdateDto user, String content, String boardImage) {
 		Assert.notNull(user, "게시물을 작성한 유저 정보는 필수입니다.");

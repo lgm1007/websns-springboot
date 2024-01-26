@@ -30,4 +30,6 @@ public class Board {
 	private String boardImage;
 
 	private LocalDateTime createdDate;
+
+	private LocalDateTime lastModifiedDate;
 }
