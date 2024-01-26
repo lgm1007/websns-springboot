@@ -56,8 +56,7 @@ public class BoardApiTest extends ApiTest {
 	private static BoardCreateDto requestBoardCreateDto(UserSearchUpdateDto userDto) {
 		String content = "새로운 게시물입니다.";
 		String boardImage = "images/img01.jpg";
-		LocalDateTime createdDate = LocalDateTime.now();
-		return new BoardCreateDto(userDto, content, boardImage, createdDate);
+		return new BoardCreateDto(userDto, content, boardImage);
 	}
 
 	private static UserCreateDto requestUserCreateDto(String userId, String password, String userName, String userEmail, boolean isAdmin) {
