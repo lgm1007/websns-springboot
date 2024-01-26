@@ -1,6 +1,7 @@
 package com.lgmpjt.websnsspringboot.domain.board.controller;
 
 import com.lgmpjt.websnsspringboot.domain.board.data.BoardCreateDto;
+import com.lgmpjt.websnsspringboot.domain.board.data.BoardDto;
 import com.lgmpjt.websnsspringboot.domain.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,5 +20,10 @@ public class BoardController {
 		boardService.createBoard(boardCreateDto);
 
 		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+
+	@GetMapping("/{boardSeq}")
+	public BoardDto searchBoard(@PathVariable final Long boardSeq) {
+		return boardService.searchBoard(boardSeq);
 	}
 }
