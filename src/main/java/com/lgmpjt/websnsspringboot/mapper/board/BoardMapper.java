@@ -11,6 +11,8 @@ import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface BoardMapper {
 	BoardMapper INSTANCE = Mappers.getMapper(BoardMapper.class);
@@ -39,4 +41,6 @@ public interface BoardMapper {
 	}
 
 	BoardDto boardToDto(Board board);
+
+	List<BoardDto> boardsToDtos(List<Board> boards);
 }
