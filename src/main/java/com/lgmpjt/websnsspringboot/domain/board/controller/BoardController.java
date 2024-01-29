@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/boards")
 @RequiredArgsConstructor
@@ -25,5 +27,10 @@ public class BoardController {
 	@GetMapping("/{boardSeq}")
 	public BoardDto searchBoard(@PathVariable final Long boardSeq) {
 		return boardService.searchBoard(boardSeq);
+	}
+
+	@GetMapping("user/{userSeq}")
+	public List<BoardDto> searchBoardsByUserSeq(@PathVariable final Long userSeq) {
+		return boardService.searchBoardsByUserSeq(userSeq);
 	}
 }

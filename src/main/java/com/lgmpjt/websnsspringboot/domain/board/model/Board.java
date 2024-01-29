@@ -24,6 +24,9 @@ public class Board {
 	@JoinColumn(name = "userSeq")
 	private User user;
 
+	@Column(insertable = false, updatable = false)
+	private Long userSeq;
+
 	private String content;
 
 	@NotNull
