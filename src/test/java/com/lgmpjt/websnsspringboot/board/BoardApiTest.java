@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
+import java.util.ArrayList;
+
 public class BoardApiTest extends ApiTest {
 
 	@Autowired
@@ -59,6 +61,22 @@ public class BoardApiTest extends ApiTest {
 		// 조회 응답 검증
 		AssertionsForClassTypes.assertThat(body.as(BoardDto.class).getBoardSeq()).isEqualTo(boardSeq);
 	}
+	
+	@Test
+	void searchBoardsByUserSeq() {
+		// 유저 생성
+		UserSearchUpdateDto userDto = UserMapper.INSTANCE.toUserSearchDto(
+				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com", false))
+		);
+
+		// 게시물 생성
+		boardService.createBoard(requestBoardCreateDto(userDto));
+
+		ResponseBody body = requestSearchBoardsByUserApi(userDto.getUserSeq());
+
+		// 조회 응답 검증
+		AssertionsForClassTypes.assertThat(body.as(ArrayList.class).size()).isEqualTo(1);
+	}
 
 	private static ExtractableResponse<Response> requestBoardCreateApi(Long userSeq, BoardCreateDto boardCreateDto) {
 		return RestAssured.given().log().all()
@@ -74,7 +92,17 @@ public class BoardApiTest extends ApiTest {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
-				.get("/boards/{boardSeq}",boardSeq)
+				.get("/boards/{boardSeq}", boardSeq)
+				.then()
+				.log().all().extract().response()
+				.getBody();
+	}
+
+	private static ResponseBody requestSearchBoardsByUserApi(Long userSeq) {
+		return RestAssured.given().log().all()
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.when()
+				.get("/boards/user/{userSeq}", userSeq)
 				.then()
 				.log().all().extract().response()
 				.getBody();
