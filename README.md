@@ -42,3 +42,20 @@
 |followSeq|bigint(20)|primary key|auto increment|not null|팔로우 sequence 값|
 |fromFollow|bigint(20)| | |not null|팔로우 하는 유저 seq 값 (팔로잉)|
 |toFollow|bigint(20)| | |not null|팔로우 당하는 유저 seq 값 (팔로워)|
+
+#### Like
+|컬럼 명|타입|키|속성| default | 설명 |
+|---|---|---|---|---|---|
+|likeSeq|bigint(20)|primary key|auto increment|not null|좋아요 sequence 값|
+|userSeq|bigint(20)|foreign key| |not null|좋아요를 한 유저 foreign key|
+|boardSeq|bigint(20)|foreign key| |not null|유저가 좋아요한 게시글 foreign key|
+|createdDate|datetime| | | null |좋아요한 날짜 (최근 순 정렬 위함)|
+
+#### Comment
+|컬럼 명|타입|키|속성| default | 설명 |
+|---|---|---|---|---|---|
+|commentSeq|bigint(20)|primary key|auto increment|not null|댓글 sequence 값|
+|userSeq|bigint(20)|foreign key| |not null|댓글 작성한 유저 foreign key|
+|boardSeq|bigint(20)|foreign key| |not null|댓글 작성할 게시글 foreign key|
+|content|text| | |not null|댓글 내용|
+|createdDate|datetime| | |null|댓글 작성한 날짜|
