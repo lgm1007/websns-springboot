@@ -1,6 +1,7 @@
 package com.lgmpjt.websnsspringboot.mapper.board;
 
 import com.lgmpjt.websnsspringboot.domain.board.data.BoardCreateDto;
+import com.lgmpjt.websnsspringboot.domain.board.data.BoardDto;
 import com.lgmpjt.websnsspringboot.domain.board.model.Board;
 import com.lgmpjt.websnsspringboot.domain.user.data.UserSearchUpdateDto;
 import com.lgmpjt.websnsspringboot.domain.user.model.User;
@@ -9,6 +10,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface BoardMapper {
@@ -36,4 +39,8 @@ public interface BoardMapper {
 
 		return user.build();
 	}
+
+	BoardDto boardToDto(Board board);
+
+	List<BoardDto> boardsToDtos(List<Board> boards);
 }

@@ -24,10 +24,15 @@ public class Board {
 	@JoinColumn(name = "userSeq")
 	private User user;
 
+	@Column(insertable = false, updatable = false)
+	private Long userSeq;
+
 	private String content;
 
 	@NotNull
 	private String boardImage;
 
 	private LocalDateTime createdDate;
+
+	private LocalDateTime lastModifiedDate;
 }
