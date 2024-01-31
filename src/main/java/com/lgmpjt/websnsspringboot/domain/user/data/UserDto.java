@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserSearchUpdateDto {
+public class UserDto {
 	Long userSeq;
 	String userId;
 	String password;
@@ -21,7 +21,7 @@ public class UserSearchUpdateDto {
 	LocalDateTime lastModifiedDate;
 	boolean admin;
 
-	public UserSearchUpdateDto(final Long userSeq, final String userId, final String password, final String userName, final String userEmail, final LocalDateTime createdDate, final boolean admin) {
+	public UserDto(final Long userSeq, final String userId, final String password, final String userName, final String userEmail, final LocalDateTime createdDate, final boolean admin) {
 		Assert.notNull(userSeq, "유저 SEQ 값은 필수입니다.");
 		Assert.notNull(password, "패스워드 값은 필수입니다.");
 		Assert.hasText(userId, "유저 ID 값은 필수입니다.");

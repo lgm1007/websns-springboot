@@ -3,7 +3,7 @@ package com.lgmpjt.websnsspringboot.mapper.board;
 import com.lgmpjt.websnsspringboot.domain.board.data.BoardCreateDto;
 import com.lgmpjt.websnsspringboot.domain.board.data.BoardDto;
 import com.lgmpjt.websnsspringboot.domain.board.model.Board;
-import com.lgmpjt.websnsspringboot.domain.user.data.UserSearchUpdateDto;
+import com.lgmpjt.websnsspringboot.domain.user.data.UserDto;
 import com.lgmpjt.websnsspringboot.domain.user.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -21,7 +21,7 @@ public interface BoardMapper {
 	Board createDtoToBoard(BoardCreateDto boardCreateDto);
 
 	@Named("userDtoToUser")
-	default User userDtoToUser(UserSearchUpdateDto userDto) {
+	default User userDtoToUser(UserDto userDto) {
 		if ( userDto == null ) {
 			return null;
 		}

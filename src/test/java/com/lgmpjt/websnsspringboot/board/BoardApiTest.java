@@ -5,7 +5,7 @@ import com.lgmpjt.websnsspringboot.domain.board.data.BoardCreateDto;
 import com.lgmpjt.websnsspringboot.domain.board.data.BoardDto;
 import com.lgmpjt.websnsspringboot.domain.board.service.BoardService;
 import com.lgmpjt.websnsspringboot.domain.user.data.UserCreateDto;
-import com.lgmpjt.websnsspringboot.domain.user.data.UserSearchUpdateDto;
+import com.lgmpjt.websnsspringboot.domain.user.data.UserDto;
 import com.lgmpjt.websnsspringboot.domain.user.service.UserService;
 import com.lgmpjt.websnsspringboot.mapper.user.UserMapper;
 import io.restassured.RestAssured;
@@ -32,7 +32,7 @@ public class BoardApiTest extends ApiTest {
 	@Test
 	void createBoard() {
 		// 유저 생성
-		UserSearchUpdateDto userDto = UserMapper.INSTANCE.toUserSearchDto(
+		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
 			userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com", false))
 		);
 
@@ -49,7 +49,7 @@ public class BoardApiTest extends ApiTest {
 	@Test
 	void searchBoard() {
 		// 유저 생성
-		UserSearchUpdateDto userDto = UserMapper.INSTANCE.toUserSearchDto(
+		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
 				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com", false))
 		);
 
@@ -66,7 +66,7 @@ public class BoardApiTest extends ApiTest {
 	@Test
 	void searchBoardsByUserSeq() {
 		// 유저 생성
-		UserSearchUpdateDto userDto = UserMapper.INSTANCE.toUserSearchDto(
+		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
 				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com", false))
 		);
 
@@ -82,7 +82,7 @@ public class BoardApiTest extends ApiTest {
 	@Test
 	void updateBoard() {
 		// 유저 생성
-		UserSearchUpdateDto userDto = UserMapper.INSTANCE.toUserSearchDto(
+		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
 				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com", false))
 		);
 
@@ -139,13 +139,13 @@ public class BoardApiTest extends ApiTest {
 				.log().all().extract();
 	}
 
-	private static BoardCreateDto requestBoardCreateDto(UserSearchUpdateDto userDto) {
+	private static BoardCreateDto requestBoardCreateDto(UserDto userDto) {
 		String content = "새로운 게시물입니다.";
 		String boardImage = "images/img01.jpg";
 		return new BoardCreateDto(userDto, content, boardImage);
 	}
 
-	private static BoardDto requestBoardDto(Long boardSeq, UserSearchUpdateDto userDto, LocalDateTime createdDate) {
+	private static BoardDto requestBoardDto(Long boardSeq, UserDto userDto, LocalDateTime createdDate) {
 		String content = "업데이트된 게시물입니다.";
 		String boardImage = "imags/update01.jpg";
 		return new BoardDto(boardSeq, userDto, content, boardImage, createdDate);
