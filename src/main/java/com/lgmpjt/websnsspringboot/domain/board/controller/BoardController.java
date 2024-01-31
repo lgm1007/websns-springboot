@@ -33,4 +33,12 @@ public class BoardController {
 	public List<BoardDto> searchBoardsByUserSeq(@PathVariable final Long userSeq) {
 		return boardService.searchBoardsByUserSeq(userSeq);
 	}
+
+	@PutMapping("/{boardSeq}")
+	public ResponseEntity<Long> updateBoard(@PathVariable final Long boardSeq,
+											@RequestBody final BoardDto boardDto) {
+		boardService.updateBoard(boardDto);
+
+		return ResponseEntity.ok(boardDto.getBoardSeq());
+	}
 }

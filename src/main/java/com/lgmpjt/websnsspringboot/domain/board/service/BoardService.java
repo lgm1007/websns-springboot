@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -29,5 +30,13 @@ public class BoardService {
 	public List<BoardDto> searchBoardsByUserSeq(final Long userSeq) {
 		List<Board> boards = boardPort.findBoardsByUserSeq(userSeq);
 		return BoardMapper.INSTANCE.boardsToDtos(boards);
+	}
+
+	public void updateBoard(final BoardDto boardDto) {
+		final Board board = boardPort.findBoard(boardDto.getBoardSeq());
+		board.setContent(boardDto.getContent());
+		board.setBoardImage(boardDto.getBoardImage());
+		board.setLastModifiedDate(LocalDateTime.now());
+		boardPort.save(board);
 	}
 }
