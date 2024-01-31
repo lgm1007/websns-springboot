@@ -22,8 +22,8 @@ public class UserController {
 	}
 
 	@GetMapping("/{userSeq}")
-	public UserSearchUpdateDto findOneUser(@PathVariable final Long userSeq) {
-		return userService.findUser(userSeq);
+	public UserSearchUpdateDto searchOneUser(@PathVariable final Long userSeq) {
+		return userService.searchUser(userSeq);
 	}
 
 	@PutMapping("/{userSeq}")
