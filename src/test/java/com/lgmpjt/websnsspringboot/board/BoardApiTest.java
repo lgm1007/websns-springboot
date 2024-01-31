@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class BoardApiTest extends ApiTest {
@@ -78,6 +79,26 @@ public class BoardApiTest extends ApiTest {
 		AssertionsForClassTypes.assertThat(body.as(ArrayList.class).size()).isEqualTo(1);
 	}
 
+	@Test
+	void updateBoard() {
+		// 유저 생성
+		UserSearchUpdateDto userDto = UserMapper.INSTANCE.toUserSearchDto(
+				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com", false))
+		);
+
+		// 게시물 생성
+		Long boardSeq = boardService.createBoard(requestBoardCreateDto(userDto)).getBoardSeq();
+
+		// 업데이트 내용 포함된 BoardDto 생성
+		BoardDto boardDto = requestBoardDto(boardSeq, userDto, LocalDateTime.now());
+
+		// 업데이트 API 요청
+		ExtractableResponse<Response> response = requestUpdateBoard(boardSeq, boardDto);
+
+		// 업데이트 응답 검증
+		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+	}
+
 	private static ExtractableResponse<Response> requestBoardCreateApi(Long userSeq, BoardCreateDto boardCreateDto) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -108,10 +129,26 @@ public class BoardApiTest extends ApiTest {
 				.getBody();
 	}
 
+	private static ExtractableResponse<Response> requestUpdateBoard(Long boardSeq, BoardDto boardDto) {
+		return RestAssured.given().log().all()
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.body(boardDto)
+				.when()
+				.put("/boards/{boardSeq}", boardSeq)
+				.then()
+				.log().all().extract();
+	}
+
 	private static BoardCreateDto requestBoardCreateDto(UserSearchUpdateDto userDto) {
 		String content = "새로운 게시물입니다.";
 		String boardImage = "images/img01.jpg";
 		return new BoardCreateDto(userDto, content, boardImage);
+	}
+
+	private static BoardDto requestBoardDto(Long boardSeq, UserSearchUpdateDto userDto, LocalDateTime createdDate) {
+		String content = "업데이트된 게시물입니다.";
+		String boardImage = "imags/update01.jpg";
+		return new BoardDto(boardSeq, userDto, content, boardImage, createdDate);
 	}
 
 	private static UserCreateDto requestUserCreateDto(String userId, String password, String userName, String userEmail, boolean isAdmin) {
