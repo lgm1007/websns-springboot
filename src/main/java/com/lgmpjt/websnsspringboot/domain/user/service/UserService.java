@@ -1,6 +1,6 @@
 package com.lgmpjt.websnsspringboot.domain.user.service;
 
-import com.lgmpjt.websnsspringboot.domain.user.data.UserSearchUpdateDto;
+import com.lgmpjt.websnsspringboot.domain.user.data.UserDto;
 import com.lgmpjt.websnsspringboot.domain.user.model.User;
 import com.lgmpjt.websnsspringboot.encryption.service.SHA256;
 import com.lgmpjt.websnsspringboot.mapper.user.UserMapper;
@@ -36,13 +36,13 @@ public class UserService {
 	}
 
 	@Transactional(readOnly = true)
-	public UserSearchUpdateDto searchUser(final Long userSeq) {
+	public UserDto searchUser(final Long userSeq) {
 		final User user = userPort.findUser(userSeq);
 		return UserMapper.INSTANCE.toUserSearchDto(user);
 	}
 
 	@Transactional
-	public void updateUser(final UserSearchUpdateDto userDto) {
+	public void updateUser(final UserDto userDto) {
 		final User user = userPort.findUser(userDto.getUserSeq());
 		user.setPassword(userDto.getPassword());
 		user.setUserName(userDto.getUserName());

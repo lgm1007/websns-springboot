@@ -2,7 +2,7 @@ package com.lgmpjt.websnsspringboot.user;
 
 import com.lgmpjt.websnsspringboot.ApiTest;
 import com.lgmpjt.websnsspringboot.domain.user.data.UserCreateDto;
-import com.lgmpjt.websnsspringboot.domain.user.data.UserSearchUpdateDto;
+import com.lgmpjt.websnsspringboot.domain.user.data.UserDto;
 import com.lgmpjt.websnsspringboot.domain.user.service.UserService;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
@@ -39,7 +39,7 @@ class UserApiTest extends ApiTest {
 		ResponseBody body = requestFindUserApi(userSeq);
 
 		// 조회 응답 검증
-		AssertionsForClassTypes.assertThat(body.as(UserSearchUpdateDto.class).getUserName()).isEqualTo("홍길동");
+		AssertionsForClassTypes.assertThat(body.as(UserDto.class).getUserName()).isEqualTo("홍길동");
 	}
 
 	@Test
@@ -49,7 +49,7 @@ class UserApiTest extends ApiTest {
 
 		// 유저 조회
 		final Long userSeq = 1L;
-		UserSearchUpdateDto userDto = userService.searchUser(userSeq);
+		UserDto userDto = userService.searchUser(userSeq);
 
 		userDto.setUserEmail("mytest1user@example.mail");
 		userDto.setUserName("홍두께");
@@ -96,7 +96,7 @@ class UserApiTest extends ApiTest {
 				.getBody();
 	}
 
-	private static ExtractableResponse<Response> requestUpdateUserApi(Long userSeq, UserSearchUpdateDto userDto) {
+	private static ExtractableResponse<Response> requestUpdateUserApi(Long userSeq, UserDto userDto) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.body(userDto)
