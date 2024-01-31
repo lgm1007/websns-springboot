@@ -36,7 +36,7 @@ public class UserService {
 	}
 
 	@Transactional(readOnly = true)
-	public UserSearchUpdateDto findUser(final Long userSeq) {
+	public UserSearchUpdateDto searchUser(final Long userSeq) {
 		final User user = userPort.findUser(userSeq);
 		return UserMapper.INSTANCE.toUserSearchDto(user);
 	}

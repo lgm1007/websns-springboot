@@ -49,7 +49,7 @@ class UserApiTest extends ApiTest {
 
 		// 유저 조회
 		final Long userSeq = 1L;
-		UserSearchUpdateDto userDto = userService.findUser(userSeq);
+		UserSearchUpdateDto userDto = userService.searchUser(userSeq);
 
 		userDto.setUserEmail("mytest1user@example.mail");
 		userDto.setUserName("홍두께");
