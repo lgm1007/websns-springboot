@@ -99,6 +99,23 @@ public class BoardApiTest extends ApiTest {
 		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
 	}
 
+	@Test
+	void deleteBoard() {
+		// 유저 생성
+		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
+				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com", false))
+		);
+
+		// 게시물 생성
+		Long boardSeq = boardService.createBoard(requestBoardCreateDto(userDto)).getBoardSeq();
+
+		// 게시물 삭제 API 요청
+		ExtractableResponse<Response> response = requestBoardDeleteApi(boardSeq);
+
+		// 삭제 응답 검증
+		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+	}
+
 	private static ExtractableResponse<Response> requestBoardCreateApi(Long userSeq, BoardCreateDto boardCreateDto) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -135,6 +152,15 @@ public class BoardApiTest extends ApiTest {
 				.body(boardDto)
 				.when()
 				.put("/boards/{boardSeq}", boardSeq)
+				.then()
+				.log().all().extract();
+	}
+
+	private static ExtractableResponse<Response> requestBoardDeleteApi(Long boardSeq) {
+		return RestAssured.given().log().all()
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.when()
+				.delete("/boards/{boardSeq}", boardSeq)
 				.then()
 				.log().all().extract();
 	}

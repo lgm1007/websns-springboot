@@ -28,4 +28,9 @@ public class BoardPortAdapter implements BoardPort {
 	public List<Board> findBoardsByUserSeq(Long userSeq) {
 		return boardRepository.findAllByUserSeq(userSeq);
 	}
+
+	@Override
+	public void delete(Board board) {
+		boardRepository.delete(board);
+	}
 }
