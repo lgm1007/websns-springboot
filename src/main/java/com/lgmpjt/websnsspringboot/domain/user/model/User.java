@@ -2,7 +2,6 @@ package com.lgmpjt.websnsspringboot.domain.user.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
 
@@ -31,6 +30,8 @@ public class User {
 
 	private LocalDateTime lastModifiedDate;
 
-	private boolean admin;
+	private boolean isAdmin;
+
+	private boolean isPrivate;
 
 }
