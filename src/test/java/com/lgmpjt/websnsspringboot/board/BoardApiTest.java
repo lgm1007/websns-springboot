@@ -33,7 +33,7 @@ public class BoardApiTest extends ApiTest {
 	void createBoard() {
 		// 유저 생성
 		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
-			userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com", false, false))
+			userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		// 게시물 생성
@@ -50,7 +50,7 @@ public class BoardApiTest extends ApiTest {
 	void searchBoard() {
 		// 유저 생성
 		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
-				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com", false, false))
+				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		// 게시물 생성
@@ -67,7 +67,7 @@ public class BoardApiTest extends ApiTest {
 	void searchBoardsByUserSeq() {
 		// 유저 생성
 		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
-				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com", false, false))
+				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		// 게시물 생성
@@ -83,7 +83,7 @@ public class BoardApiTest extends ApiTest {
 	void updateBoard() {
 		// 유저 생성
 		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
-				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com", false, false))
+				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		// 게시물 생성
@@ -103,7 +103,7 @@ public class BoardApiTest extends ApiTest {
 	void deleteBoard() {
 		// 유저 생성
 		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
-				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com", false, false))
+				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		// 게시물 생성
@@ -177,7 +177,9 @@ public class BoardApiTest extends ApiTest {
 		return new BoardDto(boardSeq, userDto, content, boardImage, createdDate);
 	}
 
-	private static UserCreateDto requestUserCreateDto(String userId, String password, String userName, String userEmail, boolean isAdmin, boolean isPrivate) {
+	private static UserCreateDto requestUserCreateDto(String userId, String password, String userName, String userEmail) {
+		boolean isAdmin = false;
+		boolean isPrivate = false;
 		return new UserCreateDto(userId, password, userName, userEmail, isAdmin, isPrivate);
 	}
 }
