@@ -25,6 +25,7 @@
 |createdDate| datetime | | | null |회원가입 날짜|
 |lastModifiedDate| datetime | | | null |최근 수정 날짜|
 |admin| bit | | | 0 |관리자 여부|
+|private| bit | | | 0 |비공개 계정 여부|
 
 #### Board
 |컬럼 명|타입|키|속성| default | 설명 |
