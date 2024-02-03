@@ -120,7 +120,9 @@ class UserApiTest extends ApiTest {
 		String password = "password";
 		String userName = "홍길동";
 		String userEmail = "mysns@example.com";
-		return new UserCreateDto(userId, password, userName, userEmail, false);
+		boolean isAdmin = false;
+		boolean isPrivate = false;
+		return new UserCreateDto(userId, password, userName, userEmail, isAdmin, isPrivate);
 	}
 
 }
