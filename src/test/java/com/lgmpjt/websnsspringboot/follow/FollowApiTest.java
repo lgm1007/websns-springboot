@@ -140,6 +140,8 @@ public class FollowApiTest extends ApiTest {
 	}
 
 	private static UserCreateDto requestUserCreateDto(String userId, String password, String userName, String userEmail) {
-		return new UserCreateDto(userId, password, userName, userEmail, false);
+		boolean isAdmin = false;
+		boolean isPrivate = false;
+		return new UserCreateDto(userId, password, userName, userEmail, isAdmin, isPrivate);
 	}
 }

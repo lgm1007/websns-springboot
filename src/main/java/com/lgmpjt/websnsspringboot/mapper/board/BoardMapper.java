@@ -35,7 +35,8 @@ public interface BoardMapper {
 		user.userEmail( userDto.getUserEmail() );
 		user.createdDate( userDto.getCreatedDate() );
 		user.lastModifiedDate( userDto.getLastModifiedDate() );
-		user.admin( userDto.isAdmin() );
+		user.isAdmin( userDto.isAdmin() );
+		user.isPrivate(userDto.isPrivate() );
 
 		return user.build();
 	}
