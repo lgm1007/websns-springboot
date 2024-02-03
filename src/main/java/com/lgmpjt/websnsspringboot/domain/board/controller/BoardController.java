@@ -41,4 +41,11 @@ public class BoardController {
 
 		return ResponseEntity.ok(boardDto.getBoardSeq());
 	}
+
+	@DeleteMapping("/{boardSeq}")
+	public ResponseEntity<Long> deleteBoard(@PathVariable final Long boardSeq) {
+		boardService.deleteBoard(boardSeq);
+
+		return ResponseEntity.ok(boardSeq);
+	}
 }

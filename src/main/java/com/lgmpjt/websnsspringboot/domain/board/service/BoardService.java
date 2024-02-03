@@ -39,4 +39,9 @@ public class BoardService {
 		board.setLastModifiedDate(LocalDateTime.now());
 		boardPort.save(board);
 	}
+
+	public void deleteBoard(final Long boardSeq) {
+		final Board board = boardPort.findBoard(boardSeq);
+		boardPort.delete(board);
+	}
 }

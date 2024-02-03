@@ -11,4 +11,6 @@ public interface BoardPort {
 
 	List<Board> findBoardsByUserSeq(final Long userSeq);
 
+	void delete(final Board board);
+
 }
