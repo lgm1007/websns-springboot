@@ -1,5 +1,5 @@
 # Web SNS
-### 📝설명
+### 🧐설명
 * 이전 학교 팀프로젝트로 만들었던 [webSNS_SpringProject](https://github.com/lgm1007/webSNS_SpringProject) 프로젝트를 Spring Boot, JPA 등으로 포맷팅한다.
 * TDD 개발 기법을 배워보기 위해 해당 프로젝트는 TDD 기법으로 개발한다.
 * 프로젝트를 진행하면서 소셜 도메인에 대해 조금 이해해보도록 한다.
@@ -10,6 +10,7 @@
 * Mysql
 * JPA
 * Thymeleaf
+* Swagger (springdoc-openapi)
 * OAuth2
 * JUnit4
 
@@ -60,3 +61,6 @@
 |boardSeq|bigint(20)|foreign key| |not null|댓글 작성할 게시글 foreign key|
 |content|text| | |not null|댓글 내용|
 |createdDate|datetime| | |null|댓글 작성한 날짜|
+
+### 📝API 명세서
+* Swagger 접속 링크 = http://(host):(port)/swagger-ui.html
