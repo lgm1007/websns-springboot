@@ -2,6 +2,7 @@ package com.lgmpjt.websnsspringboot.domain.follow.controller;
 
 import com.lgmpjt.websnsspringboot.domain.follow.data.FollowSearchDto;
 import com.lgmpjt.websnsspringboot.domain.follow.service.FollowService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ public class FollowController {
 	private final FollowService followService;
 
 	@PostMapping("/{fromFollow}/to/{toFollow}")
+	@Operation(summary = "팔로우 수행", description = "{fromFollow} 유저가 {toFollow} 유저를 팔로우합니다.")
 	public ResponseEntity<Void> doFollow(@PathVariable final Long fromFollow, @PathVariable final Long toFollow) {
 		followService.saveFollow(fromFollow, toFollow);
 
@@ -24,16 +26,19 @@ public class FollowController {
 	}
 
 	@GetMapping("/{userSeq}/following")
+	@Operation(summary = "특정 유저의 팔로잉 조회", description = "특정 유저가 팔로잉하고 있는 대상의 목록을 조회합니다.")
 	public List<FollowSearchDto> searchFollowing(@PathVariable final Long userSeq) {
 		return followService.searchFollowingByUser(userSeq);
 	}
 
 	@GetMapping("/{userSeq}/follower")
+	@Operation(summary = "특정 유저의 팔로워 조회", description = "특정 유저를 팔로우하는 대상의 목록을 조회합니다.")
 	public List<FollowSearchDto> searchFollower(@PathVariable final Long userSeq) {
 		return followService.searchFollowerByUser(userSeq);
 	}
 
 	@DeleteMapping("/{fromFollow}/to/{toFollow}")
+	@Operation(summary = "언팔로우", description = "{fromFollow} 유저가 {toFollow} 유저를 언팔로우합니다.")
 	public ResponseEntity<Pair<Long, Long>> doUnfollow(@PathVariable final Long fromFollow, @PathVariable final Long toFollow) {
 		followService.deleteFollow(fromFollow, toFollow);
 
