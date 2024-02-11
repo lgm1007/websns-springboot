@@ -168,7 +168,7 @@ public class BoardApiTest extends ApiTest {
 	private static BoardCreateDto requestBoardCreateDto(UserDto userDto) {
 		String content = "새로운 게시물입니다.";
 		String boardImage = "images/img01.jpg";
-		return new BoardCreateDto(userDto, content, boardImage);
+		return new BoardCreateDto(userDto, content, boardImage, LocalDateTime.now());
 	}
 
 	private static BoardDto requestBoardDto(Long boardSeq, UserDto userDto, LocalDateTime createdDate) {
