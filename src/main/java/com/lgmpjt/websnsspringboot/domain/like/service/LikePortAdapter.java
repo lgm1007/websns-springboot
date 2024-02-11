@@ -15,4 +15,14 @@ public class LikePortAdapter implements LikePort {
 	public Likes save(Likes like) {
 		return likeRepository.save(like);
 	}
+
+	@Override
+	public Likes findByUserSeqAndBoardSeq(Long userSeq, Long boardSeq) {
+		return likeRepository.findByUserSeqAndBoardSeq(userSeq, boardSeq);
+	}
+
+	@Override
+	public void delete(Likes like) {
+		likeRepository.delete(like);
+	}
 }

@@ -20,4 +20,10 @@ public class LikeService {
 		Likes like = LikeMapper.INSTANCE.createDtoToLike(likeDto);
 		return likePort.save(like);
 	}
+
+	@Transactional
+	public void deleteLike(final Long userSeq, final Long boardSeq) {
+		Likes like = likePort.findByUserSeqAndBoardSeq(userSeq, boardSeq);
+		likePort.delete(like);
+	}
 }
