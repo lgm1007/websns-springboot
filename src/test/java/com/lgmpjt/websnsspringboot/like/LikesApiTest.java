@@ -54,6 +54,31 @@ public class LikesApiTest extends ApiTest {
 		// 응답값 검증
 		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
 	}
+	
+	@Test
+	void undoLike() {
+		// 유저 생성
+		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
+				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+		);
+
+		// 게시물 생성
+		BoardDto boardDto = BoardMapper.INSTANCE.boardToDto(
+				boardService.createBoard(requestBoardCreateDto(userDto))
+		);
+
+		// 좋아요 DTO 생성
+		final LikeDto likeDto = new LikeDto(userDto, boardDto, LocalDateTime.now());
+		
+		// 좋아요 하기
+		likeService.createLike(likeDto);
+
+		// 좋아요 취소하기
+		ExtractableResponse<Response> response = requestUndoLike(userDto.getUserSeq(), boardDto.getBoardSeq());
+
+		// 응답값 검증
+		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+	}
 
 	private static ExtractableResponse<Response> requestDoLike(final LikeDto likeDto) {
 		return RestAssured.given().log().all()
@@ -61,6 +86,15 @@ public class LikesApiTest extends ApiTest {
 				.body(likeDto)
 				.when()
 				.post("/likes/do/like")
+				.then()
+				.log().all().extract();
+	}
+
+	private static ExtractableResponse<Response> requestUndoLike(final Long userSeq, final Long boardSeq) {
+		return RestAssured.given().log().all()
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.when()
+				.delete("/likes/undo/{userSeq}/to/{boardSeq}", userSeq, boardSeq)
 				.then()
 				.log().all().extract();
 	}

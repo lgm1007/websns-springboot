@@ -6,10 +6,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/likes")
@@ -24,6 +21,14 @@ public class LikeController {
 		likeService.createLike(likeDto);
 
 		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+
+	@DeleteMapping("/undo/{userSeq}/to/{boardSeq}")
+	@Operation(summary = "게시물 좋아요 취소", description = "유저가 이전에 한 좋아요를 취소합니다.")
+	public ResponseEntity<Void> undoLikeBoard(@PathVariable final Long userSeq, @PathVariable final Long boardSeq) {
+		likeService.deleteLike(userSeq, boardSeq);
+
+		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 
 }
