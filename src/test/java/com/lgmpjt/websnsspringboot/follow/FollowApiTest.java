@@ -105,7 +105,7 @@ public class FollowApiTest extends ApiTest {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
-				.post("/follows/{fromFollow}/to/{toFollow}", fromFollow, toFollow)
+				.post("/api/follow/{fromFollow}/to/{toFollow}", fromFollow, toFollow)
 				.then()
 				.log().all().extract();
 	}
@@ -114,7 +114,7 @@ public class FollowApiTest extends ApiTest {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
-				.delete("/follows/{fromFollow}/to/{toFollow}", fromFollow, toFollow)
+				.delete("/api/follow/{fromFollow}/to/{toFollow}", fromFollow, toFollow)
 				.then()
 				.log().all().extract();
 	}
@@ -123,7 +123,7 @@ public class FollowApiTest extends ApiTest {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
-				.get("/follows/{userSeq}/following", fromUserSeq)
+				.get("/api/follow/{userSeq}/following", fromUserSeq)
 				.then()
 				.log().all().extract().response()
 				.getBody();
@@ -133,7 +133,7 @@ public class FollowApiTest extends ApiTest {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
-				.get("/follows/{userSeq}/follower", toUserSeq)
+				.get("/api/follow/{userSeq}/follower", toUserSeq)
 				.then()
 				.log().all().extract().response()
 				.getBody();
