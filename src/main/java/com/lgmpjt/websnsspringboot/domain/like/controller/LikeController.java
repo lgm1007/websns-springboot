@@ -9,13 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/likes")
+@RequestMapping("/api/like")
 @RequiredArgsConstructor
 public class LikeController {
 
 	private final LikeService likeService;
 
-	@PostMapping("/do/like")
+	@PostMapping("/do")
 	@Operation(summary = "해당 게시물 좋아요", description = "유저가 해당 게시물에 좋아요합니다.")
 	public ResponseEntity<Void> doLikeBoard(@RequestBody final LikeDto likeDto) {
 		likeService.createLike(likeDto);

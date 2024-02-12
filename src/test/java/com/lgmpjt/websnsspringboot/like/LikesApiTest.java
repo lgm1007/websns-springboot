@@ -85,7 +85,7 @@ public class LikesApiTest extends ApiTest {
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.body(likeDto)
 				.when()
-				.post("/likes/do/like")
+				.post("/api/like/do")
 				.then()
 				.log().all().extract();
 	}
@@ -94,7 +94,7 @@ public class LikesApiTest extends ApiTest {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
-				.delete("/likes/undo/{userSeq}/to/{boardSeq}", userSeq, boardSeq)
+				.delete("/api/like/undo/{userSeq}/to/{boardSeq}", userSeq, boardSeq)
 				.then()
 				.log().all().extract();
 	}
