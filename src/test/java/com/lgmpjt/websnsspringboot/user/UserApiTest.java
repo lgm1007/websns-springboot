@@ -81,7 +81,7 @@ class UserApiTest extends ApiTest {
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.body(userCreateDto)
 				.when()
-				.post("/users")
+				.post("/api/user")
 				.then()
 				.log().all().extract();
 	}
@@ -90,7 +90,7 @@ class UserApiTest extends ApiTest {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
-				.get("/users/{userSeq}", userSeq)
+				.get("/api/user/{userSeq}", userSeq)
 				.then()
 				.log().all().extract().response()
 				.getBody();
@@ -101,7 +101,7 @@ class UserApiTest extends ApiTest {
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.body(userDto)
 				.when()
-				.put("/users/{userSeq}", userSeq)
+				.put("/api/user/{userSeq}", userSeq)
 				.then()
 				.log().all().extract();
 	}
@@ -110,7 +110,7 @@ class UserApiTest extends ApiTest {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
-				.delete("/users/{userSeq}", userSeq)
+				.delete("/api/user/{userSeq}", userSeq)
 				.then()
 				.log().all().extract();
 	}
