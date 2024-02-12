@@ -121,7 +121,7 @@ public class BoardApiTest extends ApiTest {
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.body(boardCreateDto)
 				.when()
-				.post("/boards/{userSeq}/upload", userSeq)
+				.post("/api/board/{userSeq}/upload", userSeq)
 				.then()
 				.log().all().extract();
 	}
@@ -130,7 +130,7 @@ public class BoardApiTest extends ApiTest {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
-				.get("/boards/{boardSeq}", boardSeq)
+				.get("/api/board/{boardSeq}", boardSeq)
 				.then()
 				.log().all().extract().response()
 				.getBody();
@@ -140,7 +140,7 @@ public class BoardApiTest extends ApiTest {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
-				.get("/boards/user/{userSeq}", userSeq)
+				.get("/api/board/user/{userSeq}", userSeq)
 				.then()
 				.log().all().extract().response()
 				.getBody();
@@ -151,7 +151,7 @@ public class BoardApiTest extends ApiTest {
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.body(boardDto)
 				.when()
-				.put("/boards/{boardSeq}", boardSeq)
+				.put("/api/board/{boardSeq}", boardSeq)
 				.then()
 				.log().all().extract();
 	}
@@ -160,7 +160,7 @@ public class BoardApiTest extends ApiTest {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
-				.delete("/boards/{boardSeq}", boardSeq)
+				.delete("/api/board/{boardSeq}", boardSeq)
 				.then()
 				.log().all().extract();
 	}
