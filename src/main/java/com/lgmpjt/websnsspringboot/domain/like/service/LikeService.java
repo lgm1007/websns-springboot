@@ -20,7 +20,7 @@ public class LikeService {
 
 	@Transactional
 	public Likes createLike(final LikeDto likeDto) {
-		Likes like = LikeMapper.INSTANCE.createDtoToLike(likeDto);
+		Likes like = LikeMapper.INSTANCE.dtoToLike(likeDto);
 		return likePort.save(like);
 	}
 
