@@ -11,4 +11,6 @@ public interface LikeMapper {
 	LikeMapper INSTANCE = Mappers.getMapper(LikeMapper.class);
 
 	Likes createDtoToLike(LikeDto likeDto);
+
+	LikeDto likeToDto(Likes like);
 }
