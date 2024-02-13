@@ -5,6 +5,8 @@ import com.lgmpjt.websnsspringboot.domain.like.repository.LikeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Component
 public class LikePortAdapter implements LikePort {
@@ -24,5 +26,10 @@ public class LikePortAdapter implements LikePort {
 	@Override
 	public void delete(Likes like) {
 		likeRepository.delete(like);
+	}
+
+	@Override
+	public List<Likes> findAllByUserSeq(Long userSeq) {
+		return likeRepository.findAllByUserSeq(userSeq);
 	}
 }

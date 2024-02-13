@@ -1,5 +1,6 @@
 package com.lgmpjt.websnsspringboot.domain.like.controller;
 
+import com.lgmpjt.websnsspringboot.domain.board.data.BoardDto;
 import com.lgmpjt.websnsspringboot.domain.like.data.LikeDto;
 import com.lgmpjt.websnsspringboot.domain.like.service.LikeService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -7,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/like")
@@ -29,6 +32,12 @@ public class LikeController {
 		likeService.deleteLike(userSeq, boardSeq);
 
 		return ResponseEntity.status(HttpStatus.OK).build();
+	}
+
+	@GetMapping("/list/{userSeq}")
+	@Operation(summary = "특정 유저가 좋아요 한 게시글 목록", description = "특정 유저가 좋아요 한 게시글 목록을 조회합니다.")
+	public List<BoardDto> getBoardsByUserLike(@PathVariable final Long userSeq) {
+		return likeService.getLikeBoardByUser(userSeq);
 	}
 
 }

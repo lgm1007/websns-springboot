@@ -10,5 +10,7 @@ import org.mapstruct.factory.Mappers;
 public interface LikeMapper {
 	LikeMapper INSTANCE = Mappers.getMapper(LikeMapper.class);
 
-	Likes createDtoToLike(LikeDto likeDto);
+	Likes dtoToLike(LikeDto likeDto);
+
+	LikeDto likeToDto(Likes like);
 }
