@@ -14,6 +14,7 @@ import com.lgmpjt.websnsspringboot.mapper.user.UserMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
 import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class LikesApiTest extends ApiTest {
 
@@ -80,6 +82,32 @@ public class LikesApiTest extends ApiTest {
 		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
 	}
 
+	@Test
+	void getLikeListByUser() {
+		// 유저 생성
+		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
+				userService.createUser(requestUserCreateDto("adam123", "1234", "Adam", "adam@example.com"))
+		);
+
+		// 게시물 생성
+		BoardDto boardDto = BoardMapper.INSTANCE.boardToDto(
+				boardService.createBoard(requestBoardCreateDto(userDto))
+		);
+
+		// 좋아요 DTO 생성
+		final LikeDto likeDto = new LikeDto(userDto, boardDto, LocalDateTime.now());
+
+		// 좋아요 하기
+		likeService.createLike(likeDto);
+
+		// 특정 유저가 좋아요 한 게시글 리스트 조회하기 요청
+		ResponseBody body = requestLikeListByUser(userDto.getUserSeq());
+
+		// 응답값 검증
+		AssertionsForClassTypes.assertThat(body.as(ArrayList.class).size()).isEqualTo(1);
+
+	}
+
 	private static ExtractableResponse<Response> requestDoLike(final LikeDto likeDto) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -97,6 +125,16 @@ public class LikesApiTest extends ApiTest {
 				.delete("/api/like/undo/{userSeq}/to/{boardSeq}", userSeq, boardSeq)
 				.then()
 				.log().all().extract();
+	}
+
+	private static ResponseBody requestLikeListByUser(final Long userSeq) {
+		return RestAssured.given().log().all()
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.when()
+				.get("/api/like/list/{userSeq}", userSeq)
+				.then()
+				.log().all().extract().response()
+				.body();
 	}
 
 	private static UserCreateDto requestUserCreateDto(String userId, String password, String userName, String userEmail) {
