@@ -1,8 +1,9 @@
 package com.lgmpjt.websnsspringboot.domain.follow.service;
 
-import com.lgmpjt.websnsspringboot.domain.follow.data.FollowCreateDto;
 import com.lgmpjt.websnsspringboot.domain.follow.data.FollowSearchDto;
 import com.lgmpjt.websnsspringboot.domain.follow.model.Follow;
+import com.lgmpjt.websnsspringboot.domain.user.model.User;
+import com.lgmpjt.websnsspringboot.domain.user.service.UserPort;
 import com.lgmpjt.websnsspringboot.mapper.follow.FollowMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,11 +16,16 @@ import java.util.List;
 public class FollowService {
 
 	private final FollowPort followPort;
+	private final UserPort userPort;
 
 	@Transactional
 	public Follow saveFollow(final Long fromFollowUserSeq, final Long toFollowUserSeq) {
-		final FollowCreateDto followDto = new FollowCreateDto(fromFollowUserSeq, toFollowUserSeq);
-		final Follow follow = FollowMapper.INSTANCE.createDtoToFollow(followDto);
+		User fromFollow = userPort.findUser(fromFollowUserSeq);
+		User toFollow = userPort.findUser(toFollowUserSeq);
+		Follow follow = Follow.builder()
+				.from(fromFollow)
+				.to(toFollow)
+				.build();
 		return followPort.save(follow);
 	}
 
