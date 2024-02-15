@@ -1,5 +1,6 @@
 package com.lgmpjt.websnsspringboot.domain.follow.model;
 
+import com.lgmpjt.websnsspringboot.domain.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,7 +17,17 @@ public class Follow {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long followSeq;
 
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fromFollow")
+	private User from;
+
+	@Column(insertable = false, updatable = false)
 	private Long fromFollow;
 
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "toFollow")
+	private User to;
+
+	@Column(insertable = false, updatable = false)
 	private Long toFollow;
 }
