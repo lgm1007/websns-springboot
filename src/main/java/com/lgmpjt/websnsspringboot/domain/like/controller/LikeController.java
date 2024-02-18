@@ -1,7 +1,6 @@
 package com.lgmpjt.websnsspringboot.domain.like.controller;
 
 import com.lgmpjt.websnsspringboot.domain.board.data.BoardDto;
-import com.lgmpjt.websnsspringboot.domain.like.data.LikeDto;
 import com.lgmpjt.websnsspringboot.domain.like.service.LikeService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +17,10 @@ public class LikeController {
 
 	private final LikeService likeService;
 
-	@PostMapping("/do")
+	@PostMapping("/{userSeq}/to/{boardSeq}")
 	@Operation(summary = "해당 게시물 좋아요", description = "유저가 해당 게시물에 좋아요합니다.")
-	public ResponseEntity<Void> doLikeBoard(@RequestBody final LikeDto likeDto) {
-		likeService.createLike(likeDto);
+	public ResponseEntity<Void> doLikeBoard(@PathVariable final Long userSeq, @PathVariable final Long boardSeq) {
+		likeService.createLike(userSeq, boardSeq);
 
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}

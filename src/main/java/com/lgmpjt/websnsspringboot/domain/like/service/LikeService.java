@@ -1,14 +1,16 @@
 package com.lgmpjt.websnsspringboot.domain.like.service;
 
 import com.lgmpjt.websnsspringboot.domain.board.data.BoardDto;
-import com.lgmpjt.websnsspringboot.domain.like.data.LikeDto;
+import com.lgmpjt.websnsspringboot.domain.board.service.BoardPort;
 import com.lgmpjt.websnsspringboot.domain.like.model.Likes;
-import com.lgmpjt.websnsspringboot.mapper.like.LikeMapper;
+import com.lgmpjt.websnsspringboot.domain.user.service.UserPort;
+import com.lgmpjt.websnsspringboot.mapper.board.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -17,10 +19,17 @@ import java.util.List;
 public class LikeService {
 
 	private final LikePort likePort;
+	private final UserPort userPort;
+	private final BoardPort boardPort;
 
 	@Transactional
-	public Likes createLike(final LikeDto likeDto) {
-		Likes like = LikeMapper.INSTANCE.dtoToLike(likeDto);
+	public Likes createLike(final Long userSeq, final Long boardSeq) {
+
+		Likes like = Likes.builder()
+				.user(userPort.findUser(userSeq))
+				.board(boardPort.findBoard(boardSeq))
+				.createdDate(LocalDateTime.now())
+				.build();
 		return likePort.save(like);
 	}
 
@@ -33,10 +42,7 @@ public class LikeService {
 	@Transactional(readOnly = true)
 	public List<BoardDto> getLikeBoardByUser(final Long userSeq) {
 		return likePort.findAllByUserSeq(userSeq).stream()
-				.map(like -> {
-					LikeDto dto = LikeMapper.INSTANCE.likeToDto(like);
-					return dto.getBoard();
-				})
+				.map(like -> BoardMapper.INSTANCE.boardToDto(like.getBoard()))
 				.toList();
 	}
 }
