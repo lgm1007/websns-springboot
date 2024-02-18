@@ -2,14 +2,11 @@ package com.lgmpjt.websnsspringboot.like;
 
 import com.lgmpjt.websnsspringboot.ApiTest;
 import com.lgmpjt.websnsspringboot.domain.board.data.BoardCreateDto;
-import com.lgmpjt.websnsspringboot.domain.board.data.BoardDto;
 import com.lgmpjt.websnsspringboot.domain.board.service.BoardService;
-import com.lgmpjt.websnsspringboot.domain.like.data.LikeDto;
 import com.lgmpjt.websnsspringboot.domain.like.service.LikeService;
 import com.lgmpjt.websnsspringboot.domain.user.data.UserCreateDto;
 import com.lgmpjt.websnsspringboot.domain.user.data.UserDto;
 import com.lgmpjt.websnsspringboot.domain.user.service.UserService;
-import com.lgmpjt.websnsspringboot.mapper.board.BoardMapper;
 import com.lgmpjt.websnsspringboot.mapper.user.UserMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
@@ -42,16 +39,14 @@ public class LikesApiTest extends ApiTest {
 				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
-		// 게시물 생성
-		BoardDto boardDto = BoardMapper.INSTANCE.boardToDto(
-				boardService.createBoard(requestBoardCreateDto(userDto))
-		);
+		Long userSeq = userDto.getUserSeq();
 
-		// 좋아요 DTO 생성
-		final LikeDto likeDto = new LikeDto(userDto, boardDto, LocalDateTime.now());
+		// 게시물 생성
+		Long boardSeq = boardService.createBoard(requestBoardCreateDto(userDto))
+				.getBoardSeq();
 		
 		// 게시물 좋아요하기
-		ExtractableResponse<Response> response = requestDoLike(likeDto);
+		ExtractableResponse<Response> response = requestDoLike(userSeq, boardSeq);
 
 		// 응답값 검증
 		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
@@ -64,19 +59,18 @@ public class LikesApiTest extends ApiTest {
 				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
-		// 게시물 생성
-		BoardDto boardDto = BoardMapper.INSTANCE.boardToDto(
-				boardService.createBoard(requestBoardCreateDto(userDto))
-		);
+		Long userSeq = userDto.getUserSeq();
 
-		// 좋아요 DTO 생성
-		final LikeDto likeDto = new LikeDto(userDto, boardDto, LocalDateTime.now());
+		// 게시물 생성
+		Long boardSeq = boardService.createBoard(requestBoardCreateDto(userDto))
+				.getBoardSeq();
+
 		
 		// 좋아요 하기
-		likeService.createLike(likeDto);
+		likeService.createLike(userSeq, boardSeq);
 
 		// 좋아요 취소하기
-		ExtractableResponse<Response> response = requestUndoLike(userDto.getUserSeq(), boardDto.getBoardSeq());
+		ExtractableResponse<Response> response = requestUndoLike(userSeq, boardSeq);
 
 		// 응답값 검증
 		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
@@ -89,31 +83,28 @@ public class LikesApiTest extends ApiTest {
 				userService.createUser(requestUserCreateDto("adam123", "1234", "Adam", "adam@example.com"))
 		);
 
-		// 게시물 생성
-		BoardDto boardDto = BoardMapper.INSTANCE.boardToDto(
-				boardService.createBoard(requestBoardCreateDto(userDto))
-		);
+		Long userSeq = userDto.getUserSeq();
 
-		// 좋아요 DTO 생성
-		final LikeDto likeDto = new LikeDto(userDto, boardDto, LocalDateTime.now());
+		// 게시물 생성
+		Long boardSeq = boardService.createBoard(requestBoardCreateDto(userDto))
+				.getBoardSeq();
 
 		// 좋아요 하기
-		likeService.createLike(likeDto);
+		likeService.createLike(userSeq, boardSeq);
 
 		// 특정 유저가 좋아요 한 게시글 리스트 조회하기 요청
-		ResponseBody body = requestLikeListByUser(userDto.getUserSeq());
+		ResponseBody body = requestLikeListByUser(userSeq);
 
 		// 응답값 검증
 		AssertionsForClassTypes.assertThat(body.as(ArrayList.class).size()).isEqualTo(1);
 
 	}
 
-	private static ExtractableResponse<Response> requestDoLike(final LikeDto likeDto) {
+	private static ExtractableResponse<Response> requestDoLike(final Long userSeq, final Long boardSeq) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.body(likeDto)
 				.when()
-				.post("/api/like/do")
+				.post("/api/like/{userSeq}/to/{boardSeq}", userSeq, boardSeq)
 				.then()
 				.log().all().extract();
 	}
