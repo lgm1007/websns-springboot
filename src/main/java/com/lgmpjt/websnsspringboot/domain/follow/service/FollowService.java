@@ -2,7 +2,6 @@ package com.lgmpjt.websnsspringboot.domain.follow.service;
 
 import com.lgmpjt.websnsspringboot.domain.follow.data.FollowSearchDto;
 import com.lgmpjt.websnsspringboot.domain.follow.model.Follow;
-import com.lgmpjt.websnsspringboot.domain.user.model.User;
 import com.lgmpjt.websnsspringboot.domain.user.service.UserPort;
 import com.lgmpjt.websnsspringboot.mapper.follow.FollowMapper;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +19,9 @@ public class FollowService {
 
 	@Transactional
 	public Follow saveFollow(final Long fromFollowUserSeq, final Long toFollowUserSeq) {
-		User fromFollow = userPort.findUser(fromFollowUserSeq);
-		User toFollow = userPort.findUser(toFollowUserSeq);
 		Follow follow = Follow.builder()
-				.from(fromFollow)
-				.to(toFollow)
+				.from(userPort.findUser(fromFollowUserSeq))
+				.to(userPort.findUser(toFollowUserSeq))
 				.build();
 		return followPort.save(follow);
 	}
