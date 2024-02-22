@@ -20,8 +20,8 @@ public class FollowService {
 	@Transactional
 	public Follow saveFollow(final Long fromFollowUserSeq, final Long toFollowUserSeq) {
 		Follow follow = Follow.builder()
-				.from(userPort.findUser(fromFollowUserSeq))
-				.to(userPort.findUser(toFollowUserSeq))
+				.from(userPort.getUserByUserSeq(fromFollowUserSeq))
+				.to(userPort.getUserByUserSeq(toFollowUserSeq))
 				.build();
 		return followPort.save(follow);
 	}

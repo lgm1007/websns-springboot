@@ -18,7 +18,7 @@ class UserPortAdapter implements UserPort {
 	}
 
 	@Override
-	public User findUser(final Long userSeq) {
+	public User getUserByUserSeq(final Long userSeq) {
 		return userRepository.findById(userSeq).orElseThrow(() -> new UnsupportedOperationException("Not found user"));
 	}
 

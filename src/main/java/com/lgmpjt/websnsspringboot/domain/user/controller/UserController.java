@@ -26,7 +26,7 @@ public class UserController {
 	@GetMapping("/{userSeq}")
 	@Operation(summary = "단일 유저 조회", description = "단일 유저 정보를 조회합니다.")
 	public UserDto searchOneUser(@PathVariable final Long userSeq) {
-		return userService.searchUser(userSeq);
+		return userService.getUserByUserSeq(userSeq);
 	}
 
 	@PutMapping("/{userSeq}")
@@ -41,7 +41,7 @@ public class UserController {
 	@DeleteMapping("/{userSeq}")
 	@Operation(summary = "단일 유저 삭제", description = "단일 유저를 삭제합니다.")
 	public ResponseEntity<Long> deleteOneUser(@PathVariable final Long userSeq) {
-		userService.withdrawUser(userSeq);
+		userService.deleteUser(userSeq);
 
 		return ResponseEntity.ok(userSeq);
 	}
