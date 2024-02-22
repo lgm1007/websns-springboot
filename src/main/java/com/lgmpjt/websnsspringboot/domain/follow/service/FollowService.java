@@ -27,12 +27,12 @@ public class FollowService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<FollowSearchDto> searchFollowingByUser(final Long userSeq) {
+	public List<FollowSearchDto> findAllFollowingByUser(final Long userSeq) {
 		return FollowMapper.INSTANCE.followToSearchDtos(followPort.findAllByFrom(userSeq));
 	}
 
 	@Transactional(readOnly = true)
-	public List<FollowSearchDto> searchFollowerByUser(final Long userSeq) {
+	public List<FollowSearchDto> findAllFollowerByUser(final Long userSeq) {
 		return FollowMapper.INSTANCE.followToSearchDtos(followPort.findAllByTo(userSeq));
 	}
 

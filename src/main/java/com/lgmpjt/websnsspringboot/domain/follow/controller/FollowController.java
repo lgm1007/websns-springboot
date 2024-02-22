@@ -28,13 +28,13 @@ public class FollowController {
 	@GetMapping("/{userSeq}/following")
 	@Operation(summary = "특정 유저의 팔로잉 조회", description = "특정 유저가 팔로잉하고 있는 대상의 목록을 조회합니다.")
 	public List<FollowSearchDto> searchFollowing(@PathVariable final Long userSeq) {
-		return followService.searchFollowingByUser(userSeq);
+		return followService.findAllFollowingByUser(userSeq);
 	}
 
 	@GetMapping("/{userSeq}/follower")
 	@Operation(summary = "특정 유저의 팔로워 조회", description = "특정 유저를 팔로우하는 대상의 목록을 조회합니다.")
 	public List<FollowSearchDto> searchFollower(@PathVariable final Long userSeq) {
-		return followService.searchFollowerByUser(userSeq);
+		return followService.findAllFollowerByUser(userSeq);
 	}
 
 	@DeleteMapping("/{fromFollow}/to/{toFollow}")
