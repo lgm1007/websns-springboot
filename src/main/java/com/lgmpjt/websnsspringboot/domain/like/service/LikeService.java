@@ -27,7 +27,7 @@ public class LikeService {
 
 		Likes like = Likes.builder()
 				.user(userPort.getUserByUserSeq(userSeq))
-				.board(boardPort.findBoard(boardSeq))
+				.board(boardPort.getBoardByBoardSeq(boardSeq))
 				.createdDate(LocalDateTime.now())
 				.build();
 		return likePort.save(like);
