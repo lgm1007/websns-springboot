@@ -20,19 +20,19 @@ public class FollowService {
 	@Transactional
 	public Follow saveFollow(final Long fromFollowUserSeq, final Long toFollowUserSeq) {
 		Follow follow = Follow.builder()
-				.from(userPort.findUser(fromFollowUserSeq))
-				.to(userPort.findUser(toFollowUserSeq))
+				.from(userPort.getUserByUserSeq(fromFollowUserSeq))
+				.to(userPort.getUserByUserSeq(toFollowUserSeq))
 				.build();
 		return followPort.save(follow);
 	}
 
 	@Transactional(readOnly = true)
-	public List<FollowSearchDto> searchFollowingByUser(final Long userSeq) {
+	public List<FollowSearchDto> findAllFollowingByUser(final Long userSeq) {
 		return FollowMapper.INSTANCE.followToSearchDtos(followPort.findAllByFrom(userSeq));
 	}
 
 	@Transactional(readOnly = true)
-	public List<FollowSearchDto> searchFollowerByUser(final Long userSeq) {
+	public List<FollowSearchDto> findAllFollowerByUser(final Long userSeq) {
 		return FollowMapper.INSTANCE.followToSearchDtos(followPort.findAllByTo(userSeq));
 	}
 

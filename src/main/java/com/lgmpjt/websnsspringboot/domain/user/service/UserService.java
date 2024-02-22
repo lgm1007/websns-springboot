@@ -36,14 +36,14 @@ public class UserService {
 	}
 
 	@Transactional(readOnly = true)
-	public UserDto searchUser(final Long userSeq) {
-		final User user = userPort.findUser(userSeq);
+	public UserDto getUserByUserSeq(final Long userSeq) {
+		final User user = userPort.getUserByUserSeq(userSeq);
 		return UserMapper.INSTANCE.toUserSearchDto(user);
 	}
 
 	@Transactional
 	public void updateUser(final UserDto userDto) {
-		final User user = userPort.findUser(userDto.getUserSeq());
+		final User user = userPort.getUserByUserSeq(userDto.getUserSeq());
 		user.setPassword(userDto.getPassword());
 		user.setUserName(userDto.getUserName());
 		user.setUserEmail(userDto.getUserEmail());
@@ -52,8 +52,8 @@ public class UserService {
 	}
 
 	@Transactional
-	public void withdrawUser(final Long userSeq) {
-		final User user = userPort.findUser(userSeq);
+	public void deleteUser(final Long userSeq) {
+		final User user = userPort.getUserByUserSeq(userSeq);
 		userPort.delete(user);
 	}
 }

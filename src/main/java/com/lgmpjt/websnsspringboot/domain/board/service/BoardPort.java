@@ -7,9 +7,9 @@ import java.util.List;
 public interface BoardPort {
 	Board save(final Board board);
 
-	Board findBoard(final Long boardSeq);
+	Board getBoardByBoardSeq(final Long boardSeq);
 
-	List<Board> findBoardsByUserSeq(final Long userSeq);
+	List<Board> findAllBoardsByUserSeq(final Long userSeq);
 
 	void delete(final Board board);
 

@@ -22,18 +22,18 @@ public class BoardService {
 		return boardPort.save(board);
 	}
 
-	public BoardDto searchBoard(final Long boardSeq) {
-		Board board = boardPort.findBoard(boardSeq);
+	public BoardDto getBoardByBoardSeq(final Long boardSeq) {
+		Board board = boardPort.getBoardByBoardSeq(boardSeq);
 		return BoardMapper.INSTANCE.boardToDto(board);
 	}
 
 	public List<BoardDto> searchBoardsByUserSeq(final Long userSeq) {
-		List<Board> boards = boardPort.findBoardsByUserSeq(userSeq);
+		List<Board> boards = boardPort.findAllBoardsByUserSeq(userSeq);
 		return BoardMapper.INSTANCE.boardsToDtos(boards);
 	}
 
 	public void updateBoard(final BoardDto boardDto) {
-		final Board board = boardPort.findBoard(boardDto.getBoardSeq());
+		final Board board = boardPort.getBoardByBoardSeq(boardDto.getBoardSeq());
 		board.setContent(boardDto.getContent());
 		board.setBoardImage(boardDto.getBoardImage());
 		board.setLastModifiedDate(LocalDateTime.now());
@@ -41,7 +41,7 @@ public class BoardService {
 	}
 
 	public void deleteBoard(final Long boardSeq) {
-		final Board board = boardPort.findBoard(boardSeq);
+		final Board board = boardPort.getBoardByBoardSeq(boardSeq);
 		boardPort.delete(board);
 	}
 }

@@ -29,7 +29,7 @@ public class BoardController {
 	@GetMapping("/{boardSeq}")
 	@Operation(summary = "단일 게시물 조회", description = "단일 게시물 정보를 조회합니다.")
 	public BoardDto searchBoard(@PathVariable final Long boardSeq) {
-		return boardService.searchBoard(boardSeq);
+		return boardService.getBoardByBoardSeq(boardSeq);
 	}
 
 	@GetMapping("user/{userSeq}")

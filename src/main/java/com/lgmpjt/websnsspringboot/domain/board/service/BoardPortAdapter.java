@@ -20,12 +20,12 @@ public class BoardPortAdapter implements BoardPort {
 	}
 
 	@Override
-	public Board findBoard(Long boardSeq) {
+	public Board getBoardByBoardSeq(Long boardSeq) {
 		return boardRepository.findById(boardSeq).orElseThrow(() -> new UnsupportedOperationException("Not found board"));
 	}
 
 	@Override
-	public List<Board> findBoardsByUserSeq(Long userSeq) {
+	public List<Board> findAllBoardsByUserSeq(Long userSeq) {
 		return boardRepository.findAllByUserSeq(userSeq);
 	}
 
