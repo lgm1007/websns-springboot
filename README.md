@@ -62,7 +62,7 @@
 |content|text| | |not null|댓글 내용|
 |createdDate|datetime| | |null|댓글 작성한 날짜|
 
-### ERD
+### 🔃ERD
 ![erd](readmesrc/websns_erd.png)
 
 ### 📝API 명세서
