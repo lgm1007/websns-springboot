@@ -1,16 +1,17 @@
-package com.lgmpjt.websnsspringboot.domain.follow.service;
+package com.lgmpjt.websnsspringboot.adapter.out;
 
 import com.lgmpjt.websnsspringboot.adapter.out.entity.Follow;
 import com.lgmpjt.websnsspringboot.adapter.out.entity.FollowRepository;
+import com.lgmpjt.websnsspringboot.domain.follow.service.FollowPort;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class FollowPortAdapter implements FollowPort {
+public class FollowAdapter implements FollowPort {
 	private final FollowRepository followRepository;
 
-	FollowPortAdapter(final FollowRepository followRepository) {
+	FollowAdapter(final FollowRepository followRepository) {
 		this.followRepository = followRepository;
 	}
 

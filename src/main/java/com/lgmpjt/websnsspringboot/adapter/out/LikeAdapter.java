@@ -1,7 +1,8 @@
-package com.lgmpjt.websnsspringboot.domain.like.service;
+package com.lgmpjt.websnsspringboot.adapter.out;
 
 import com.lgmpjt.websnsspringboot.adapter.out.entity.Likes;
 import com.lgmpjt.websnsspringboot.adapter.out.entity.LikeRepository;
+import com.lgmpjt.websnsspringboot.domain.like.service.LikePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Component
-public class LikePortAdapter implements LikePort {
+public class LikeAdapter implements LikePort {
 
 	private final LikeRepository likeRepository;
 

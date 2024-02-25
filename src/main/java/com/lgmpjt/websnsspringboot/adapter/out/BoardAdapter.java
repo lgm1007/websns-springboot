@@ -1,16 +1,17 @@
-package com.lgmpjt.websnsspringboot.domain.board.service;
+package com.lgmpjt.websnsspringboot.adapter.out;
 
 import com.lgmpjt.websnsspringboot.adapter.out.entity.Board;
 import com.lgmpjt.websnsspringboot.adapter.out.entity.BoardRepository;
+import com.lgmpjt.websnsspringboot.domain.board.service.BoardPort;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class BoardPortAdapter implements BoardPort {
+public class BoardAdapter implements BoardPort {
 	private final BoardRepository boardRepository;
 
-	BoardPortAdapter(final BoardRepository boardRepository) {
+	BoardAdapter(final BoardRepository boardRepository) {
 		this.boardRepository = boardRepository;
 	}
 

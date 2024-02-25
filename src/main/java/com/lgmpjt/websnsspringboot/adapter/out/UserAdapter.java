@@ -1,14 +1,15 @@
-package com.lgmpjt.websnsspringboot.domain.user.service;
+package com.lgmpjt.websnsspringboot.adapter.out;
 
 import com.lgmpjt.websnsspringboot.adapter.out.entity.User;
 import com.lgmpjt.websnsspringboot.adapter.out.entity.UserRepository;
+import com.lgmpjt.websnsspringboot.domain.user.service.UserPort;
 import org.springframework.stereotype.Component;
 
 @Component
-class UserPortAdapter implements UserPort {
+class UserAdapter implements UserPort {
 	private final UserRepository userRepository;
 
-	UserPortAdapter(final UserRepository userRepository) {
+	UserAdapter(final UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
 
