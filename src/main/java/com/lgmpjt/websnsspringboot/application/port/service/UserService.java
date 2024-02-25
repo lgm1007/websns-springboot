@@ -1,6 +1,8 @@
 package com.lgmpjt.websnsspringboot.application.port.service;
 
 import com.lgmpjt.websnsspringboot.adapter.out.entity.User;
+import com.lgmpjt.websnsspringboot.application.port.in.UserCommandUseCase;
+import com.lgmpjt.websnsspringboot.application.port.in.UserSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.UserCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.UserDto;
 import com.lgmpjt.websnsspringboot.application.port.out.UserPort;
@@ -16,7 +18,7 @@ import java.time.LocalDateTime;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements UserSearchUseCase, UserCommandUseCase {
 	private final UserPort userPort;
 
 	private final SHA256 sha256;

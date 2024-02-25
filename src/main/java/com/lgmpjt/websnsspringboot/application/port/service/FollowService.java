@@ -1,7 +1,9 @@
 package com.lgmpjt.websnsspringboot.application.port.service;
 
-import com.lgmpjt.websnsspringboot.application.port.in.dto.FollowDto;
 import com.lgmpjt.websnsspringboot.adapter.out.entity.Follow;
+import com.lgmpjt.websnsspringboot.application.port.in.FollowCommandUseCase;
+import com.lgmpjt.websnsspringboot.application.port.in.FollowSearchUseCase;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.FollowDto;
 import com.lgmpjt.websnsspringboot.application.port.out.FollowPort;
 import com.lgmpjt.websnsspringboot.application.port.out.UserPort;
 import com.lgmpjt.websnsspringboot.mapper.FollowMapper;
@@ -13,11 +15,12 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class FollowService {
+public class FollowService implements FollowSearchUseCase, FollowCommandUseCase {
 
 	private final FollowPort followPort;
 	private final UserPort userPort;
 
+	@Override
 	@Transactional
 	public Follow saveFollow(final Long fromFollowUserSeq, final Long toFollowUserSeq) {
 		Follow follow = Follow.builder()
@@ -27,16 +30,19 @@ public class FollowService {
 		return followPort.save(follow);
 	}
 
+	@Override
 	@Transactional(readOnly = true)
 	public List<FollowDto> findAllFollowingByUser(final Long userSeq) {
 		return FollowMapper.INSTANCE.followToSearchDtos(followPort.findAllByFrom(userSeq));
 	}
 
+	@Override
 	@Transactional(readOnly = true)
 	public List<FollowDto> findAllFollowerByUser(final Long userSeq) {
 		return FollowMapper.INSTANCE.followToSearchDtos(followPort.findAllByTo(userSeq));
 	}
 
+	@Override
 	@Transactional
 	public void deleteFollow(final Long fromFollowUserSeq, final Long toFollowUserSeq) {
 		final Follow follow = followPort.findByFromAndTo(fromFollowUserSeq, toFollowUserSeq);

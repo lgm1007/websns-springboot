@@ -1,8 +1,9 @@
 package com.lgmpjt.websnsspringboot.adapter.in.rest;
 
+import com.lgmpjt.websnsspringboot.application.port.in.BoardCommandUseCase;
+import com.lgmpjt.websnsspringboot.application.port.in.BoardSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;
-import com.lgmpjt.websnsspringboot.application.port.service.BoardService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,13 +16,14 @@ import java.util.List;
 @RequestMapping("/api/board")
 @RequiredArgsConstructor
 public class BoardController {
-	private final BoardService boardService;
+	private final BoardSearchUseCase searchUseCase;
+	private final BoardCommandUseCase commandUseCase;
 
 	@PostMapping("/{userSeq}/upload")
 	@Operation(summary = "게시물 업로드", description = "유저가 게시물을 업로드합니다.")
 	public ResponseEntity<Void> createNewBoard(@PathVariable final Long userSeq,
 											   @RequestBody final BoardCreateDto boardCreateDto) {
-		boardService.createBoard(boardCreateDto);
+		commandUseCase.createBoard(boardCreateDto);
 
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
@@ -29,20 +31,20 @@ public class BoardController {
 	@GetMapping("/{boardSeq}")
 	@Operation(summary = "단일 게시물 조회", description = "단일 게시물 정보를 조회합니다.")
 	public BoardDto searchBoard(@PathVariable final Long boardSeq) {
-		return boardService.getBoardByBoardSeq(boardSeq);
+		return searchUseCase.getBoardByBoardSeq(boardSeq);
 	}
 
 	@GetMapping("user/{userSeq}")
 	@Operation(summary = "단일 유저의 게시물 조회", description = "단일 유저가 업로드한 게시물을 조회합니다.")
 	public List<BoardDto> searchBoardsByUserSeq(@PathVariable final Long userSeq) {
-		return boardService.searchBoardsByUserSeq(userSeq);
+		return searchUseCase.findAllBoardsByUserSeq(userSeq);
 	}
 
 	@PutMapping("/{boardSeq}")
 	@Operation(summary = "단일 게시물 업데이트", description = "단일 게시물 정보를 업데이트합니다.")
 	public ResponseEntity<Long> updateBoard(@PathVariable final Long boardSeq,
 											@RequestBody final BoardDto boardDto) {
-		boardService.updateBoard(boardDto);
+		commandUseCase.updateBoard(boardDto);
 
 		return ResponseEntity.ok(boardDto.getBoardSeq());
 	}
@@ -50,7 +52,7 @@ public class BoardController {
 	@DeleteMapping("/{boardSeq}")
 	@Operation(summary = "단일 게시물 삭제", description = "단일 게시물을 삭제합니다.")
 	public ResponseEntity<Long> deleteBoard(@PathVariable final Long boardSeq) {
-		boardService.deleteBoard(boardSeq);
+		commandUseCase.deleteBoard(boardSeq);
 
 		return ResponseEntity.ok(boardSeq);
 	}
