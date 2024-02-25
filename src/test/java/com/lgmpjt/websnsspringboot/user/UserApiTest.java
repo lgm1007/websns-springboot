@@ -1,8 +1,8 @@
 package com.lgmpjt.websnsspringboot.user;
 
 import com.lgmpjt.websnsspringboot.ApiTest;
-import com.lgmpjt.websnsspringboot.domain.user.data.UserCreateDto;
-import com.lgmpjt.websnsspringboot.domain.user.data.UserDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.UserCreateDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.UserDto;
 import com.lgmpjt.websnsspringboot.domain.user.service.UserService;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;

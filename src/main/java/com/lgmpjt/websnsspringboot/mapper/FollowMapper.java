@@ -1,6 +1,6 @@
-package com.lgmpjt.websnsspringboot.mapper.follow;
+package com.lgmpjt.websnsspringboot.mapper;
 
-import com.lgmpjt.websnsspringboot.domain.follow.data.FollowSearchDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.FollowDto;
 import com.lgmpjt.websnsspringboot.adapter.out.entity.Follow;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -12,5 +12,5 @@ import java.util.List;
 public interface FollowMapper {
 	FollowMapper INSTANCE = Mappers.getMapper(FollowMapper.class);
 
-	List<FollowSearchDto> followToSearchDtos(List<Follow> follow);
+	List<FollowDto> followToSearchDtos(List<Follow> follow);
 }

@@ -1,10 +1,11 @@
 package com.lgmpjt.websnsspringboot.domain.user.service;
 
-import com.lgmpjt.websnsspringboot.domain.user.data.UserDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.UserDto;
 import com.lgmpjt.websnsspringboot.adapter.out.entity.User;
+import com.lgmpjt.websnsspringboot.application.port.out.UserPort;
 import com.lgmpjt.websnsspringboot.encryption.service.SHA256;
-import com.lgmpjt.websnsspringboot.mapper.user.UserMapper;
-import com.lgmpjt.websnsspringboot.domain.user.data.UserCreateDto;
+import com.lgmpjt.websnsspringboot.mapper.UserMapper;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.UserCreateDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -1,10 +1,11 @@
 package com.lgmpjt.websnsspringboot.domain.like.service;
 
-import com.lgmpjt.websnsspringboot.domain.board.data.BoardDto;
-import com.lgmpjt.websnsspringboot.domain.board.service.BoardPort;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;
+import com.lgmpjt.websnsspringboot.application.port.out.BoardPort;
 import com.lgmpjt.websnsspringboot.adapter.out.entity.Likes;
-import com.lgmpjt.websnsspringboot.domain.user.service.UserPort;
-import com.lgmpjt.websnsspringboot.mapper.board.BoardMapper;
+import com.lgmpjt.websnsspringboot.application.port.out.LikePort;
+import com.lgmpjt.websnsspringboot.application.port.out.UserPort;
+import com.lgmpjt.websnsspringboot.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

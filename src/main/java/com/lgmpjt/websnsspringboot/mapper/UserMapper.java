@@ -1,7 +1,7 @@
-package com.lgmpjt.websnsspringboot.mapper.user;
+package com.lgmpjt.websnsspringboot.mapper;
 
-import com.lgmpjt.websnsspringboot.domain.user.data.UserCreateDto;
-import com.lgmpjt.websnsspringboot.domain.user.data.UserDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.UserCreateDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.UserDto;
 import com.lgmpjt.websnsspringboot.adapter.out.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

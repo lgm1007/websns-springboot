@@ -1,13 +1,13 @@
 package com.lgmpjt.websnsspringboot.like;
 
 import com.lgmpjt.websnsspringboot.ApiTest;
-import com.lgmpjt.websnsspringboot.domain.board.data.BoardCreateDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardCreateDto;
 import com.lgmpjt.websnsspringboot.domain.board.service.BoardService;
 import com.lgmpjt.websnsspringboot.domain.like.service.LikeService;
-import com.lgmpjt.websnsspringboot.domain.user.data.UserCreateDto;
-import com.lgmpjt.websnsspringboot.domain.user.data.UserDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.UserCreateDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.UserDto;
 import com.lgmpjt.websnsspringboot.domain.user.service.UserService;
-import com.lgmpjt.websnsspringboot.mapper.user.UserMapper;
+import com.lgmpjt.websnsspringboot.mapper.UserMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;

@@ -2,7 +2,7 @@ package com.lgmpjt.websnsspringboot.follow;
 
 import com.lgmpjt.websnsspringboot.ApiTest;
 import com.lgmpjt.websnsspringboot.domain.follow.service.FollowService;
-import com.lgmpjt.websnsspringboot.domain.user.data.UserCreateDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.UserCreateDto;
 import com.lgmpjt.websnsspringboot.domain.user.service.UserService;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;

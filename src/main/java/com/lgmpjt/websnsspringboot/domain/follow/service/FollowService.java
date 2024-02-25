@@ -1,9 +1,10 @@
 package com.lgmpjt.websnsspringboot.domain.follow.service;
 
-import com.lgmpjt.websnsspringboot.domain.follow.data.FollowSearchDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.FollowDto;
 import com.lgmpjt.websnsspringboot.adapter.out.entity.Follow;
-import com.lgmpjt.websnsspringboot.domain.user.service.UserPort;
-import com.lgmpjt.websnsspringboot.mapper.follow.FollowMapper;
+import com.lgmpjt.websnsspringboot.application.port.out.FollowPort;
+import com.lgmpjt.websnsspringboot.application.port.out.UserPort;
+import com.lgmpjt.websnsspringboot.mapper.FollowMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,12 +28,12 @@ public class FollowService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<FollowSearchDto> findAllFollowingByUser(final Long userSeq) {
+	public List<FollowDto> findAllFollowingByUser(final Long userSeq) {
 		return FollowMapper.INSTANCE.followToSearchDtos(followPort.findAllByFrom(userSeq));
 	}
 
 	@Transactional(readOnly = true)
-	public List<FollowSearchDto> findAllFollowerByUser(final Long userSeq) {
+	public List<FollowDto> findAllFollowerByUser(final Long userSeq) {
 		return FollowMapper.INSTANCE.followToSearchDtos(followPort.findAllByTo(userSeq));
 	}
 

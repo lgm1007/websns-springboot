@@ -1,6 +1,6 @@
 package com.lgmpjt.websnsspringboot.adapter.in.rest;
 
-import com.lgmpjt.websnsspringboot.domain.follow.data.FollowSearchDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.FollowDto;
 import com.lgmpjt.websnsspringboot.domain.follow.service.FollowService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -27,13 +27,13 @@ public class FollowController {
 
 	@GetMapping("/{userSeq}/following")
 	@Operation(summary = "특정 유저의 팔로잉 조회", description = "특정 유저가 팔로잉하고 있는 대상의 목록을 조회합니다.")
-	public List<FollowSearchDto> searchFollowing(@PathVariable final Long userSeq) {
+	public List<FollowDto> searchFollowing(@PathVariable final Long userSeq) {
 		return followService.findAllFollowingByUser(userSeq);
 	}
 
 	@GetMapping("/{userSeq}/follower")
 	@Operation(summary = "특정 유저의 팔로워 조회", description = "특정 유저를 팔로우하는 대상의 목록을 조회합니다.")
-	public List<FollowSearchDto> searchFollower(@PathVariable final Long userSeq) {
+	public List<FollowDto> searchFollower(@PathVariable final Long userSeq) {
 		return followService.findAllFollowerByUser(userSeq);
 	}
 

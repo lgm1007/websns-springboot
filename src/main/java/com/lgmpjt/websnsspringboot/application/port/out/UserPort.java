@@ -1,4 +1,4 @@
-package com.lgmpjt.websnsspringboot.domain.user.service;
+package com.lgmpjt.websnsspringboot.application.port.out;
 
 import com.lgmpjt.websnsspringboot.adapter.out.entity.User;
 

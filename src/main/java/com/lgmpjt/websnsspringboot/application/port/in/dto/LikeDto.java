@@ -1,4 +1,4 @@
-package com.lgmpjt.websnsspringboot.domain.like.data;
+package com.lgmpjt.websnsspringboot.application.port.in.dto;
 
 import lombok.*;
 import org.springframework.util.Assert;

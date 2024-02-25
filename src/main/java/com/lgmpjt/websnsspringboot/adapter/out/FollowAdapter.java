@@ -2,7 +2,7 @@ package com.lgmpjt.websnsspringboot.adapter.out;
 
 import com.lgmpjt.websnsspringboot.adapter.out.entity.Follow;
 import com.lgmpjt.websnsspringboot.adapter.out.entity.FollowRepository;
-import com.lgmpjt.websnsspringboot.domain.follow.service.FollowPort;
+import com.lgmpjt.websnsspringboot.application.port.out.FollowPort;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
