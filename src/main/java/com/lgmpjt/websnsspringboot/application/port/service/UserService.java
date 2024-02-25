@@ -1,11 +1,11 @@
 package com.lgmpjt.websnsspringboot.application.port.service;
 
-import com.lgmpjt.websnsspringboot.application.port.in.dto.UserDto;
 import com.lgmpjt.websnsspringboot.adapter.out.entity.User;
-import com.lgmpjt.websnsspringboot.application.port.out.UserPort;
-import com.lgmpjt.websnsspringboot.encryption.service.SHA256;
-import com.lgmpjt.websnsspringboot.mapper.UserMapper;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.UserCreateDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.UserDto;
+import com.lgmpjt.websnsspringboot.application.port.out.UserPort;
+import com.lgmpjt.websnsspringboot.mapper.UserMapper;
+import com.lgmpjt.websnsspringboot.utils.SHA256;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class UserService {
 
 	private void encryptPassword(UserCreateDto userCreateDto) {
 		try {
-			userCreateDto.setPassword(sha256.encrypt(userCreateDto.getPassword()));
+			userCreateDto.setPassword(SHA256.encrypt(userCreateDto.getPassword()));
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
