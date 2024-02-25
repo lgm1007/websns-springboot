@@ -1,7 +1,7 @@
 package com.lgmpjt.websnsspringboot.domain.follow.service;
 
-import com.lgmpjt.websnsspringboot.domain.follow.model.Follow;
-import com.lgmpjt.websnsspringboot.domain.follow.repository.FollowRepository;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.Follow;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.FollowRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

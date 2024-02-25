@@ -1,7 +1,7 @@
 package com.lgmpjt.websnsspringboot.domain.board.service;
 
-import com.lgmpjt.websnsspringboot.domain.board.model.Board;
-import com.lgmpjt.websnsspringboot.domain.board.repository.BoardRepository;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.Board;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.BoardRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

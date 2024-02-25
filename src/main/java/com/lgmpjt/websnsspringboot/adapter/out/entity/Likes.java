@@ -1,7 +1,5 @@
-package com.lgmpjt.websnsspringboot.domain.like.model;
+package com.lgmpjt.websnsspringboot.adapter.out.entity;
 
-import com.lgmpjt.websnsspringboot.domain.board.model.Board;
-import com.lgmpjt.websnsspringboot.domain.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 

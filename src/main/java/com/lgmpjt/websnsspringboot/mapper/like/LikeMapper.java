@@ -1,7 +1,7 @@
 package com.lgmpjt.websnsspringboot.mapper.like;
 
 import com.lgmpjt.websnsspringboot.domain.like.data.LikeDto;
-import com.lgmpjt.websnsspringboot.domain.like.model.Likes;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.Likes;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;

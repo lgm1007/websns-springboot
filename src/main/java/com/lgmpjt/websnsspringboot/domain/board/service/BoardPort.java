@@ -1,6 +1,6 @@
 package com.lgmpjt.websnsspringboot.domain.board.service;
 
-import com.lgmpjt.websnsspringboot.domain.board.model.Board;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.Board;
 
 import java.util.List;
 

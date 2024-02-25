@@ -1,4 +1,4 @@
-package com.lgmpjt.websnsspringboot.domain.like.controller;
+package com.lgmpjt.websnsspringboot.adapter.in.rest;
 
 import com.lgmpjt.websnsspringboot.domain.board.data.BoardDto;
 import com.lgmpjt.websnsspringboot.domain.like.service.LikeService;

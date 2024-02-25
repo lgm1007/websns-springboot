@@ -1,7 +1,7 @@
 package com.lgmpjt.websnsspringboot.domain.like.service;
 
-import com.lgmpjt.websnsspringboot.domain.like.model.Likes;
-import com.lgmpjt.websnsspringboot.domain.like.repository.LikeRepository;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.Likes;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.LikeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

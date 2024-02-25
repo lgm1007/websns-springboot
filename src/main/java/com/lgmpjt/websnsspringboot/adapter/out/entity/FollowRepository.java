@@ -1,6 +1,6 @@
-package com.lgmpjt.websnsspringboot.domain.follow.repository;
+package com.lgmpjt.websnsspringboot.adapter.out.entity;
 
-import com.lgmpjt.websnsspringboot.domain.follow.model.Follow;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.Follow;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

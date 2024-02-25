@@ -1,6 +1,6 @@
-package com.lgmpjt.websnsspringboot.domain.user.repository;
+package com.lgmpjt.websnsspringboot.adapter.out.entity;
 
-import com.lgmpjt.websnsspringboot.domain.user.model.User;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {

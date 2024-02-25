@@ -1,4 +1,4 @@
-package com.lgmpjt.websnsspringboot.domain.user.controller;
+package com.lgmpjt.websnsspringboot.adapter.in.rest;
 
 import com.lgmpjt.websnsspringboot.domain.user.data.UserCreateDto;
 import com.lgmpjt.websnsspringboot.domain.user.data.UserDto;

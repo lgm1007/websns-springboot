@@ -1,7 +1,7 @@
 package com.lgmpjt.websnsspringboot.mapper.follow;
 
 import com.lgmpjt.websnsspringboot.domain.follow.data.FollowSearchDto;
-import com.lgmpjt.websnsspringboot.domain.follow.model.Follow;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.Follow;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;

@@ -1,4 +1,4 @@
-package com.lgmpjt.websnsspringboot.domain.follow.controller;
+package com.lgmpjt.websnsspringboot.adapter.in.rest;
 
 import com.lgmpjt.websnsspringboot.domain.follow.data.FollowSearchDto;
 import com.lgmpjt.websnsspringboot.domain.follow.service.FollowService;

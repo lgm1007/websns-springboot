@@ -1,6 +1,6 @@
-package com.lgmpjt.websnsspringboot.domain.board.repository;
+package com.lgmpjt.websnsspringboot.adapter.out.entity;
 
-import com.lgmpjt.websnsspringboot.domain.board.model.Board;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.Board;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

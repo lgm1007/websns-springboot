@@ -2,7 +2,7 @@ package com.lgmpjt.websnsspringboot.domain.board.service;
 
 import com.lgmpjt.websnsspringboot.domain.board.data.BoardCreateDto;
 import com.lgmpjt.websnsspringboot.domain.board.data.BoardDto;
-import com.lgmpjt.websnsspringboot.domain.board.model.Board;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.Board;
 import com.lgmpjt.websnsspringboot.mapper.board.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

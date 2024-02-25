@@ -1,7 +1,7 @@
 package com.lgmpjt.websnsspringboot.domain.user.service;
 
-import com.lgmpjt.websnsspringboot.domain.user.model.User;
-import com.lgmpjt.websnsspringboot.domain.user.repository.UserRepository;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.User;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.UserRepository;
 import org.springframework.stereotype.Component;
 
 @Component

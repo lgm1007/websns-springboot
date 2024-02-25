@@ -1,6 +1,6 @@
-package com.lgmpjt.websnsspringboot.domain.like.repository;
+package com.lgmpjt.websnsspringboot.adapter.out.entity;
 
-import com.lgmpjt.websnsspringboot.domain.like.model.Likes;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.Likes;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

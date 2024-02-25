@@ -1,7 +1,7 @@
 package com.lgmpjt.websnsspringboot.domain.follow.service;
 
 import com.lgmpjt.websnsspringboot.domain.follow.data.FollowSearchDto;
-import com.lgmpjt.websnsspringboot.domain.follow.model.Follow;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.Follow;
 import com.lgmpjt.websnsspringboot.domain.user.service.UserPort;
 import com.lgmpjt.websnsspringboot.mapper.follow.FollowMapper;
 import lombok.RequiredArgsConstructor;

@@ -2,9 +2,9 @@ package com.lgmpjt.websnsspringboot.mapper.board;
 
 import com.lgmpjt.websnsspringboot.domain.board.data.BoardCreateDto;
 import com.lgmpjt.websnsspringboot.domain.board.data.BoardDto;
-import com.lgmpjt.websnsspringboot.domain.board.model.Board;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.Board;
 import com.lgmpjt.websnsspringboot.domain.user.data.UserDto;
-import com.lgmpjt.websnsspringboot.domain.user.model.User;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;

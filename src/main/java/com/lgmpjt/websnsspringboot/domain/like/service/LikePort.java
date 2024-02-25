@@ -1,6 +1,6 @@
 package com.lgmpjt.websnsspringboot.domain.like.service;
 
-import com.lgmpjt.websnsspringboot.domain.like.model.Likes;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.Likes;
 
 import java.util.List;
 

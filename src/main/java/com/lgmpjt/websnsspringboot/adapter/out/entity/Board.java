@@ -1,6 +1,5 @@
-package com.lgmpjt.websnsspringboot.domain.board.model;
+package com.lgmpjt.websnsspringboot.adapter.out.entity;
 
-import com.lgmpjt.websnsspringboot.domain.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;

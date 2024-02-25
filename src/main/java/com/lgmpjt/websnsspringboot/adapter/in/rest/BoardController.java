@@ -1,4 +1,4 @@
-package com.lgmpjt.websnsspringboot.domain.board.controller;
+package com.lgmpjt.websnsspringboot.adapter.in.rest;
 
 import com.lgmpjt.websnsspringboot.domain.board.data.BoardCreateDto;
 import com.lgmpjt.websnsspringboot.domain.board.data.BoardDto;
