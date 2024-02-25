@@ -1,12 +1,12 @@
 package com.lgmpjt.websnsspringboot.board;
 
 import com.lgmpjt.websnsspringboot.ApiTest;
+import com.lgmpjt.websnsspringboot.application.port.in.BoardCommandUseCase;
+import com.lgmpjt.websnsspringboot.application.port.in.UserCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;
-import com.lgmpjt.websnsspringboot.application.port.service.BoardService;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.UserCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.UserDto;
-import com.lgmpjt.websnsspringboot.application.port.service.UserService;
 import com.lgmpjt.websnsspringboot.mapper.UserMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
@@ -24,16 +24,16 @@ import java.util.ArrayList;
 public class BoardApiTest extends ApiTest {
 
 	@Autowired
-	private UserService userService;
+	private UserCommandUseCase userCommandUseCase;
 
 	@Autowired
-	private BoardService boardService;
+	private BoardCommandUseCase boardCommandUseCase;
 
 	@Test
 	void createBoard() {
 		// 유저 생성
 		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
-			userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+			userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		// 게시물 생성
@@ -50,11 +50,11 @@ public class BoardApiTest extends ApiTest {
 	void searchBoard() {
 		// 유저 생성
 		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
-				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+				userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		// 게시물 생성
-		Long boardSeq = boardService.createBoard(requestBoardCreateDto(userDto)).getBoardSeq();
+		Long boardSeq = boardCommandUseCase.createBoard(requestBoardCreateDto(userDto)).getBoardSeq();
 
 		// 게시물 조회 API 요청
 		ResponseBody body = requestSearchBoardApi(boardSeq);
@@ -67,11 +67,11 @@ public class BoardApiTest extends ApiTest {
 	void searchBoardsByUserSeq() {
 		// 유저 생성
 		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
-				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+				userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		// 게시물 생성
-		boardService.createBoard(requestBoardCreateDto(userDto));
+		boardCommandUseCase.createBoard(requestBoardCreateDto(userDto));
 
 		ResponseBody body = requestSearchBoardsByUserApi(userDto.getUserSeq());
 
@@ -83,11 +83,11 @@ public class BoardApiTest extends ApiTest {
 	void updateBoard() {
 		// 유저 생성
 		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
-				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+				userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		// 게시물 생성
-		Long boardSeq = boardService.createBoard(requestBoardCreateDto(userDto)).getBoardSeq();
+		Long boardSeq = boardCommandUseCase.createBoard(requestBoardCreateDto(userDto)).getBoardSeq();
 
 		// 업데이트 내용 포함된 BoardDto 생성
 		BoardDto boardDto = requestBoardDto(boardSeq, userDto, LocalDateTime.now());
@@ -103,11 +103,11 @@ public class BoardApiTest extends ApiTest {
 	void deleteBoard() {
 		// 유저 생성
 		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
-				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+				userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		// 게시물 생성
-		Long boardSeq = boardService.createBoard(requestBoardCreateDto(userDto)).getBoardSeq();
+		Long boardSeq = boardCommandUseCase.createBoard(requestBoardCreateDto(userDto)).getBoardSeq();
 
 		// 게시물 삭제 API 요청
 		ExtractableResponse<Response> response = requestBoardDeleteApi(boardSeq);
