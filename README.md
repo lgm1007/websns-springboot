@@ -2,6 +2,7 @@
 ### 🧐설명
 * 이전 학교 팀프로젝트로 만들었던 [webSNS_SpringProject](https://github.com/lgm1007/webSNS_SpringProject) 프로젝트를 Spring Boot, JPA 등으로 포맷팅한다.
 * TDD 개발 기법을 배워보기 위해 해당 프로젝트는 TDD 기법으로 개발한다.
+* 헥사고날 아키텍처 구성 방식을 도입해본다.
 * 프로젝트를 진행하면서 소셜 도메인에 대해 조금 이해해보도록 한다.
 * 백엔드 API 기능이 얼추 개발되면 Kotlin으로 포팅해보고자 한다.
 
