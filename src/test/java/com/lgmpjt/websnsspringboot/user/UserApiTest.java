@@ -1,9 +1,10 @@
 package com.lgmpjt.websnsspringboot.user;
 
 import com.lgmpjt.websnsspringboot.ApiTest;
-import com.lgmpjt.websnsspringboot.domain.user.data.UserCreateDto;
-import com.lgmpjt.websnsspringboot.domain.user.data.UserDto;
-import com.lgmpjt.websnsspringboot.domain.user.service.UserService;
+import com.lgmpjt.websnsspringboot.application.port.in.UserCommandUseCase;
+import com.lgmpjt.websnsspringboot.application.port.in.UserSearchUseCase;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.UserCreateDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.UserDto;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -17,7 +18,8 @@ import org.springframework.http.MediaType;
 class UserApiTest extends ApiTest {
 
 	@Autowired
-	private UserService userService;
+	private UserCommandUseCase userCommandUseCase;
+	private UserSearchUseCase userSearchUseCase;
 
 	@Test
 	void createUser() {
@@ -32,7 +34,7 @@ class UserApiTest extends ApiTest {
 	@Test
 	void searchUser() {
 		// 유저 생성
-		userService.createUser(requestUserCreateDto());
+		userCommandUseCase.createUser(requestUserCreateDto());
 		final Long userSeq = 1L;
 
 		// 유저 조회
@@ -45,11 +47,11 @@ class UserApiTest extends ApiTest {
 	@Test
 	void updateUser() {
 		// 유저 생성
-		userService.createUser(requestUserCreateDto());
+		userCommandUseCase.createUser(requestUserCreateDto());
 
 		// 유저 조회
 		final Long userSeq = 1L;
-		UserDto userDto = userService.getUserByUserSeq(userSeq);
+		UserDto userDto = userSearchUseCase.getUserByUserSeq(userSeq);
 
 		userDto.setUserEmail("mytest1user@example.mail");
 		userDto.setUserName("홍두께");
@@ -64,7 +66,7 @@ class UserApiTest extends ApiTest {
 	@Test
 	void withdrawUser() {
 		// 유저 생성
-		userService.createUser(requestUserCreateDto());
+		userCommandUseCase.createUser(requestUserCreateDto());
 
 		final Long userSeq = 1L;
 		// 유저 회원탈퇴

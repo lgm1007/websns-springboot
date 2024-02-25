@@ -1,9 +1,9 @@
 package com.lgmpjt.websnsspringboot.follow;
 
 import com.lgmpjt.websnsspringboot.ApiTest;
-import com.lgmpjt.websnsspringboot.domain.follow.service.FollowService;
-import com.lgmpjt.websnsspringboot.domain.user.data.UserCreateDto;
-import com.lgmpjt.websnsspringboot.domain.user.service.UserService;
+import com.lgmpjt.websnsspringboot.application.port.in.FollowCommandUseCase;
+import com.lgmpjt.websnsspringboot.application.port.in.UserCommandUseCase;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.UserCreateDto;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -18,17 +18,17 @@ import java.util.ArrayList;
 
 public class FollowApiTest extends ApiTest {
 	@Autowired
-	private FollowService followService;
+	private FollowCommandUseCase followCommandUseCase;
 
 	@Autowired
-	private UserService userService;
+	private UserCommandUseCase userCommandUseCase;
 
 	@Test
 	void doFollow() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromFollow = userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+		Long fromFollow = userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 				.getUserSeq();
-		Long toFollow = userService.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
+		Long toFollow = userCommandUseCase.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
 				.getUserSeq();
 
 		// API 요청
@@ -41,13 +41,13 @@ public class FollowApiTest extends ApiTest {
 	@Test
 	void doUnfollow() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromFollow = userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+		Long fromFollow = userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 				.getUserSeq();
-		Long toFollow = userService.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
+		Long toFollow = userCommandUseCase.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
 				.getUserSeq();
 
 		// 팔로우 생성
-		followService.saveFollow(fromFollow, toFollow);
+		followCommandUseCase.saveFollow(fromFollow, toFollow);
 		
 		// 언팔로우 API 요청
 		ExtractableResponse<Response> response = requestDoUnfollow(fromFollow, toFollow);
@@ -59,16 +59,16 @@ public class FollowApiTest extends ApiTest {
 	@Test
 	void doSearchFollowing() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromUserSeq = userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+		Long fromUserSeq = userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 				.getUserSeq();
-		Long toFollow1 = userService.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
+		Long toFollow1 = userCommandUseCase.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
 				.getUserSeq();
-		Long toFollow2 = userService.createUser(requestUserCreateDto("userId3", "9012", "Raychel", "raychel@example.com"))
+		Long toFollow2 = userCommandUseCase.createUser(requestUserCreateDto("userId3", "9012", "Raychel", "raychel@example.com"))
 				.getUserSeq();
 
 		// 팔로우 생성
-		followService.saveFollow(fromUserSeq, toFollow1);
-		followService.saveFollow(fromUserSeq, toFollow2);
+		followCommandUseCase.saveFollow(fromUserSeq, toFollow1);
+		followCommandUseCase.saveFollow(fromUserSeq, toFollow2);
 		
 		// 조회 API 요청
 		ResponseBody body = requestSearchFollowing(fromUserSeq);
@@ -80,19 +80,19 @@ public class FollowApiTest extends ApiTest {
 	@Test
 	void doSearchFollower() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromUserSeq1 = userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+		Long fromUserSeq1 = userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 				.getUserSeq();
-		Long fromUserSeq2 = userService.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
+		Long fromUserSeq2 = userCommandUseCase.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
 				.getUserSeq();
-		Long fromUserSeq3 = userService.createUser(requestUserCreateDto("userId3", "9012", "Raychel", "raychel@example.com"))
+		Long fromUserSeq3 = userCommandUseCase.createUser(requestUserCreateDto("userId3", "9012", "Raychel", "raychel@example.com"))
 				.getUserSeq();
-		Long toUserSeq = userService.createUser(requestUserCreateDto("userId4", "1111", "Celeb", "celeb@example.com"))
+		Long toUserSeq = userCommandUseCase.createUser(requestUserCreateDto("userId4", "1111", "Celeb", "celeb@example.com"))
 				.getUserSeq();
 
 		// 팔로우 생성
-		followService.saveFollow(fromUserSeq1, toUserSeq);
-		followService.saveFollow(fromUserSeq2, toUserSeq);
-		followService.saveFollow(fromUserSeq3, toUserSeq);
+		followCommandUseCase.saveFollow(fromUserSeq1, toUserSeq);
+		followCommandUseCase.saveFollow(fromUserSeq2, toUserSeq);
+		followCommandUseCase.saveFollow(fromUserSeq3, toUserSeq);
 
 		// 조회 API 요청
 		ResponseBody body = requestSearchFollower(toUserSeq);
