@@ -1,4 +1,4 @@
-package com.lgmpjt.websnsspringboot.domain.board.service;
+package com.lgmpjt.websnsspringboot.application.port.service;
 
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;

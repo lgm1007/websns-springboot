@@ -1,7 +1,7 @@
 package com.lgmpjt.websnsspringboot.adapter.in.rest;
 
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;
-import com.lgmpjt.websnsspringboot.domain.like.service.LikeService;
+import com.lgmpjt.websnsspringboot.application.port.service.LikeService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.lgmpjt.websnsspringboot.domain.follow.service;
+package com.lgmpjt.websnsspringboot.application.port.service;
 
 import com.lgmpjt.websnsspringboot.application.port.in.dto.FollowDto;
 import com.lgmpjt.websnsspringboot.adapter.out.entity.Follow;

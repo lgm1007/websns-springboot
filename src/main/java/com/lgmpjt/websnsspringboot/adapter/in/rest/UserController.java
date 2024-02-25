@@ -2,7 +2,7 @@ package com.lgmpjt.websnsspringboot.adapter.in.rest;
 
 import com.lgmpjt.websnsspringboot.application.port.in.dto.UserCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.UserDto;
-import com.lgmpjt.websnsspringboot.domain.user.service.UserService;
+import com.lgmpjt.websnsspringboot.application.port.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

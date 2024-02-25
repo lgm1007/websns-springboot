@@ -1,7 +1,7 @@
 package com.lgmpjt.websnsspringboot.adapter.in.rest;
 
 import com.lgmpjt.websnsspringboot.application.port.in.dto.FollowDto;
-import com.lgmpjt.websnsspringboot.domain.follow.service.FollowService;
+import com.lgmpjt.websnsspringboot.application.port.service.FollowService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.util.Pair;

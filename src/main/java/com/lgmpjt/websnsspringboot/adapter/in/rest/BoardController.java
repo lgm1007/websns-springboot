@@ -2,7 +2,7 @@ package com.lgmpjt.websnsspringboot.adapter.in.rest;
 
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;
-import com.lgmpjt.websnsspringboot.domain.board.service.BoardService;
+import com.lgmpjt.websnsspringboot.application.port.service.BoardService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
