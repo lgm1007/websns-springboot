@@ -66,5 +66,10 @@
 ### 🔃ERD
 ![erd](readmesrc/websns_erd.png)
 
+### 헥사고날 아키텍처 구성도
+* Board 도메인을 예시로 그려본 구성도
+
+![hexagonal](readmesrc/websns_hexagonal_example.png)
+
 ### 📝API 명세서
 * Swagger 접속 링크 = http://(host):(port)/swagger-ui.html
