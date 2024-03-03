@@ -1,8 +1,7 @@
-package com.lgmpjt.websnsspringboot.infra.repository.adapter;
+package com.lgmpjt.websnsspringboot.infra.repository;
 
 import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.User;
 import com.lgmpjt.websnsspringboot.adapter.out.persistence.repository.UserRepository;
-import com.lgmpjt.websnsspringboot.infra.repository.UserJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class UserRepositoryAdapter implements UserRepository {
+public class UserRepositoryImpl implements UserRepository {
 
 	private final UserJpaRepository jpaRepository;
 

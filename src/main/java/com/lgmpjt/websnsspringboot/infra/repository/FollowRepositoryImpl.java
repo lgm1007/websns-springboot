@@ -1,8 +1,7 @@
-package com.lgmpjt.websnsspringboot.infra.repository.adapter;
+package com.lgmpjt.websnsspringboot.infra.repository;
 
 import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Follow;
 import com.lgmpjt.websnsspringboot.adapter.out.persistence.repository.FollowRepository;
-import com.lgmpjt.websnsspringboot.infra.repository.FollowJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +9,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class FollowRepositoryAdapter implements FollowRepository {
+public class FollowRepositoryImpl implements FollowRepository {
 
 	private final FollowJpaRepository jpaRepository;
 

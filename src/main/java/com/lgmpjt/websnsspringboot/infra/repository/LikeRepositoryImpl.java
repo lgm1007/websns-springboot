@@ -1,8 +1,7 @@
-package com.lgmpjt.websnsspringboot.infra.repository.adapter;
+package com.lgmpjt.websnsspringboot.infra.repository;
 
 import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.LikeEntity;
 import com.lgmpjt.websnsspringboot.adapter.out.persistence.repository.LikeRepository;
-import com.lgmpjt.websnsspringboot.infra.repository.LikeJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +9,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class LikeRepositoryAdapter implements LikeRepository {
+public class LikeRepositoryImpl implements LikeRepository {
 
 	private final LikeJpaRepository jpaRepository;
 

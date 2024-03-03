@@ -1,8 +1,7 @@
-package com.lgmpjt.websnsspringboot.infra.repository.adapter;
+package com.lgmpjt.websnsspringboot.infra.repository;
 
 import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Board;
 import com.lgmpjt.websnsspringboot.adapter.out.persistence.repository.BoardRepository;
-import com.lgmpjt.websnsspringboot.infra.repository.BoardJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class BoardRepositoryAdapter implements BoardRepository {
+public class BoardRepositoryImpl implements BoardRepository {
 
 	private final BoardJpaRepository jpaRepository;
 
