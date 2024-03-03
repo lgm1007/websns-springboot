@@ -1,10 +1,10 @@
 package com.lgmpjt.websnsspringboot.mapper;
 
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Board;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.User;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;
-import com.lgmpjt.websnsspringboot.adapter.out.entity.Board;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.UserDto;
-import com.lgmpjt.websnsspringboot.adapter.out.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;

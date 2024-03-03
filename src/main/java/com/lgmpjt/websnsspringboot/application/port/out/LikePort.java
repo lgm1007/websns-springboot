@@ -1,6 +1,6 @@
 package com.lgmpjt.websnsspringboot.application.port.out;
 
-import com.lgmpjt.websnsspringboot.adapter.out.entity.LikeEntity;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.LikeEntity;
 
 import java.util.List;
 

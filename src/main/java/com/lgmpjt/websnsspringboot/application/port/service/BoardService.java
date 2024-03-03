@@ -1,6 +1,6 @@
 package com.lgmpjt.websnsspringboot.application.port.service;
 
-import com.lgmpjt.websnsspringboot.adapter.out.entity.Board;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Board;
 import com.lgmpjt.websnsspringboot.application.port.in.BoardCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.BoardSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardCreateDto;

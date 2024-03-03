@@ -1,7 +1,7 @@
 package com.lgmpjt.websnsspringboot.infra.repository.adapter;
 
-import com.lgmpjt.websnsspringboot.adapter.out.entity.LikeEntity;
-import com.lgmpjt.websnsspringboot.adapter.out.entity.LikeRepository;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.LikeEntity;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.repository.LikeRepository;
 import com.lgmpjt.websnsspringboot.infra.repository.LikeJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

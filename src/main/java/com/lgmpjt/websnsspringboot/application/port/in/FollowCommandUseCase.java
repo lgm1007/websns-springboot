@@ -1,6 +1,6 @@
 package com.lgmpjt.websnsspringboot.application.port.in;
 
-import com.lgmpjt.websnsspringboot.adapter.out.entity.Follow;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Follow;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface FollowCommandUseCase {

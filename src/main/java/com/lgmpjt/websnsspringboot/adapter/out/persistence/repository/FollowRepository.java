@@ -1,4 +1,6 @@
-package com.lgmpjt.websnsspringboot.adapter.out.entity;
+package com.lgmpjt.websnsspringboot.adapter.out.persistence.repository;
+
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Follow;
 
 import java.util.List;
 

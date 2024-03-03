@@ -1,6 +1,6 @@
 package com.lgmpjt.websnsspringboot.mapper;
 
-import com.lgmpjt.websnsspringboot.adapter.out.entity.LikeEntity;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.LikeEntity;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.LikeDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

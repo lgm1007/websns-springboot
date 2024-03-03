@@ -1,6 +1,6 @@
 package com.lgmpjt.websnsspringboot.application.port.service;
 
-import com.lgmpjt.websnsspringboot.adapter.out.entity.Follow;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Follow;
 import com.lgmpjt.websnsspringboot.application.port.in.FollowCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.FollowSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.FollowDto;

@@ -1,7 +1,7 @@
 package com.lgmpjt.websnsspringboot.infra.repository.adapter;
 
-import com.lgmpjt.websnsspringboot.adapter.out.entity.Board;
-import com.lgmpjt.websnsspringboot.adapter.out.entity.BoardRepository;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Board;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.repository.BoardRepository;
 import com.lgmpjt.websnsspringboot.infra.repository.BoardJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

@@ -1,7 +1,7 @@
 package com.lgmpjt.websnsspringboot.adapter.out;
 
-import com.lgmpjt.websnsspringboot.adapter.out.entity.Board;
-import com.lgmpjt.websnsspringboot.adapter.out.entity.BoardRepository;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Board;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.repository.BoardRepository;
 import com.lgmpjt.websnsspringboot.application.port.out.BoardPort;
 import org.springframework.stereotype.Component;
 
