@@ -8,4 +8,8 @@ public interface FollowRepository {
 	List<Follow> findAllByFromFollow(Long fromFollow);
 
 	List<Follow> findAllByToFollow(Long toFollow);
+
+	Follow save(Follow follow);
+
+	void delete(Follow follow);
 }

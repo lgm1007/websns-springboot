@@ -28,4 +28,14 @@ public class FollowRepositoryAdapter implements FollowRepository {
 	public List<Follow> findAllByToFollow(Long toFollow) {
 		return jpaRepository.findAllByToFollow(toFollow);
 	}
+
+	@Override
+	public Follow save(Follow follow) {
+		return jpaRepository.save(follow);
+	}
+
+	@Override
+	public void delete(Follow follow) {
+		jpaRepository.delete(follow);
+	}
 }
