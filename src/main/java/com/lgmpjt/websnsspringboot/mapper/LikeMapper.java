@@ -1,7 +1,7 @@
 package com.lgmpjt.websnsspringboot.mapper;
 
+import com.lgmpjt.websnsspringboot.adapter.out.entity.LikeEntity;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.LikeDto;
-import com.lgmpjt.websnsspringboot.adapter.out.entity.Likes;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
@@ -10,7 +10,7 @@ import org.mapstruct.factory.Mappers;
 public interface LikeMapper {
 	LikeMapper INSTANCE = Mappers.getMapper(LikeMapper.class);
 
-	Likes dtoToLike(LikeDto likeDto);
+	LikeEntity dtoToLike(LikeDto likeDto);
 
-	LikeDto likeToDto(Likes like);
+	LikeDto likeToDto(LikeEntity like);
 }

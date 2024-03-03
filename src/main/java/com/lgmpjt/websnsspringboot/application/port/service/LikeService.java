@@ -1,6 +1,6 @@
 package com.lgmpjt.websnsspringboot.application.port.service;
 
-import com.lgmpjt.websnsspringboot.adapter.out.entity.Likes;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.LikeEntity;
 import com.lgmpjt.websnsspringboot.application.port.in.LikeCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.LikeSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;
@@ -27,9 +27,9 @@ public class LikeService implements LikeSearchUseCase, LikeCommandUseCase {
 
 	@Override
 	@Transactional
-	public Likes createLike(final Long userSeq, final Long boardSeq) {
+	public LikeEntity createLike(final Long userSeq, final Long boardSeq) {
 
-		Likes like = Likes.builder()
+		LikeEntity like = LikeEntity.builder()
 				.user(userPort.getUserByUserSeq(userSeq))
 				.board(boardPort.getBoardByBoardSeq(boardSeq))
 				.createdDate(LocalDateTime.now())
@@ -40,7 +40,7 @@ public class LikeService implements LikeSearchUseCase, LikeCommandUseCase {
 	@Override
 	@Transactional
 	public void deleteLike(final Long userSeq, final Long boardSeq) {
-		Likes like = likePort.findByUserSeqAndBoardSeq(userSeq, boardSeq);
+		LikeEntity like = likePort.findByUserSeqAndBoardSeq(userSeq, boardSeq);
 		likePort.delete(like);
 	}
 

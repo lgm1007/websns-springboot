@@ -3,11 +3,11 @@ package com.lgmpjt.websnsspringboot.adapter.out.entity;
 import java.util.List;
 
 public interface LikeRepository  {
-	Likes findByUserSeqAndBoardSeq(Long userSeq, Long boardSeq);
+	LikeEntity findByUserSeqAndBoardSeq(Long userSeq, Long boardSeq);
 
-	List<Likes> findAllByUserSeq(Long userSeq);
+	List<LikeEntity> findAllByUserSeq(Long userSeq);
 
-	Likes save(Likes like);
+	LikeEntity save(LikeEntity like);
 
-	void delete(Likes like);
+	void delete(LikeEntity like);
 }

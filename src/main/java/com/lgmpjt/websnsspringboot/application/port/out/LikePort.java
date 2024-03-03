@@ -1,15 +1,15 @@
 package com.lgmpjt.websnsspringboot.application.port.out;
 
-import com.lgmpjt.websnsspringboot.adapter.out.entity.Likes;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.LikeEntity;
 
 import java.util.List;
 
 public interface LikePort {
-	Likes save(final Likes like);
+	LikeEntity save(final LikeEntity like);
 
-	Likes findByUserSeqAndBoardSeq(final Long userSeq, final Long boardSeq);
+	LikeEntity findByUserSeqAndBoardSeq(final Long userSeq, final Long boardSeq);
 
-	void delete(final Likes like);
+	void delete(final LikeEntity like);
 
-	List<Likes> findAllByUserSeq(final Long userSeq);
+	List<LikeEntity> findAllByUserSeq(final Long userSeq);
 }

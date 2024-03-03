@@ -1,6 +1,6 @@
 package com.lgmpjt.websnsspringboot.adapter.out;
 
-import com.lgmpjt.websnsspringboot.adapter.out.entity.Likes;
+import com.lgmpjt.websnsspringboot.adapter.out.entity.LikeEntity;
 import com.lgmpjt.websnsspringboot.adapter.out.entity.LikeRepository;
 import com.lgmpjt.websnsspringboot.application.port.out.LikePort;
 import lombok.RequiredArgsConstructor;
@@ -15,22 +15,22 @@ public class LikeAdapter implements LikePort {
 	private final LikeRepository likeRepository;
 
 	@Override
-	public Likes save(Likes like) {
+	public LikeEntity save(LikeEntity like) {
 		return likeRepository.save(like);
 	}
 
 	@Override
-	public Likes findByUserSeqAndBoardSeq(Long userSeq, Long boardSeq) {
+	public LikeEntity findByUserSeqAndBoardSeq(Long userSeq, Long boardSeq) {
 		return likeRepository.findByUserSeqAndBoardSeq(userSeq, boardSeq);
 	}
 
 	@Override
-	public void delete(Likes like) {
+	public void delete(LikeEntity like) {
 		likeRepository.delete(like);
 	}
 
 	@Override
-	public List<Likes> findAllByUserSeq(Long userSeq) {
+	public List<LikeEntity> findAllByUserSeq(Long userSeq) {
 		return likeRepository.findAllByUserSeq(userSeq);
 	}
 }
