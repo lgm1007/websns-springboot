@@ -1,6 +1,6 @@
 package com.lgmpjt.websnsspringboot.application.port.service;
 
-import com.lgmpjt.websnsspringboot.adapter.out.entity.User;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.User;
 import com.lgmpjt.websnsspringboot.application.port.in.UserCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.UserSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.UserCreateDto;

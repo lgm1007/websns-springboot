@@ -1,12 +1,15 @@
-package com.lgmpjt.websnsspringboot.infra.repository;
+package com.lgmpjt.websnsspringboot.adapter.out.persistence.repository;
 
 import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.LikeEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface LikeJpaRepository extends JpaRepository<LikeEntity, Long> {
+public interface LikeRepository  {
 	LikeEntity findByUserSeqAndBoardSeq(Long userSeq, Long boardSeq);
 
 	List<LikeEntity> findAllByUserSeq(Long userSeq);
+
+	LikeEntity save(LikeEntity like);
+
+	void delete(LikeEntity like);
 }

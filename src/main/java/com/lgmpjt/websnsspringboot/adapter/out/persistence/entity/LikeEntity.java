@@ -1,32 +1,36 @@
-package com.lgmpjt.websnsspringboot.adapter.out.entity;
+package com.lgmpjt.websnsspringboot.adapter.out.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
-@Table(name = "Follow")
+@Table(name = "Likes")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Follow {
-
+public class LikeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long followSeq;
+	private Long likeSeq;
+
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fromFollow")
-	private User from;
+	@JoinColumn(name = "userSeq")
+	private User user;
 
 	@Column(insertable = false, updatable = false)
-	private Long fromFollow;
+	private Long userSeq;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "toFollow")
-	private User to;
+	@JoinColumn(name = "boardSeq")
+	private Board board;
 
 	@Column(insertable = false, updatable = false)
-	private Long toFollow;
+	private Long boardSeq;
+
+	private LocalDateTime createdDate;
 }

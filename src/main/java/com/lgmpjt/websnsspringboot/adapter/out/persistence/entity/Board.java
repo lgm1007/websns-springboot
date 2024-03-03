@@ -1,36 +1,37 @@
-package com.lgmpjt.websnsspringboot.adapter.out.entity;
+package com.lgmpjt.websnsspringboot.adapter.out.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.antlr.v4.runtime.misc.NotNull;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Likes")
+@Table(name = "Board")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Likes {
+public class Board {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long likeSeq;
+	private Long boardSeq;
 
-
-	@OneToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userSeq")
 	private User user;
 
 	@Column(insertable = false, updatable = false)
 	private Long userSeq;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "boardSeq")
-	private Board board;
+	private String content;
 
-	@Column(insertable = false, updatable = false)
-	private Long boardSeq;
+	@NotNull
+	private String boardImage;
 
 	private LocalDateTime createdDate;
+
+	private LocalDateTime lastModifiedDate;
 }

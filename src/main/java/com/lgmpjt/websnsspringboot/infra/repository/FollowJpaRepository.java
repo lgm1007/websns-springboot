@@ -1,6 +1,6 @@
 package com.lgmpjt.websnsspringboot.infra.repository;
 
-import com.lgmpjt.websnsspringboot.adapter.out.entity.Follow;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Follow;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

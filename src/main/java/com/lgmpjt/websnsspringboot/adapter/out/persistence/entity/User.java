@@ -1,4 +1,4 @@
-package com.lgmpjt.websnsspringboot.adapter.out.entity;
+package com.lgmpjt.websnsspringboot.adapter.out.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

@@ -21,7 +21,7 @@ import org.springframework.http.MediaType;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class LikesApiTest extends ApiTest {
+public class LikeEntityApiTest extends ApiTest {
 
 	@Autowired
 	private UserCommandUseCase userCommandUseCase;

@@ -1,6 +1,6 @@
 package com.lgmpjt.websnsspringboot.application.port.out;
 
-import com.lgmpjt.websnsspringboot.adapter.out.entity.Board;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Board;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.lgmpjt.websnsspringboot.adapter.out;
 
-import com.lgmpjt.websnsspringboot.adapter.out.entity.User;
-import com.lgmpjt.websnsspringboot.adapter.out.entity.UserRepository;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.User;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.repository.UserRepository;
 import com.lgmpjt.websnsspringboot.application.port.out.UserPort;
 import org.springframework.stereotype.Component;
 
