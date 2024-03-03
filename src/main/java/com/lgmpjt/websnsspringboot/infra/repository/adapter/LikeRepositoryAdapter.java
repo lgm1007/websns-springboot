@@ -23,4 +23,14 @@ public class LikeRepositoryAdapter implements LikeRepository {
 	public List<Likes> findAllByUserSeq(Long userSeq) {
 		return jpaRepository.findAllByUserSeq(userSeq);
 	}
+
+	@Override
+	public Likes save(Likes like) {
+		return jpaRepository.save(like);
+	}
+
+	@Override
+	public void delete(Likes like) {
+		jpaRepository.delete(like);
+	}
 }
