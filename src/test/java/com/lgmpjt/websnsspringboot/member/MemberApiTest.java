@@ -1,4 +1,4 @@
-package com.lgmpjt.websnsspringboot.user;
+package com.lgmpjt.websnsspringboot.member;
 
 import com.lgmpjt.websnsspringboot.ApiTest;
 import com.lgmpjt.websnsspringboot.application.port.in.MemberCommandUseCase;
@@ -22,55 +22,55 @@ class MemberApiTest extends ApiTest {
 	private MemberSearchUseCase memberSearchUseCase;
 
 	@Test
-	void createUser() {
-		final MemberCreateDto memberCreateDto = requestUserCreateDto();
+	void createMember() {
+		final MemberCreateDto memberCreateDto = requestMemberCreateDto();
 
 		// API 요청
-		final ExtractableResponse<Response> response = requestUserCreateApi(memberCreateDto);
+		final ExtractableResponse<Response> response = requestMemberCreateApi(memberCreateDto);
 
 		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
 	}
 
 	@Test
-	void searchUser() {
+	void searchMember() {
 		// 유저 생성
-		memberCommandUseCase.createMember(requestUserCreateDto());
-		final Long userSeq = 1L;
+		memberCommandUseCase.createMember(requestMemberCreateDto());
+		final Long memberSeq = 1L;
 
 		// 유저 조회
-		ResponseBody body = requestFindUserApi(userSeq);
+		ResponseBody body = requestFindMemberApi(memberSeq);
 
 		// 조회 응답 검증
 		AssertionsForClassTypes.assertThat(body.as(MemberDto.class).getMemberName()).isEqualTo("홍길동");
 	}
 
 	@Test
-	void updateUser() {
+	void updateMember() {
 		// 유저 생성
-		memberCommandUseCase.createMember(requestUserCreateDto());
+		memberCommandUseCase.createMember(requestMemberCreateDto());
 
 		// 유저 조회
-		final Long userSeq = 1L;
-		MemberDto memberDto = memberSearchUseCase.getMemberByMemberSeq(userSeq);
+		final Long memberSeq = 1L;
+		MemberDto memberDto = memberSearchUseCase.getMemberByMemberSeq(memberSeq);
 
 		memberDto.setEmail("mytest1user@example.mail");
 		memberDto.setMemberName("홍두께");
 
 		// 유저 정보 업데이트
-		ExtractableResponse<Response> response = requestUpdateUserApi(userSeq, memberDto);
+		ExtractableResponse<Response> response = requestUpdateMemberApi(memberSeq, memberDto);
 
 		// 업데이트 응답 검증
 		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
 	}
 
 	@Test
-	void withdrawUser() {
+	void withdrawMember() {
 		// 유저 생성
-		memberCommandUseCase.createMember(requestUserCreateDto());
+		memberCommandUseCase.createMember(requestMemberCreateDto());
 
-		final Long userSeq = 1L;
+		final Long memberSeq = 1L;
 		// 유저 회원탈퇴
-		ExtractableResponse<Response> response = requestUserWithdrawApi(userSeq);
+		ExtractableResponse<Response> response = requestMemberWithdrawApi(memberSeq);
 		
 		// 유저 회원탈퇴 응답 검증
 		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
@@ -78,7 +78,7 @@ class MemberApiTest extends ApiTest {
 
 
 
-	private static ExtractableResponse<Response> requestUserCreateApi(MemberCreateDto memberCreateDto) {
+	private static ExtractableResponse<Response> requestMemberCreateApi(MemberCreateDto memberCreateDto) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.body(memberCreateDto)
@@ -88,43 +88,43 @@ class MemberApiTest extends ApiTest {
 				.log().all().extract();
 	}
 
-	private static ResponseBody requestFindUserApi(Long userSeq) {
+	private static ResponseBody requestFindMemberApi(Long memberSeq) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
-				.get("/api/member/{userSeq}", userSeq)
+				.get("/api/member/{memberSeq}", memberSeq)
 				.then()
 				.log().all().extract().response()
 				.getBody();
 	}
 
-	private static ExtractableResponse<Response> requestUpdateUserApi(Long userSeq, MemberDto memberDto) {
+	private static ExtractableResponse<Response> requestUpdateMemberApi(Long memberSeq, MemberDto memberDto) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.body(memberDto)
 				.when()
-				.put("/api/member/{userSeq}", userSeq)
+				.put("/api/member/{memberSeq}", memberSeq)
 				.then()
 				.log().all().extract();
 	}
 
-	private static ExtractableResponse<Response> requestUserWithdrawApi(Long userSeq) {
+	private static ExtractableResponse<Response> requestMemberWithdrawApi(Long memberSeq) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
-				.delete("/api/member/{userSeq}", userSeq)
+				.delete("/api/member/{memberSeq}", memberSeq)
 				.then()
 				.log().all().extract();
 	}
 
-	private static MemberCreateDto requestUserCreateDto() {
-		String userId = "userId";
+	private static MemberCreateDto requestMemberCreateDto() {
+		String memberId = "memberId";
 		String password = "password";
-		String userName = "홍길동";
-		String userEmail = "mysns@example.com";
+		String memberName = "홍길동";
+		String email = "mysns@example.com";
 		boolean isAdmin = false;
 		boolean isPrivate = false;
-		return new MemberCreateDto(userId, password, userName, userEmail, isAdmin, isPrivate);
+		return new MemberCreateDto(memberId, password, memberName, email, isAdmin, isPrivate);
 	}
 
 }
