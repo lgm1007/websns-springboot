@@ -2,7 +2,7 @@ package com.lgmpjt.websnsspringboot.follow;
 
 import com.lgmpjt.websnsspringboot.ApiTest;
 import com.lgmpjt.websnsspringboot.application.port.in.FollowCommandUseCase;
-import com.lgmpjt.websnsspringboot.application.port.in.UserCommandUseCase;
+import com.lgmpjt.websnsspringboot.application.port.in.MemberCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
@@ -21,14 +21,14 @@ public class FollowApiTest extends ApiTest {
 	private FollowCommandUseCase followCommandUseCase;
 
 	@Autowired
-	private UserCommandUseCase userCommandUseCase;
+	private MemberCommandUseCase memberCommandUseCase;
 
 	@Test
 	void doFollow() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromFollow = userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+		Long fromFollow = memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 				.getMemberSeq();
-		Long toFollow = userCommandUseCase.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
+		Long toFollow = memberCommandUseCase.createMember(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
 				.getMemberSeq();
 
 		// API 요청
@@ -41,9 +41,9 @@ public class FollowApiTest extends ApiTest {
 	@Test
 	void doUnfollow() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromFollow = userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+		Long fromFollow = memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 				.getMemberSeq();
-		Long toFollow = userCommandUseCase.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
+		Long toFollow = memberCommandUseCase.createMember(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
 				.getMemberSeq();
 
 		// 팔로우 생성
@@ -59,11 +59,11 @@ public class FollowApiTest extends ApiTest {
 	@Test
 	void doSearchFollowing() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromUserSeq = userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+		Long fromUserSeq = memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 				.getMemberSeq();
-		Long toFollow1 = userCommandUseCase.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
+		Long toFollow1 = memberCommandUseCase.createMember(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
 				.getMemberSeq();
-		Long toFollow2 = userCommandUseCase.createUser(requestUserCreateDto("userId3", "9012", "Raychel", "raychel@example.com"))
+		Long toFollow2 = memberCommandUseCase.createMember(requestUserCreateDto("userId3", "9012", "Raychel", "raychel@example.com"))
 				.getMemberSeq();
 
 		// 팔로우 생성
@@ -80,13 +80,13 @@ public class FollowApiTest extends ApiTest {
 	@Test
 	void doSearchFollower() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromUserSeq1 = userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+		Long fromUserSeq1 = memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 				.getMemberSeq();
-		Long fromUserSeq2 = userCommandUseCase.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
+		Long fromUserSeq2 = memberCommandUseCase.createMember(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
 				.getMemberSeq();
-		Long fromUserSeq3 = userCommandUseCase.createUser(requestUserCreateDto("userId3", "9012", "Raychel", "raychel@example.com"))
+		Long fromUserSeq3 = memberCommandUseCase.createMember(requestUserCreateDto("userId3", "9012", "Raychel", "raychel@example.com"))
 				.getMemberSeq();
-		Long toUserSeq = userCommandUseCase.createUser(requestUserCreateDto("userId4", "1111", "Celeb", "celeb@example.com"))
+		Long toUserSeq = memberCommandUseCase.createMember(requestUserCreateDto("userId4", "1111", "Celeb", "celeb@example.com"))
 				.getMemberSeq();
 
 		// 팔로우 생성

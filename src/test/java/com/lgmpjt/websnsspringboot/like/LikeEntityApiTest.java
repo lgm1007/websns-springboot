@@ -3,7 +3,7 @@ package com.lgmpjt.websnsspringboot.like;
 import com.lgmpjt.websnsspringboot.ApiTest;
 import com.lgmpjt.websnsspringboot.application.port.in.BoardCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.LikeCommandUseCase;
-import com.lgmpjt.websnsspringboot.application.port.in.UserCommandUseCase;
+import com.lgmpjt.websnsspringboot.application.port.in.MemberCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class LikeEntityApiTest extends ApiTest {
 
 	@Autowired
-	private UserCommandUseCase userCommandUseCase;
+	private MemberCommandUseCase memberCommandUseCase;
 
 	@Autowired
 	private BoardCommandUseCase boardCommandUseCase;
@@ -36,7 +36,7 @@ public class LikeEntityApiTest extends ApiTest {
 	void doLike() {
 		// 유저 생성
 		MemberDto memberDto = UserMapper.INSTANCE.toUserSearchDto(
-				userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+				memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		Long userSeq = memberDto.getMemberSeq();
@@ -56,7 +56,7 @@ public class LikeEntityApiTest extends ApiTest {
 	void undoLike() {
 		// 유저 생성
 		MemberDto memberDto = UserMapper.INSTANCE.toUserSearchDto(
-				userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+				memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		Long userSeq = memberDto.getMemberSeq();
@@ -80,7 +80,7 @@ public class LikeEntityApiTest extends ApiTest {
 	void getLikeListByUser() {
 		// 유저 생성
 		MemberDto memberDto = UserMapper.INSTANCE.toUserSearchDto(
-				userCommandUseCase.createUser(requestUserCreateDto("adam123", "1234", "Adam", "adam@example.com"))
+				memberCommandUseCase.createMember(requestUserCreateDto("adam123", "1234", "Adam", "adam@example.com"))
 		);
 
 		Long userSeq = memberDto.getMemberSeq();

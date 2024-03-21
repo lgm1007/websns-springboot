@@ -1,8 +1,8 @@
 package com.lgmpjt.websnsspringboot.application.port.service;
 
 import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Member;
-import com.lgmpjt.websnsspringboot.application.port.in.UserCommandUseCase;
-import com.lgmpjt.websnsspringboot.application.port.in.UserSearchUseCase;
+import com.lgmpjt.websnsspringboot.application.port.in.MemberCommandUseCase;
+import com.lgmpjt.websnsspringboot.application.port.in.MemberSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
 import com.lgmpjt.websnsspringboot.application.port.out.UserPort;
@@ -18,13 +18,13 @@ import java.time.LocalDateTime;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserService implements UserSearchUseCase, UserCommandUseCase {
+public class MemberService implements MemberSearchUseCase, MemberCommandUseCase {
 	private final UserPort userPort;
 
 	private final SHA256 sha256;
 
 	@Transactional
-	public Member createUser(final MemberCreateDto memberCreateDto) {
+	public Member createMember(final MemberCreateDto memberCreateDto) {
 		encryptPassword(memberCreateDto);
 		final Member member = UserMapper.INSTANCE.createDtoToUser(memberCreateDto);
 		return userPort.save(member);
@@ -39,13 +39,13 @@ public class UserService implements UserSearchUseCase, UserCommandUseCase {
 	}
 
 	@Transactional(readOnly = true)
-	public MemberDto getUserByUserSeq(final Long userSeq) {
-		final Member member = userPort.getUserByUserSeq(userSeq);
+	public MemberDto getMemberByMemberSeq(final Long memberSeq) {
+		final Member member = userPort.getUserByUserSeq(memberSeq);
 		return UserMapper.INSTANCE.toUserSearchDto(member);
 	}
 
 	@Transactional
-	public void updateUser(final MemberDto memberDto) {
+	public void updateMember(final MemberDto memberDto) {
 		final Member member = userPort.getUserByUserSeq(memberDto.getMemberSeq());
 		member.setPassword(memberDto.getPassword());
 		member.setMemberName(memberDto.getMemberName());
@@ -55,8 +55,8 @@ public class UserService implements UserSearchUseCase, UserCommandUseCase {
 	}
 
 	@Transactional
-	public void deleteUser(final Long userSeq) {
-		final Member member = userPort.getUserByUserSeq(userSeq);
+	public void deleteMember(final Long memberSeq) {
+		final Member member = userPort.getUserByUserSeq(memberSeq);
 		userPort.delete(member);
 	}
 }

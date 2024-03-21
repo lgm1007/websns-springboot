@@ -5,13 +5,13 @@ import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
 import org.springframework.transaction.annotation.Transactional;
 
-public interface UserCommandUseCase {
+public interface MemberCommandUseCase {
 	@Transactional
-	Member createUser(final MemberCreateDto memberCreateDto);
+	Member createMember(final MemberCreateDto memberCreateDto);
 
 	@Transactional
-	void updateUser(final MemberDto memberDto);
+	void updateMember(final MemberDto memberDto);
 
 	@Transactional
-	void deleteUser(final Long userSeq);
+	void deleteMember(final Long memberSeq);
 }

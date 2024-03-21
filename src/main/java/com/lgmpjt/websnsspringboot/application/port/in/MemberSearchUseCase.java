@@ -3,7 +3,7 @@ package com.lgmpjt.websnsspringboot.application.port.in;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
 import org.springframework.transaction.annotation.Transactional;
 
-public interface UserSearchUseCase {
+public interface MemberSearchUseCase {
 	@Transactional(readOnly = true)
-	MemberDto getUserByUserSeq(final Long userSeq);
+	MemberDto getMemberByMemberSeq(final Long memberSeq);
 }

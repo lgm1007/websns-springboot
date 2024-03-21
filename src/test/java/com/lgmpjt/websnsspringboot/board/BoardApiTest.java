@@ -2,7 +2,7 @@ package com.lgmpjt.websnsspringboot.board;
 
 import com.lgmpjt.websnsspringboot.ApiTest;
 import com.lgmpjt.websnsspringboot.application.port.in.BoardCommandUseCase;
-import com.lgmpjt.websnsspringboot.application.port.in.UserCommandUseCase;
+import com.lgmpjt.websnsspringboot.application.port.in.MemberCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class BoardApiTest extends ApiTest {
 
 	@Autowired
-	private UserCommandUseCase userCommandUseCase;
+	private MemberCommandUseCase memberCommandUseCase;
 
 	@Autowired
 	private BoardCommandUseCase boardCommandUseCase;
@@ -33,7 +33,7 @@ public class BoardApiTest extends ApiTest {
 	void createBoard() {
 		// 유저 생성
 		MemberDto memberDto = UserMapper.INSTANCE.toUserSearchDto(
-			userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+			memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		// 게시물 생성
@@ -50,7 +50,7 @@ public class BoardApiTest extends ApiTest {
 	void searchBoard() {
 		// 유저 생성
 		MemberDto memberDto = UserMapper.INSTANCE.toUserSearchDto(
-				userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+				memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		// 게시물 생성
@@ -67,7 +67,7 @@ public class BoardApiTest extends ApiTest {
 	void searchBoardsByUserSeq() {
 		// 유저 생성
 		MemberDto memberDto = UserMapper.INSTANCE.toUserSearchDto(
-				userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+				memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		// 게시물 생성
@@ -83,7 +83,7 @@ public class BoardApiTest extends ApiTest {
 	void updateBoard() {
 		// 유저 생성
 		MemberDto memberDto = UserMapper.INSTANCE.toUserSearchDto(
-				userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+				memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		// 게시물 생성
@@ -103,7 +103,7 @@ public class BoardApiTest extends ApiTest {
 	void deleteBoard() {
 		// 유저 생성
 		MemberDto memberDto = UserMapper.INSTANCE.toUserSearchDto(
-				userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+				memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		// 게시물 생성

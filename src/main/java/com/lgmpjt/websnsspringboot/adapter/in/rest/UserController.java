@@ -1,7 +1,7 @@
 package com.lgmpjt.websnsspringboot.adapter.in.rest;
 
-import com.lgmpjt.websnsspringboot.application.port.in.UserCommandUseCase;
-import com.lgmpjt.websnsspringboot.application.port.in.UserSearchUseCase;
+import com.lgmpjt.websnsspringboot.application.port.in.MemberCommandUseCase;
+import com.lgmpjt.websnsspringboot.application.port.in.MemberSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class UserController {
-	private final UserSearchUseCase searchUseCase;
-	private final UserCommandUseCase commandUseCase;
+	private final MemberSearchUseCase searchUseCase;
+	private final MemberCommandUseCase commandUseCase;
 
 	@PostMapping
 	@Operation(summary = "신규 유저 생성", description = "회원가입한 신규 유저를 생성해줍니다.")
 	public ResponseEntity<Void> createNewUser(@RequestBody final MemberCreateDto memberCreateDto) {
-		commandUseCase.createUser(memberCreateDto);
+		commandUseCase.createMember(memberCreateDto);
 
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
@@ -28,14 +28,14 @@ public class UserController {
 	@GetMapping("/{userSeq}")
 	@Operation(summary = "단일 유저 조회", description = "단일 유저 정보를 조회합니다.")
 	public MemberDto searchOneUser(@PathVariable final Long userSeq) {
-		return searchUseCase.getUserByUserSeq(userSeq);
+		return searchUseCase.getMemberByMemberSeq(userSeq);
 	}
 
 	@PutMapping("/{userSeq}")
 	@Operation(summary = "단일 유저 업데이트", description = "단일 유저 정보를 업데이트합니다.")
 	public ResponseEntity<Long> updateOneUser(@PathVariable final Long userSeq,
 											  @RequestBody final MemberDto memberDto) {
-		commandUseCase.updateUser(memberDto);
+		commandUseCase.updateMember(memberDto);
 
 		return ResponseEntity.ok(userSeq);
 	}
@@ -43,7 +43,7 @@ public class UserController {
 	@DeleteMapping("/{userSeq}")
 	@Operation(summary = "단일 유저 삭제", description = "단일 유저를 삭제합니다.")
 	public ResponseEntity<Long> deleteOneUser(@PathVariable final Long userSeq) {
-		commandUseCase.deleteUser(userSeq);
+		commandUseCase.deleteMember(userSeq);
 
 		return ResponseEntity.ok(userSeq);
 	}
