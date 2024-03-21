@@ -9,7 +9,7 @@ public interface BoardPort {
 
 	Board getBoardByBoardSeq(final Long boardSeq);
 
-	List<Board> findAllBoardsByUserSeq(final Long userSeq);
+	List<Board> findAllBoardsByMemberSeq(final Long memberSeq);
 
 	void delete(final Board board);
 

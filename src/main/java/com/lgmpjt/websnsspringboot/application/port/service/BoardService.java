@@ -37,8 +37,8 @@ public class BoardService implements BoardSearchUseCase, BoardCommandUseCase {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<BoardDto> findAllBoardsByUserSeq(final Long userSeq) {
-		List<Board> boards = boardPort.findAllBoardsByUserSeq(userSeq);
+	public List<BoardDto> findAllBoardsByMemberSeq(final Long memberSeq) {
+		List<Board> boards = boardPort.findAllBoardsByMemberSeq(memberSeq);
 		return BoardMapper.INSTANCE.boardsToDtos(boards);
 	}
 

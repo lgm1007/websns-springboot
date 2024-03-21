@@ -26,9 +26,9 @@ public class FollowApiTest extends ApiTest {
 	@Test
 	void doFollow() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromFollow = memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+		Long fromFollow = memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
 				.getMemberSeq();
-		Long toFollow = memberCommandUseCase.createMember(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
+		Long toFollow = memberCommandUseCase.createMember(requestMemberCreateDto("userId2", "5678", "John", "john@example.com"))
 				.getMemberSeq();
 
 		// API 요청
@@ -41,9 +41,9 @@ public class FollowApiTest extends ApiTest {
 	@Test
 	void doUnfollow() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromFollow = memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+		Long fromFollow = memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
 				.getMemberSeq();
-		Long toFollow = memberCommandUseCase.createMember(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
+		Long toFollow = memberCommandUseCase.createMember(requestMemberCreateDto("userId2", "5678", "John", "john@example.com"))
 				.getMemberSeq();
 
 		// 팔로우 생성
@@ -59,19 +59,19 @@ public class FollowApiTest extends ApiTest {
 	@Test
 	void doSearchFollowing() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromUserSeq = memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+		Long fromMemberSeq = memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
 				.getMemberSeq();
-		Long toFollow1 = memberCommandUseCase.createMember(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
+		Long toFollow1 = memberCommandUseCase.createMember(requestMemberCreateDto("userId2", "5678", "John", "john@example.com"))
 				.getMemberSeq();
-		Long toFollow2 = memberCommandUseCase.createMember(requestUserCreateDto("userId3", "9012", "Raychel", "raychel@example.com"))
+		Long toFollow2 = memberCommandUseCase.createMember(requestMemberCreateDto("userId3", "9012", "Raychel", "raychel@example.com"))
 				.getMemberSeq();
 
 		// 팔로우 생성
-		followCommandUseCase.saveFollow(fromUserSeq, toFollow1);
-		followCommandUseCase.saveFollow(fromUserSeq, toFollow2);
+		followCommandUseCase.saveFollow(fromMemberSeq, toFollow1);
+		followCommandUseCase.saveFollow(fromMemberSeq, toFollow2);
 		
 		// 조회 API 요청
-		ResponseBody body = requestSearchFollowing(fromUserSeq);
+		ResponseBody body = requestSearchFollowing(fromMemberSeq);
 		
 		// API 응답값 검증
 		AssertionsForClassTypes.assertThat(body.as(ArrayList.class).size()).isEqualTo(2);
@@ -80,22 +80,22 @@ public class FollowApiTest extends ApiTest {
 	@Test
 	void doSearchFollower() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromUserSeq1 = memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+		Long fromMemberSeq1 = memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
 				.getMemberSeq();
-		Long fromUserSeq2 = memberCommandUseCase.createMember(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
+		Long fromMemberSeq2 = memberCommandUseCase.createMember(requestMemberCreateDto("userId2", "5678", "John", "john@example.com"))
 				.getMemberSeq();
-		Long fromUserSeq3 = memberCommandUseCase.createMember(requestUserCreateDto("userId3", "9012", "Raychel", "raychel@example.com"))
+		Long fromMemberSeq3 = memberCommandUseCase.createMember(requestMemberCreateDto("userId3", "9012", "Raychel", "raychel@example.com"))
 				.getMemberSeq();
-		Long toUserSeq = memberCommandUseCase.createMember(requestUserCreateDto("userId4", "1111", "Celeb", "celeb@example.com"))
+		Long toMemberSeq = memberCommandUseCase.createMember(requestMemberCreateDto("userId4", "1111", "Celeb", "celeb@example.com"))
 				.getMemberSeq();
 
 		// 팔로우 생성
-		followCommandUseCase.saveFollow(fromUserSeq1, toUserSeq);
-		followCommandUseCase.saveFollow(fromUserSeq2, toUserSeq);
-		followCommandUseCase.saveFollow(fromUserSeq3, toUserSeq);
+		followCommandUseCase.saveFollow(fromMemberSeq1, toMemberSeq);
+		followCommandUseCase.saveFollow(fromMemberSeq2, toMemberSeq);
+		followCommandUseCase.saveFollow(fromMemberSeq3, toMemberSeq);
 
 		// 조회 API 요청
-		ResponseBody body = requestSearchFollower(toUserSeq);
+		ResponseBody body = requestSearchFollower(toMemberSeq);
 
 		// API 응답값 검증
 		AssertionsForClassTypes.assertThat(body.as(ArrayList.class).size()).isEqualTo(3);
@@ -119,29 +119,29 @@ public class FollowApiTest extends ApiTest {
 				.log().all().extract();
 	}
 
-	private static ResponseBody requestSearchFollowing(Long fromUserSeq) {
+	private static ResponseBody requestSearchFollowing(Long fromMemberSeq) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
-				.get("/api/follow/{userSeq}/following", fromUserSeq)
+				.get("/api/follow/{memberSeq}/following", fromMemberSeq)
 				.then()
 				.log().all().extract().response()
 				.getBody();
 	}
 
-	private static ResponseBody requestSearchFollower(Long toUserSeq) {
+	private static ResponseBody requestSearchFollower(Long toMemberSeq) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
-				.get("/api/follow/{userSeq}/follower", toUserSeq)
+				.get("/api/follow/{memberSeq}/follower", toMemberSeq)
 				.then()
 				.log().all().extract().response()
 				.getBody();
 	}
 
-	private static MemberCreateDto requestUserCreateDto(String userId, String password, String userName, String userEmail) {
+	private static MemberCreateDto requestMemberCreateDto(String memberId, String password, String memberName, String email) {
 		boolean isAdmin = false;
 		boolean isPrivate = false;
-		return new MemberCreateDto(userId, password, userName, userEmail, isAdmin, isPrivate);
+		return new MemberCreateDto(memberId, password, memberName, email, isAdmin, isPrivate);
 	}
 }

@@ -26,8 +26,8 @@ public class BoardAdapter implements BoardPort {
 	}
 
 	@Override
-	public List<Board> findAllBoardsByUserSeq(Long userSeq) {
-		return boardRepository.findAllByUserSeq(userSeq);
+	public List<Board> findAllBoardsByMemberSeq(Long memberSeq) {
+		return boardRepository.findAllByMemberSeq(memberSeq);
 	}
 
 	@Override

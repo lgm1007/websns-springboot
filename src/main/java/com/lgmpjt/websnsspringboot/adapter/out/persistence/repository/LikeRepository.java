@@ -5,9 +5,9 @@ import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.LikeEntity;
 import java.util.List;
 
 public interface LikeRepository  {
-	LikeEntity findByUserSeqAndBoardSeq(Long userSeq, Long boardSeq);
+	LikeEntity findByMemberSeqAndBoardSeq(Long memberSeq, Long boardSeq);
 
-	List<LikeEntity> findAllByUserSeq(Long userSeq);
+	List<LikeEntity> findAllByMemberSeq(Long memberSeq);
 
 	LikeEntity save(LikeEntity like);
 

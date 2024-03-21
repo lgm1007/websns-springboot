@@ -20,8 +20,8 @@ public class BoardRepositoryImpl implements BoardRepository {
 	}
 
 	@Override
-	public List<Board> findAllByUserSeq(Long userSeq) {
-		return jpaRepository.findAllByUserSeq(userSeq);
+	public List<Board> findAllByMemberSeq(Long memberSeq) {
+		return jpaRepository.findAllByMemberSeq(memberSeq);
 	}
 
 	@Override

@@ -17,11 +17,11 @@ import java.util.List;
 public interface BoardMapper {
 	BoardMapper INSTANCE = Mappers.getMapper(BoardMapper.class);
 
-	@Mapping(source = "user", target = "user", qualifiedByName = "userDtoToUser")
+	@Mapping(source = "member", target = "member", qualifiedByName = "memberDtoToMember")
 	Board createDtoToBoard(BoardCreateDto boardCreateDto);
 
-	@Named("userDtoToUser")
-	default Member userDtoToUser(MemberDto memberDto) {
+	@Named("memberDtoToMember")
+	default Member memberDtoToMember(MemberDto memberDto) {
 		if ( memberDto == null ) {
 			return null;
 		}

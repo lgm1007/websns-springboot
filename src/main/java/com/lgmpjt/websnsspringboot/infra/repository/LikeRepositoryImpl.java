@@ -14,13 +14,13 @@ public class LikeRepositoryImpl implements LikeRepository {
 	private final LikeJpaRepository jpaRepository;
 
 	@Override
-	public LikeEntity findByUserSeqAndBoardSeq(Long userSeq, Long boardSeq) {
-		return jpaRepository.findByUserSeqAndBoardSeq(userSeq, boardSeq);
+	public LikeEntity findByMemberSeqAndBoardSeq(Long memberSeq, Long boardSeq) {
+		return jpaRepository.findByMemberSeqAndBoardSeq(memberSeq, boardSeq);
 	}
 
 	@Override
-	public List<LikeEntity> findAllByUserSeq(Long userSeq) {
-		return jpaRepository.findAllByUserSeq(userSeq);
+	public List<LikeEntity> findAllByMemberSeq(Long memberSeq) {
+		return jpaRepository.findAllByMemberSeq(memberSeq);
 	}
 
 	@Override

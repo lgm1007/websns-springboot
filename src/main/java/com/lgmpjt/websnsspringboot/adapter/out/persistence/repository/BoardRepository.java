@@ -9,7 +9,7 @@ public interface BoardRepository {
 
 	Optional<Board> findById(Long boardSeq);
 
-	List<Board> findAllByUserSeq(Long userSeq);
+	List<Board> findAllByMemberSeq(Long memberSeq);
 
 	Board save(Board board);
 

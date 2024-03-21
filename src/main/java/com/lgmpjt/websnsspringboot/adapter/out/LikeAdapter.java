@@ -20,8 +20,8 @@ public class LikeAdapter implements LikePort {
 	}
 
 	@Override
-	public LikeEntity findByUserSeqAndBoardSeq(Long userSeq, Long boardSeq) {
-		return likeRepository.findByUserSeqAndBoardSeq(userSeq, boardSeq);
+	public LikeEntity findByMemberSeqAndBoardSeq(Long memberSeq, Long boardSeq) {
+		return likeRepository.findByMemberSeqAndBoardSeq(memberSeq, boardSeq);
 	}
 
 	@Override
@@ -30,7 +30,7 @@ public class LikeAdapter implements LikePort {
 	}
 
 	@Override
-	public List<LikeEntity> findAllByUserSeq(Long userSeq) {
-		return likeRepository.findAllByUserSeq(userSeq);
+	public List<LikeEntity> findAllByMemberSeq(Long memberSeq) {
+		return likeRepository.findAllByMemberSeq(memberSeq);
 	}
 }

@@ -21,18 +21,18 @@ public class FollowAdapter implements FollowPort {
 	}
 
 	@Override
-	public List<Follow> findAllByFrom(final Long fromFollowUserSeq) {
-		return followRepository.findAllByFromFollow(fromFollowUserSeq);
+	public List<Follow> findAllByFrom(final Long fromFollowMemberSeq) {
+		return followRepository.findAllByFromFollow(fromFollowMemberSeq);
 	}
 
 	@Override
-	public List<Follow> findAllByTo(final Long toFollowUserSeq) {
-		return followRepository.findAllByToFollow(toFollowUserSeq);
+	public List<Follow> findAllByTo(final Long toFollowMemberSeq) {
+		return followRepository.findAllByToFollow(toFollowMemberSeq);
 	}
 
 	@Override
-	public Follow findByFromAndTo(final Long fromFollowUserSeq, final Long toFollowUserSeq) {
-		return followRepository.findByFromFollowAndToFollow(fromFollowUserSeq, toFollowUserSeq);
+	public Follow findByFromAndTo(final Long fromFollowMemberSeq, final Long toFollowMemberSeq) {
+		return followRepository.findByFromFollowAndToFollow(fromFollowMemberSeq, toFollowMemberSeq);
 	}
 
 	@Override

@@ -24,7 +24,7 @@ public class Board {
 	private Member member;
 
 	@Column(insertable = false, updatable = false)
-	private Long userSeq;
+	private Long memberSeq;
 
 	private String content;
 

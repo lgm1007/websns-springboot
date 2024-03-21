@@ -5,8 +5,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface LikeCommandUseCase {
 	@Transactional
-	LikeEntity createLike(final Long userSeq, final Long boardSeq);
+	LikeEntity createLike(final Long memberSeq, final Long boardSeq);
 
 	@Transactional
-	void deleteLike(final Long userSeq, final Long boardSeq);
+	void deleteLike(final Long memberSeq, final Long boardSeq);
 }

@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface BoardJpaRepository extends JpaRepository<Board, Long> {
-	List<Board> findAllByUserSeq(Long userSeq);
+	List<Board> findAllByMemberSeq(Long memberSeq);
 }

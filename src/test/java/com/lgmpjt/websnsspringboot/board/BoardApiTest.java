@@ -33,7 +33,7 @@ public class BoardApiTest extends ApiTest {
 	void createBoard() {
 		// 유저 생성
 		MemberDto memberDto = MemberMapper.INSTANCE.toMemberSearchDto(
-			memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+			memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		// 게시물 생성
@@ -50,7 +50,7 @@ public class BoardApiTest extends ApiTest {
 	void searchBoard() {
 		// 유저 생성
 		MemberDto memberDto = MemberMapper.INSTANCE.toMemberSearchDto(
-				memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+				memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		// 게시물 생성
@@ -64,16 +64,16 @@ public class BoardApiTest extends ApiTest {
 	}
 	
 	@Test
-	void searchBoardsByUserSeq() {
+	void searchBoardsByMemberSeq() {
 		// 유저 생성
 		MemberDto memberDto = MemberMapper.INSTANCE.toMemberSearchDto(
-				memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+				memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		// 게시물 생성
 		boardCommandUseCase.createBoard(requestBoardCreateDto(memberDto));
 
-		ResponseBody body = requestSearchBoardsByUserApi(memberDto.getMemberSeq());
+		ResponseBody body = requestSearchBoardsByMemberApi(memberDto.getMemberSeq());
 
 		// 조회 응답 검증
 		AssertionsForClassTypes.assertThat(body.as(ArrayList.class).size()).isEqualTo(1);
@@ -83,7 +83,7 @@ public class BoardApiTest extends ApiTest {
 	void updateBoard() {
 		// 유저 생성
 		MemberDto memberDto = MemberMapper.INSTANCE.toMemberSearchDto(
-				memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+				memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		// 게시물 생성
@@ -103,7 +103,7 @@ public class BoardApiTest extends ApiTest {
 	void deleteBoard() {
 		// 유저 생성
 		MemberDto memberDto = MemberMapper.INSTANCE.toMemberSearchDto(
-				memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+				memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		// 게시물 생성
@@ -116,12 +116,12 @@ public class BoardApiTest extends ApiTest {
 		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
 	}
 
-	private static ExtractableResponse<Response> requestBoardCreateApi(Long userSeq, BoardCreateDto boardCreateDto) {
+	private static ExtractableResponse<Response> requestBoardCreateApi(Long memberSeq, BoardCreateDto boardCreateDto) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.body(boardCreateDto)
 				.when()
-				.post("/api/board/{userSeq}/upload", userSeq)
+				.post("/api/board/{memberSeq}/upload", memberSeq)
 				.then()
 				.log().all().extract();
 	}
@@ -136,11 +136,11 @@ public class BoardApiTest extends ApiTest {
 				.getBody();
 	}
 
-	private static ResponseBody requestSearchBoardsByUserApi(Long userSeq) {
+	private static ResponseBody requestSearchBoardsByMemberApi(Long memberSeq) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
-				.get("/api/board/user/{userSeq}", userSeq)
+				.get("/api/board/member/{memberSeq}", memberSeq)
 				.then()
 				.log().all().extract().response()
 				.getBody();
@@ -177,9 +177,9 @@ public class BoardApiTest extends ApiTest {
 		return new BoardDto(boardSeq, memberDto, content, boardImage, createdDate);
 	}
 
-	private static MemberCreateDto requestUserCreateDto(String userId, String password, String userName, String userEmail) {
+	private static MemberCreateDto requestMemberCreateDto(String memberId, String password, String memberName, String email) {
 		boolean isAdmin = false;
 		boolean isPrivate = false;
-		return new MemberCreateDto(userId, password, userName, userEmail, isAdmin, isPrivate);
+		return new MemberCreateDto(memberId, password, memberName, email, isAdmin, isPrivate);
 	}
 }

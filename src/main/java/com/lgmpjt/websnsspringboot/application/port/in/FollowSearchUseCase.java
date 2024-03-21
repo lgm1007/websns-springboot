@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface FollowSearchUseCase {
 	@Transactional(readOnly = true)
-	List<FollowDto> findAllFollowingByUser(final Long userSeq);
+	List<FollowDto> findAllFollowingByMember(final Long memberSeq);
 
 	@Transactional(readOnly = true)
-	List<FollowDto> findAllFollowerByUser(final Long userSeq);
+	List<FollowDto> findAllFollowerByMember(final Long memberSeq);
 }

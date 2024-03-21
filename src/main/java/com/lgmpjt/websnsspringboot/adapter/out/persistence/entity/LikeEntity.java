@@ -23,7 +23,7 @@ public class LikeEntity {
 	private Member member;
 
 	@Column(insertable = false, updatable = false)
-	private Long userSeq;
+	private Long memberSeq;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "boardSeq")
