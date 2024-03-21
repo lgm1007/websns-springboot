@@ -7,11 +7,11 @@ import java.util.List;
 public interface FollowPort {
 	Follow save(final Follow follow);
 
-	List<Follow> findAllByFrom(final Long fromFollowUserSeq);
+	List<Follow> findAllByFrom(final Long fromFollowMemberSeq);
 
-	List<Follow> findAllByTo(final Long toFollowUserSeq);
+	List<Follow> findAllByTo(final Long toFollowMemberSeq);
 
-	Follow findByFromAndTo(final Long fromFollowUserSeq, final Long toFollowUserSeq);
+	Follow findByFromAndTo(final Long fromFollowMemberSeq, final Long toFollowMemberSeq);
 
 	void delete(final Follow follow);
 }

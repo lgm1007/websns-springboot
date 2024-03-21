@@ -5,8 +5,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface FollowCommandUseCase {
 	@Transactional
-	Follow saveFollow(final Long fromFollowUserSeq, final Long toFollowUserSeq);
+	Follow saveFollow(final Long fromFollowMemberSeq, final Long toFollowMemberSeq);
 
 	@Transactional
-	void deleteFollow(final Long fromFollowUserSeq, final Long toFollowUserSeq);
+	void deleteFollow(final Long fromFollowMemberSeq, final Long toFollowMemberSeq);
 }

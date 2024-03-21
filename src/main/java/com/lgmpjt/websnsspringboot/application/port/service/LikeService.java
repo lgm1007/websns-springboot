@@ -6,7 +6,7 @@ import com.lgmpjt.websnsspringboot.application.port.in.LikeSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;
 import com.lgmpjt.websnsspringboot.application.port.out.BoardPort;
 import com.lgmpjt.websnsspringboot.application.port.out.LikePort;
-import com.lgmpjt.websnsspringboot.application.port.out.UserPort;
+import com.lgmpjt.websnsspringboot.application.port.out.MemberPort;
 import com.lgmpjt.websnsspringboot.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,15 +22,15 @@ import java.util.List;
 public class LikeService implements LikeSearchUseCase, LikeCommandUseCase {
 
 	private final LikePort likePort;
-	private final UserPort userPort;
+	private final MemberPort memberPort;
 	private final BoardPort boardPort;
 
 	@Override
 	@Transactional
-	public LikeEntity createLike(final Long userSeq, final Long boardSeq) {
+	public LikeEntity createLike(final Long memberSeq, final Long boardSeq) {
 
 		LikeEntity like = LikeEntity.builder()
-				.user(userPort.getUserByUserSeq(userSeq))
+				.member(memberPort.getMemberByMemberSeq(memberSeq))
 				.board(boardPort.getBoardByBoardSeq(boardSeq))
 				.createdDate(LocalDateTime.now())
 				.build();
@@ -39,15 +39,15 @@ public class LikeService implements LikeSearchUseCase, LikeCommandUseCase {
 
 	@Override
 	@Transactional
-	public void deleteLike(final Long userSeq, final Long boardSeq) {
-		LikeEntity like = likePort.findByUserSeqAndBoardSeq(userSeq, boardSeq);
+	public void deleteLike(final Long memberSeq, final Long boardSeq) {
+		LikeEntity like = likePort.findByMemberSeqAndBoardSeq(memberSeq, boardSeq);
 		likePort.delete(like);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<BoardDto> getLikeBoardByUser(final Long userSeq) {
-		return likePort.findAllByUserSeq(userSeq).stream()
+	public List<BoardDto> getLikeBoardByMember(final Long memberSeq) {
+		return likePort.findAllByMemberSeq(memberSeq).stream()
 				.map(like -> BoardMapper.INSTANCE.boardToDto(like.getBoard()))
 				.toList();
 	}

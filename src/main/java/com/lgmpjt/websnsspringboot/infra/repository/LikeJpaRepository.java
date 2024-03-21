@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface LikeJpaRepository extends JpaRepository<LikeEntity, Long> {
-	LikeEntity findByUserSeqAndBoardSeq(Long userSeq, Long boardSeq);
+	LikeEntity findByMemberSeqAndBoardSeq(Long memberSeq, Long boardSeq);
 
-	List<LikeEntity> findAllByUserSeq(Long userSeq);
+	List<LikeEntity> findAllByMemberSeq(Long memberSeq);
 }

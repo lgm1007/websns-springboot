@@ -19,9 +19,9 @@ public class BoardController {
 	private final BoardSearchUseCase searchUseCase;
 	private final BoardCommandUseCase commandUseCase;
 
-	@PostMapping("/{userSeq}/upload")
+	@PostMapping("/{memberSeq}/upload")
 	@Operation(summary = "게시물 업로드", description = "유저가 게시물을 업로드합니다.")
-	public ResponseEntity<Void> createNewBoard(@PathVariable final Long userSeq,
+	public ResponseEntity<Void> createNewBoard(@PathVariable final Long memberSeq,
 											   @RequestBody final BoardCreateDto boardCreateDto) {
 		commandUseCase.createBoard(boardCreateDto);
 
@@ -34,10 +34,10 @@ public class BoardController {
 		return searchUseCase.getBoardByBoardSeq(boardSeq);
 	}
 
-	@GetMapping("user/{userSeq}")
+	@GetMapping("member/{memberSeq}")
 	@Operation(summary = "단일 유저의 게시물 조회", description = "단일 유저가 업로드한 게시물을 조회합니다.")
-	public List<BoardDto> searchBoardsByUserSeq(@PathVariable final Long userSeq) {
-		return searchUseCase.findAllBoardsByUserSeq(userSeq);
+	public List<BoardDto> searchBoardsByMemberSeq(@PathVariable final Long memberSeq) {
+		return searchUseCase.findAllBoardsByMemberSeq(memberSeq);
 	}
 
 	@PutMapping("/{boardSeq}")

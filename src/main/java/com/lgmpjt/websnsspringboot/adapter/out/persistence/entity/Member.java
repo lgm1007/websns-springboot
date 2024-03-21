@@ -6,25 +6,25 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "User")
+@Table(name = "Member")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class User {
+public class Member {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long userSeq;
+	private Long memberSeq;
 
-	private String userId;
+	private String memberId;
 
 	private String password;
 
-	private String userName;
+	private String memberName;
 
-	private String userEmail;
+	private String email;
 
 	private LocalDateTime createdDate;
 
@@ -33,5 +33,7 @@ public class User {
 	private boolean isAdmin;
 
 	private boolean isPrivate;
+
+	private boolean deleted;
 
 }

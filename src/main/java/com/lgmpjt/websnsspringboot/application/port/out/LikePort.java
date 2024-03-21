@@ -7,9 +7,9 @@ import java.util.List;
 public interface LikePort {
 	LikeEntity save(final LikeEntity like);
 
-	LikeEntity findByUserSeqAndBoardSeq(final Long userSeq, final Long boardSeq);
+	LikeEntity findByMemberSeqAndBoardSeq(final Long memberSeq, final Long boardSeq);
 
 	void delete(final LikeEntity like);
 
-	List<LikeEntity> findAllByUserSeq(final Long userSeq);
+	List<LikeEntity> findAllByMemberSeq(final Long memberSeq);
 }

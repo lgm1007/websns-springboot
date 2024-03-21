@@ -5,7 +5,7 @@ import com.lgmpjt.websnsspringboot.application.port.in.FollowCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.FollowSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.FollowDto;
 import com.lgmpjt.websnsspringboot.application.port.out.FollowPort;
-import com.lgmpjt.websnsspringboot.application.port.out.UserPort;
+import com.lgmpjt.websnsspringboot.application.port.out.MemberPort;
 import com.lgmpjt.websnsspringboot.mapper.FollowMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,34 +18,34 @@ import java.util.List;
 public class FollowService implements FollowSearchUseCase, FollowCommandUseCase {
 
 	private final FollowPort followPort;
-	private final UserPort userPort;
+	private final MemberPort memberPort;
 
 	@Override
 	@Transactional
-	public Follow saveFollow(final Long fromFollowUserSeq, final Long toFollowUserSeq) {
+	public Follow saveFollow(final Long fromFollowMemberSeq, final Long toFollowMemberSeq) {
 		Follow follow = Follow.builder()
-				.from(userPort.getUserByUserSeq(fromFollowUserSeq))
-				.to(userPort.getUserByUserSeq(toFollowUserSeq))
+				.from(memberPort.getMemberByMemberSeq(fromFollowMemberSeq))
+				.to(memberPort.getMemberByMemberSeq(toFollowMemberSeq))
 				.build();
 		return followPort.save(follow);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<FollowDto> findAllFollowingByUser(final Long userSeq) {
-		return FollowMapper.INSTANCE.followToSearchDtos(followPort.findAllByFrom(userSeq));
+	public List<FollowDto> findAllFollowingByMember(final Long memberSeq) {
+		return FollowMapper.INSTANCE.followToSearchDtos(followPort.findAllByFrom(memberSeq));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<FollowDto> findAllFollowerByUser(final Long userSeq) {
-		return FollowMapper.INSTANCE.followToSearchDtos(followPort.findAllByTo(userSeq));
+	public List<FollowDto> findAllFollowerByMember(final Long memberSeq) {
+		return FollowMapper.INSTANCE.followToSearchDtos(followPort.findAllByTo(memberSeq));
 	}
 
 	@Override
 	@Transactional
-	public void deleteFollow(final Long fromFollowUserSeq, final Long toFollowUserSeq) {
-		final Follow follow = followPort.findByFromAndTo(fromFollowUserSeq, toFollowUserSeq);
+	public void deleteFollow(final Long fromFollowMemberSeq, final Long toFollowMemberSeq) {
+		final Follow follow = followPort.findByFromAndTo(fromFollowMemberSeq, toFollowMemberSeq);
 		followPort.delete(follow);
 	}
 }

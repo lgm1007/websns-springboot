@@ -19,26 +19,26 @@ public class LikeController {
 	private final LikeSearchUseCase searchUseCase;
 	private final LikeCommandUseCase commandUseCase;
 
-	@PostMapping("/{userSeq}/to/{boardSeq}")
+	@PostMapping("/{memberSeq}/to/{boardSeq}")
 	@Operation(summary = "해당 게시물 좋아요", description = "유저가 해당 게시물에 좋아요합니다.")
-	public ResponseEntity<Void> doLikeBoard(@PathVariable final Long userSeq, @PathVariable final Long boardSeq) {
-		commandUseCase.createLike(userSeq, boardSeq);
+	public ResponseEntity<Void> doLikeBoard(@PathVariable final Long memberSeq, @PathVariable final Long boardSeq) {
+		commandUseCase.createLike(memberSeq, boardSeq);
 
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
-	@DeleteMapping("/undo/{userSeq}/to/{boardSeq}")
+	@DeleteMapping("/undo/{memberSeq}/to/{boardSeq}")
 	@Operation(summary = "게시물 좋아요 취소", description = "유저가 이전에 한 좋아요를 취소합니다.")
-	public ResponseEntity<Void> undoLikeBoard(@PathVariable final Long userSeq, @PathVariable final Long boardSeq) {
-		commandUseCase.deleteLike(userSeq, boardSeq);
+	public ResponseEntity<Void> undoLikeBoard(@PathVariable final Long memberSeq, @PathVariable final Long boardSeq) {
+		commandUseCase.deleteLike(memberSeq, boardSeq);
 
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 
-	@GetMapping("/list/{userSeq}")
+	@GetMapping("/list/{memberSeq}")
 	@Operation(summary = "특정 유저가 좋아요 한 게시글 목록", description = "특정 유저가 좋아요 한 게시글 목록을 조회합니다.")
-	public List<BoardDto> getBoardsByUserLike(@PathVariable final Long userSeq) {
-		return searchUseCase.getLikeBoardByUser(userSeq);
+	public List<BoardDto> getBoardsByMemberLike(@PathVariable final Long memberSeq) {
+		return searchUseCase.getLikeBoardByMember(memberSeq);
 	}
 
 }

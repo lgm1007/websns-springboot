@@ -10,5 +10,5 @@ public interface BoardSearchUseCase {
 	BoardDto getBoardByBoardSeq(final Long boardSeq);
 
 	@Transactional(readOnly = true)
-	List<BoardDto> findAllBoardsByUserSeq(final Long userSeq);
+	List<BoardDto> findAllBoardsByMemberSeq(final Long memberSeq);
 }

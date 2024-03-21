@@ -18,14 +18,14 @@ public class Follow {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fromFollow")
-	private User from;
+	private Member from;
 
 	@Column(insertable = false, updatable = false)
 	private Long fromFollow;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "toFollow")
-	private User to;
+	private Member to;
 
 	@Column(insertable = false, updatable = false)
 	private Long toFollow;

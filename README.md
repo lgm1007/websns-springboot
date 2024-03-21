@@ -16,19 +16,19 @@
 * JUnit4
 
 ### 🗃️DB 설계
-#### User
-|컬럼 명| 타입 |키|속성| default | 설명 |
-|---|---|---|---|---|---|
-|userSeq| bigint(20) |primary key|auto increment| not null |유저 sequence 값|
-|userId| varchar(50) |unique key| | not null |유저 아이디|
-|password| varchar(255) | | | not null |유저 패스워드|
-|userName| varchar(20) | | | not null |유저 이름|
-|userEmail| varchar(255) | | | not null |유저 이메일|
-|createdDate| datetime | | | null |회원가입 날짜|
-|lastModifiedDate| datetime | | | null |최근 수정 날짜|
-|admin| bit | | | 0 |관리자 여부|
-|private| bit | | | 0 |비공개 계정 여부|
-|deleted| bit | | | 0 |데이터 삭제 여부|
+#### Member
+| 컬럼 명             | 타입 |키|속성| default | 설명 |
+|------------------|---|---|---|---|---|
+| memberSeq        | bigint(20) |primary key|auto increment| not null |유저 sequence 값|
+| memberId         | varchar(50) |unique key| | not null |유저 아이디|
+| password         | varchar(255) | | | not null |유저 패스워드|
+| memberName       | varchar(20) | | | not null |유저 이름|
+| email            | varchar(255) | | | not null |유저 이메일|
+| createdDate      | datetime | | | null |회원가입 날짜|
+| lastModifiedDate | datetime | | | null |최근 수정 날짜|
+| admin            | bit | | | 0 |관리자 여부|
+| private          | bit | | | 0 |비공개 계정 여부|
+| deleted          | bit | | | 0 |데이터 삭제 여부|
 
 #### Board
 |컬럼 명|타입|키|속성| default | 설명 |

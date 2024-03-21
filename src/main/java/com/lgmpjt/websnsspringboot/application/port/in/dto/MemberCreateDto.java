@@ -11,24 +11,24 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserCreateDto {
-	private String userId;
+public class MemberCreateDto {
+	private String memberId;
 	private String password;
-	private String userName;
-	private String userEmail;
+	private String memberName;
+	private String email;
 	private LocalDateTime createdDate;
 	private LocalDateTime lastModifiedDate;
 	private boolean isAdmin;
 	private boolean isPrivate;
 
-	public UserCreateDto(String userId, String password, String userName, String userEmail, boolean isAdmin, boolean isPrivate) {
-		Assert.hasText(userId, "유저 아이디 값은 필수입니다.");
+	public MemberCreateDto(String memberId, String password, String memberName, String email, boolean isAdmin, boolean isPrivate) {
+		Assert.hasText(memberId, "유저 아이디 값은 필수입니다.");
 		Assert.notNull(password, "패스워드 값은 필수입니다.");
-		Assert.hasText(userName, "유저 이름 값은 필수입니다.");
-		this.userId = userId;
+		Assert.hasText(memberName, "유저 이름 값은 필수입니다.");
+		this.memberId = memberId;
 		this.password = password;
-		this.userName = userName;
-		this.userEmail = userEmail;
+		this.memberName = memberName;
+		this.email = email;
 		this.isAdmin = isAdmin;
 		this.isPrivate = isPrivate;
 		this.createdDate = LocalDateTime.now();

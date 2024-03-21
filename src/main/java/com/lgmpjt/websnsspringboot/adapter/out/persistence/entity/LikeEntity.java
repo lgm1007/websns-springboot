@@ -19,11 +19,11 @@ public class LikeEntity {
 
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userSeq")
-	private User user;
+	@JoinColumn(name = "memberSeq")
+	private Member member;
 
 	@Column(insertable = false, updatable = false)
-	private Long userSeq;
+	private Long memberSeq;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "boardSeq")
