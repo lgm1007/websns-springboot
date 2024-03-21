@@ -1,6 +1,6 @@
 package com.lgmpjt.websnsspringboot.application.port.service;
 
-import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.User;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Member;
 import com.lgmpjt.websnsspringboot.application.port.in.UserCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.UserSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.UserCreateDto;
@@ -24,10 +24,10 @@ public class UserService implements UserSearchUseCase, UserCommandUseCase {
 	private final SHA256 sha256;
 
 	@Transactional
-	public User createUser(final UserCreateDto userCreateDto) {
+	public Member createUser(final UserCreateDto userCreateDto) {
 		encryptPassword(userCreateDto);
-		final User user = UserMapper.INSTANCE.createDtoToUser(userCreateDto);
-		return userPort.save(user);
+		final Member member = UserMapper.INSTANCE.createDtoToUser(userCreateDto);
+		return userPort.save(member);
 	}
 
 	private void encryptPassword(UserCreateDto userCreateDto) {
@@ -40,23 +40,23 @@ public class UserService implements UserSearchUseCase, UserCommandUseCase {
 
 	@Transactional(readOnly = true)
 	public UserDto getUserByUserSeq(final Long userSeq) {
-		final User user = userPort.getUserByUserSeq(userSeq);
-		return UserMapper.INSTANCE.toUserSearchDto(user);
+		final Member member = userPort.getUserByUserSeq(userSeq);
+		return UserMapper.INSTANCE.toUserSearchDto(member);
 	}
 
 	@Transactional
 	public void updateUser(final UserDto userDto) {
-		final User user = userPort.getUserByUserSeq(userDto.getUserSeq());
-		user.setPassword(userDto.getPassword());
-		user.setUserName(userDto.getUserName());
-		user.setUserEmail(userDto.getUserEmail());
-		user.setLastModifiedDate(LocalDateTime.now());
-		userPort.save(user);
+		final Member member = userPort.getUserByUserSeq(userDto.getUserSeq());
+		member.setPassword(userDto.getPassword());
+		member.setMemberName(userDto.getUserName());
+		member.setEmail(userDto.getUserEmail());
+		member.setLastModifiedDate(LocalDateTime.now());
+		userPort.save(member);
 	}
 
 	@Transactional
 	public void deleteUser(final Long userSeq) {
-		final User user = userPort.getUserByUserSeq(userSeq);
-		userPort.delete(user);
+		final Member member = userPort.getUserByUserSeq(userSeq);
+		userPort.delete(member);
 	}
 }

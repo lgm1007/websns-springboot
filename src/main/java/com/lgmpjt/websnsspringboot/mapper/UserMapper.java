@@ -1,6 +1,6 @@
 package com.lgmpjt.websnsspringboot.mapper;
 
-import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.User;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Member;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.UserCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.UserDto;
 import org.mapstruct.Mapper;
@@ -15,7 +15,7 @@ unmappedTargetPolicy = ReportingPolicy.IGNORE: target class에 매핑되지 않�
 public interface UserMapper {
 	UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-	User createDtoToUser(UserCreateDto userCreateDto);
+	Member createDtoToUser(UserCreateDto userCreateDto);
 
-	UserDto toUserSearchDto(User entity);
+	UserDto toUserSearchDto(Member entity);
 }

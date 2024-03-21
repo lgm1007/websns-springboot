@@ -1,6 +1,6 @@
 package com.lgmpjt.websnsspringboot.adapter.out;
 
-import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.User;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Member;
 import com.lgmpjt.websnsspringboot.adapter.out.persistence.repository.UserRepository;
 import com.lgmpjt.websnsspringboot.application.port.out.UserPort;
 import org.springframework.stereotype.Component;
@@ -14,17 +14,17 @@ class UserAdapter implements UserPort {
 	}
 
 	@Override
-	public User save(final User user) {
-		return userRepository.save(user);
+	public Member save(final Member member) {
+		return userRepository.save(member);
 	}
 
 	@Override
-	public User getUserByUserSeq(final Long userSeq) {
+	public Member getUserByUserSeq(final Long userSeq) {
 		return userRepository.findById(userSeq).orElseThrow(() -> new UnsupportedOperationException("Not found user"));
 	}
 
 	@Override
-	public void delete(final User user) {
-		userRepository.delete(user);
+	public void delete(final Member member) {
+		userRepository.delete(member);
 	}
 }

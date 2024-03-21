@@ -1,13 +1,13 @@
 package com.lgmpjt.websnsspringboot.adapter.out.persistence.repository;
 
-import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.User;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Member;
 
 import java.util.Optional;
 
 public interface UserRepository  {
-	Optional<User> findById(Long userSeq);
+	Optional<Member> findById(Long userSeq);
 
-	User save(User user);
+	Member save(Member member);
 
-	void delete(User user);
+	void delete(Member member);
 }

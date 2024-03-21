@@ -30,7 +30,7 @@ public class LikeService implements LikeSearchUseCase, LikeCommandUseCase {
 	public LikeEntity createLike(final Long userSeq, final Long boardSeq) {
 
 		LikeEntity like = LikeEntity.builder()
-				.user(userPort.getUserByUserSeq(userSeq))
+				.member(userPort.getUserByUserSeq(userSeq))
 				.board(boardPort.getBoardByBoardSeq(boardSeq))
 				.createdDate(LocalDateTime.now())
 				.build();

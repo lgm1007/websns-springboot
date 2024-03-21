@@ -27,9 +27,9 @@ public class FollowApiTest extends ApiTest {
 	void doFollow() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
 		Long fromFollow = userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
-				.getUserSeq();
+				.getMemberSeq();
 		Long toFollow = userCommandUseCase.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
-				.getUserSeq();
+				.getMemberSeq();
 
 		// API 요청
 		ExtractableResponse<Response> response = requestDoFollow(fromFollow, toFollow);
@@ -42,9 +42,9 @@ public class FollowApiTest extends ApiTest {
 	void doUnfollow() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
 		Long fromFollow = userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
-				.getUserSeq();
+				.getMemberSeq();
 		Long toFollow = userCommandUseCase.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
-				.getUserSeq();
+				.getMemberSeq();
 
 		// 팔로우 생성
 		followCommandUseCase.saveFollow(fromFollow, toFollow);
@@ -60,11 +60,11 @@ public class FollowApiTest extends ApiTest {
 	void doSearchFollowing() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
 		Long fromUserSeq = userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
-				.getUserSeq();
+				.getMemberSeq();
 		Long toFollow1 = userCommandUseCase.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
-				.getUserSeq();
+				.getMemberSeq();
 		Long toFollow2 = userCommandUseCase.createUser(requestUserCreateDto("userId3", "9012", "Raychel", "raychel@example.com"))
-				.getUserSeq();
+				.getMemberSeq();
 
 		// 팔로우 생성
 		followCommandUseCase.saveFollow(fromUserSeq, toFollow1);
@@ -81,13 +81,13 @@ public class FollowApiTest extends ApiTest {
 	void doSearchFollower() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
 		Long fromUserSeq1 = userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
-				.getUserSeq();
+				.getMemberSeq();
 		Long fromUserSeq2 = userCommandUseCase.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
-				.getUserSeq();
+				.getMemberSeq();
 		Long fromUserSeq3 = userCommandUseCase.createUser(requestUserCreateDto("userId3", "9012", "Raychel", "raychel@example.com"))
-				.getUserSeq();
+				.getMemberSeq();
 		Long toUserSeq = userCommandUseCase.createUser(requestUserCreateDto("userId4", "1111", "Celeb", "celeb@example.com"))
-				.getUserSeq();
+				.getMemberSeq();
 
 		// 팔로우 생성
 		followCommandUseCase.saveFollow(fromUserSeq1, toUserSeq);

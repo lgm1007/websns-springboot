@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-class UserApiTest extends ApiTest {
+class MemberApiTest extends ApiTest {
 
 	@Autowired
 	private UserCommandUseCase userCommandUseCase;

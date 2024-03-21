@@ -1,7 +1,7 @@
 package com.lgmpjt.websnsspringboot.mapper;
 
 import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Board;
-import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.User;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Member;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.UserDto;
@@ -21,12 +21,12 @@ public interface BoardMapper {
 	Board createDtoToBoard(BoardCreateDto boardCreateDto);
 
 	@Named("userDtoToUser")
-	default User userDtoToUser(UserDto userDto) {
+	default Member userDtoToUser(UserDto userDto) {
 		if ( userDto == null ) {
 			return null;
 		}
 
-		User.UserBuilder user = User.builder();
+		Member.UserBuilder user = Member.builder();
 
 		user.userSeq(userDto.getUserSeq() );
 		user.userId( userDto.getUserId() );
