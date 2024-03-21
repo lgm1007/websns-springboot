@@ -11,40 +11,40 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/member")
 @RequiredArgsConstructor
-public class UserController {
+public class MemberController {
 	private final MemberSearchUseCase searchUseCase;
 	private final MemberCommandUseCase commandUseCase;
 
 	@PostMapping
 	@Operation(summary = "신규 유저 생성", description = "회원가입한 신규 유저를 생성해줍니다.")
-	public ResponseEntity<Void> createNewUser(@RequestBody final MemberCreateDto memberCreateDto) {
+	public ResponseEntity<Void> createNewMember(@RequestBody final MemberCreateDto memberCreateDto) {
 		commandUseCase.createMember(memberCreateDto);
 
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
-	@GetMapping("/{userSeq}")
+	@GetMapping("/{memberSeq}")
 	@Operation(summary = "단일 유저 조회", description = "단일 유저 정보를 조회합니다.")
-	public MemberDto searchOneUser(@PathVariable final Long userSeq) {
-		return searchUseCase.getMemberByMemberSeq(userSeq);
+	public MemberDto searchOneMember(@PathVariable final Long memberSeq) {
+		return searchUseCase.getMemberByMemberSeq(memberSeq);
 	}
 
-	@PutMapping("/{userSeq}")
+	@PutMapping("/{memberSeq}")
 	@Operation(summary = "단일 유저 업데이트", description = "단일 유저 정보를 업데이트합니다.")
-	public ResponseEntity<Long> updateOneUser(@PathVariable final Long userSeq,
-											  @RequestBody final MemberDto memberDto) {
+	public ResponseEntity<Long> updateOneMember(@PathVariable final Long memberSeq,
+												@RequestBody final MemberDto memberDto) {
 		commandUseCase.updateMember(memberDto);
 
-		return ResponseEntity.ok(userSeq);
+		return ResponseEntity.ok(memberSeq);
 	}
 
-	@DeleteMapping("/{userSeq}")
+	@DeleteMapping("/{memberSeq}")
 	@Operation(summary = "단일 유저 삭제", description = "단일 유저를 삭제합니다.")
-	public ResponseEntity<Long> deleteOneUser(@PathVariable final Long userSeq) {
-		commandUseCase.deleteMember(userSeq);
+	public ResponseEntity<Long> deleteOneMember(@PathVariable final Long memberSeq) {
+		commandUseCase.deleteMember(memberSeq);
 
-		return ResponseEntity.ok(userSeq);
+		return ResponseEntity.ok(memberSeq);
 	}
 }
