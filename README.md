@@ -28,6 +28,7 @@
 |lastModifiedDate| datetime | | | null |최근 수정 날짜|
 |admin| bit | | | 0 |관리자 여부|
 |private| bit | | | 0 |비공개 계정 여부|
+|deleted| bit | | | 0 |데이터 삭제 여부|
 
 #### Board
 |컬럼 명|타입|키|속성| default | 설명 |
@@ -38,6 +39,7 @@
 |boardImage|text| | | not null | 게시글 업로드 이미지|
 |createdDate|datetime| | | null | 게시글 작성 날짜 |
 |lastModifiedDate |datetime| | | null | 최근 수정 날짜|
+|deleted| bit | | | 0 |데이터 삭제 여부|
 
 #### Follow
 |컬럼 명|타입|키|속성| default | 설명 |
