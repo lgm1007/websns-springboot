@@ -6,7 +6,7 @@ import com.lgmpjt.websnsspringboot.application.port.in.LikeSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;
 import com.lgmpjt.websnsspringboot.application.port.out.BoardPort;
 import com.lgmpjt.websnsspringboot.application.port.out.LikePort;
-import com.lgmpjt.websnsspringboot.application.port.out.UserPort;
+import com.lgmpjt.websnsspringboot.application.port.out.MemberPort;
 import com.lgmpjt.websnsspringboot.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ import java.util.List;
 public class LikeService implements LikeSearchUseCase, LikeCommandUseCase {
 
 	private final LikePort likePort;
-	private final UserPort userPort;
+	private final MemberPort memberPort;
 	private final BoardPort boardPort;
 
 	@Override
@@ -30,7 +30,7 @@ public class LikeService implements LikeSearchUseCase, LikeCommandUseCase {
 	public LikeEntity createLike(final Long userSeq, final Long boardSeq) {
 
 		LikeEntity like = LikeEntity.builder()
-				.member(userPort.getUserByUserSeq(userSeq))
+				.member(memberPort.getMemberByMemberSeq(userSeq))
 				.board(boardPort.getBoardByBoardSeq(boardSeq))
 				.createdDate(LocalDateTime.now())
 				.build();

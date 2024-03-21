@@ -5,7 +5,7 @@ import com.lgmpjt.websnsspringboot.application.port.in.MemberCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.MemberSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
-import com.lgmpjt.websnsspringboot.application.port.out.UserPort;
+import com.lgmpjt.websnsspringboot.application.port.out.MemberPort;
 import com.lgmpjt.websnsspringboot.mapper.UserMapper;
 import com.lgmpjt.websnsspringboot.utils.SHA256;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Service
 @RequiredArgsConstructor
 public class MemberService implements MemberSearchUseCase, MemberCommandUseCase {
-	private final UserPort userPort;
+	private final MemberPort memberPort;
 
 	private final SHA256 sha256;
 
@@ -27,7 +27,7 @@ public class MemberService implements MemberSearchUseCase, MemberCommandUseCase 
 	public Member createMember(final MemberCreateDto memberCreateDto) {
 		encryptPassword(memberCreateDto);
 		final Member member = UserMapper.INSTANCE.createDtoToUser(memberCreateDto);
-		return userPort.save(member);
+		return memberPort.save(member);
 	}
 
 	private void encryptPassword(MemberCreateDto memberCreateDto) {
@@ -40,23 +40,23 @@ public class MemberService implements MemberSearchUseCase, MemberCommandUseCase 
 
 	@Transactional(readOnly = true)
 	public MemberDto getMemberByMemberSeq(final Long memberSeq) {
-		final Member member = userPort.getUserByUserSeq(memberSeq);
+		final Member member = memberPort.getMemberByMemberSeq(memberSeq);
 		return UserMapper.INSTANCE.toUserSearchDto(member);
 	}
 
 	@Transactional
 	public void updateMember(final MemberDto memberDto) {
-		final Member member = userPort.getUserByUserSeq(memberDto.getMemberSeq());
+		final Member member = memberPort.getMemberByMemberSeq(memberDto.getMemberSeq());
 		member.setPassword(memberDto.getPassword());
 		member.setMemberName(memberDto.getMemberName());
 		member.setEmail(memberDto.getEmail());
 		member.setLastModifiedDate(LocalDateTime.now());
-		userPort.save(member);
+		memberPort.save(member);
 	}
 
 	@Transactional
 	public void deleteMember(final Long memberSeq) {
-		final Member member = userPort.getUserByUserSeq(memberSeq);
-		userPort.delete(member);
+		final Member member = memberPort.getMemberByMemberSeq(memberSeq);
+		memberPort.delete(member);
 	}
 }
