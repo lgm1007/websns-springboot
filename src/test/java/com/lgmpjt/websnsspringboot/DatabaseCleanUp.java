@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 @Component
-@ActiveProfiles(value = "test")
+@ActiveProfiles(value = "local")
 public class DatabaseCleanUp implements InitializingBean {
 	// DB에 테스트 데이터를 초기화해주기 위한 클래스
 	@PersistenceContext
