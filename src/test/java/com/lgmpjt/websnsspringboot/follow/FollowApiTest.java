@@ -3,7 +3,7 @@ package com.lgmpjt.websnsspringboot.follow;
 import com.lgmpjt.websnsspringboot.ApiTest;
 import com.lgmpjt.websnsspringboot.application.port.in.FollowCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.UserCommandUseCase;
-import com.lgmpjt.websnsspringboot.application.port.in.dto.UserCreateDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -139,9 +139,9 @@ public class FollowApiTest extends ApiTest {
 				.getBody();
 	}
 
-	private static UserCreateDto requestUserCreateDto(String userId, String password, String userName, String userEmail) {
+	private static MemberCreateDto requestUserCreateDto(String userId, String password, String userName, String userEmail) {
 		boolean isAdmin = false;
 		boolean isPrivate = false;
-		return new UserCreateDto(userId, password, userName, userEmail, isAdmin, isPrivate);
+		return new MemberCreateDto(userId, password, userName, userEmail, isAdmin, isPrivate);
 	}
 }

@@ -11,12 +11,12 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 public class BoardCreateDto {
-	private UserDto user;
+	private MemberDto user;
 	private String content;
 	private String boardImage;
 	private LocalDateTime createdDate;
 
-	public BoardCreateDto(UserDto user, String content, String boardImage, LocalDateTime createdDate) {
+	public BoardCreateDto(MemberDto user, String content, String boardImage, LocalDateTime createdDate) {
 		Assert.notNull(user, "게시물을 작성한 유저 정보는 필수입니다.");
 		Assert.hasText(boardImage, "게시물의 이미지는 필수입니다.");
 		this.user = user;

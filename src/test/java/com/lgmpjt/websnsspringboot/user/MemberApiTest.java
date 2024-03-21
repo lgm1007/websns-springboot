@@ -3,8 +3,8 @@ package com.lgmpjt.websnsspringboot.user;
 import com.lgmpjt.websnsspringboot.ApiTest;
 import com.lgmpjt.websnsspringboot.application.port.in.UserCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.UserSearchUseCase;
-import com.lgmpjt.websnsspringboot.application.port.in.dto.UserCreateDto;
-import com.lgmpjt.websnsspringboot.application.port.in.dto.UserDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -23,10 +23,10 @@ class MemberApiTest extends ApiTest {
 
 	@Test
 	void createUser() {
-		final UserCreateDto userCreateDto = requestUserCreateDto();
+		final MemberCreateDto memberCreateDto = requestUserCreateDto();
 
 		// API 요청
-		final ExtractableResponse<Response> response = requestUserCreateApi(userCreateDto);
+		final ExtractableResponse<Response> response = requestUserCreateApi(memberCreateDto);
 
 		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
 	}
@@ -41,7 +41,7 @@ class MemberApiTest extends ApiTest {
 		ResponseBody body = requestFindUserApi(userSeq);
 
 		// 조회 응답 검증
-		AssertionsForClassTypes.assertThat(body.as(UserDto.class).getUserName()).isEqualTo("홍길동");
+		AssertionsForClassTypes.assertThat(body.as(MemberDto.class).getMemberName()).isEqualTo("홍길동");
 	}
 
 	@Test
@@ -51,13 +51,13 @@ class MemberApiTest extends ApiTest {
 
 		// 유저 조회
 		final Long userSeq = 1L;
-		UserDto userDto = userSearchUseCase.getUserByUserSeq(userSeq);
+		MemberDto memberDto = userSearchUseCase.getUserByUserSeq(userSeq);
 
-		userDto.setUserEmail("mytest1user@example.mail");
-		userDto.setUserName("홍두께");
+		memberDto.setEmail("mytest1user@example.mail");
+		memberDto.setMemberName("홍두께");
 
 		// 유저 정보 업데이트
-		ExtractableResponse<Response> response = requestUpdateUserApi(userSeq, userDto);
+		ExtractableResponse<Response> response = requestUpdateUserApi(userSeq, memberDto);
 
 		// 업데이트 응답 검증
 		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
@@ -78,10 +78,10 @@ class MemberApiTest extends ApiTest {
 
 
 
-	private static ExtractableResponse<Response> requestUserCreateApi(UserCreateDto userCreateDto) {
+	private static ExtractableResponse<Response> requestUserCreateApi(MemberCreateDto memberCreateDto) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.body(userCreateDto)
+				.body(memberCreateDto)
 				.when()
 				.post("/api/user")
 				.then()
@@ -98,10 +98,10 @@ class MemberApiTest extends ApiTest {
 				.getBody();
 	}
 
-	private static ExtractableResponse<Response> requestUpdateUserApi(Long userSeq, UserDto userDto) {
+	private static ExtractableResponse<Response> requestUpdateUserApi(Long userSeq, MemberDto memberDto) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.body(userDto)
+				.body(memberDto)
 				.when()
 				.put("/api/user/{userSeq}", userSeq)
 				.then()
@@ -117,14 +117,14 @@ class MemberApiTest extends ApiTest {
 				.log().all().extract();
 	}
 
-	private static UserCreateDto requestUserCreateDto() {
+	private static MemberCreateDto requestUserCreateDto() {
 		String userId = "userId";
 		String password = "password";
 		String userName = "홍길동";
 		String userEmail = "mysns@example.com";
 		boolean isAdmin = false;
 		boolean isPrivate = false;
-		return new UserCreateDto(userId, password, userName, userEmail, isAdmin, isPrivate);
+		return new MemberCreateDto(userId, password, userName, userEmail, isAdmin, isPrivate);
 	}
 
 }

@@ -5,8 +5,8 @@ import com.lgmpjt.websnsspringboot.application.port.in.BoardCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.LikeCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.UserCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardCreateDto;
-import com.lgmpjt.websnsspringboot.application.port.in.dto.UserCreateDto;
-import com.lgmpjt.websnsspringboot.application.port.in.dto.UserDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
 import com.lgmpjt.websnsspringboot.mapper.UserMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
@@ -35,14 +35,14 @@ public class LikeEntityApiTest extends ApiTest {
 	@Test
 	void doLike() {
 		// 유저 생성
-		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
+		MemberDto memberDto = UserMapper.INSTANCE.toUserSearchDto(
 				userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
-		Long userSeq = userDto.getUserSeq();
+		Long userSeq = memberDto.getMemberSeq();
 
 		// 게시물 생성
-		Long boardSeq = boardCommandUseCase.createBoard(requestBoardCreateDto(userDto))
+		Long boardSeq = boardCommandUseCase.createBoard(requestBoardCreateDto(memberDto))
 				.getBoardSeq();
 
 		// 게시물 좋아요하기
@@ -55,14 +55,14 @@ public class LikeEntityApiTest extends ApiTest {
 	@Test
 	void undoLike() {
 		// 유저 생성
-		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
+		MemberDto memberDto = UserMapper.INSTANCE.toUserSearchDto(
 				userCommandUseCase.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
-		Long userSeq = userDto.getUserSeq();
+		Long userSeq = memberDto.getMemberSeq();
 
 		// 게시물 생성
-		Long boardSeq = boardCommandUseCase.createBoard(requestBoardCreateDto(userDto))
+		Long boardSeq = boardCommandUseCase.createBoard(requestBoardCreateDto(memberDto))
 				.getBoardSeq();
 
 		
@@ -79,14 +79,14 @@ public class LikeEntityApiTest extends ApiTest {
 	@Test
 	void getLikeListByUser() {
 		// 유저 생성
-		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
+		MemberDto memberDto = UserMapper.INSTANCE.toUserSearchDto(
 				userCommandUseCase.createUser(requestUserCreateDto("adam123", "1234", "Adam", "adam@example.com"))
 		);
 
-		Long userSeq = userDto.getUserSeq();
+		Long userSeq = memberDto.getMemberSeq();
 
 		// 게시물 생성
-		Long boardSeq = boardCommandUseCase.createBoard(requestBoardCreateDto(userDto))
+		Long boardSeq = boardCommandUseCase.createBoard(requestBoardCreateDto(memberDto))
 				.getBoardSeq();
 
 		// 좋아요 하기
@@ -128,15 +128,15 @@ public class LikeEntityApiTest extends ApiTest {
 				.body();
 	}
 
-	private static UserCreateDto requestUserCreateDto(String userId, String password, String userName, String userEmail) {
+	private static MemberCreateDto requestUserCreateDto(String userId, String password, String userName, String userEmail) {
 		boolean isAdmin = false;
 		boolean isPrivate = false;
-		return new UserCreateDto(userId, password, userName, userEmail, isAdmin, isPrivate);
+		return new MemberCreateDto(userId, password, userName, userEmail, isAdmin, isPrivate);
 	}
 
-	private static BoardCreateDto requestBoardCreateDto(UserDto userDto) {
+	private static BoardCreateDto requestBoardCreateDto(MemberDto memberDto) {
 		String content = "새로운 게시물입니다.";
 		String boardImage = "images/img01.jpg";
-		return new BoardCreateDto(userDto, content, boardImage, LocalDateTime.now());
+		return new BoardCreateDto(memberDto, content, boardImage, LocalDateTime.now());
 	}
 }

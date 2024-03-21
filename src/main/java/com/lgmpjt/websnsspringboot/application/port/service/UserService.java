@@ -3,8 +3,8 @@ package com.lgmpjt.websnsspringboot.application.port.service;
 import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Member;
 import com.lgmpjt.websnsspringboot.application.port.in.UserCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.UserSearchUseCase;
-import com.lgmpjt.websnsspringboot.application.port.in.dto.UserCreateDto;
-import com.lgmpjt.websnsspringboot.application.port.in.dto.UserDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
 import com.lgmpjt.websnsspringboot.application.port.out.UserPort;
 import com.lgmpjt.websnsspringboot.mapper.UserMapper;
 import com.lgmpjt.websnsspringboot.utils.SHA256;
@@ -24,32 +24,32 @@ public class UserService implements UserSearchUseCase, UserCommandUseCase {
 	private final SHA256 sha256;
 
 	@Transactional
-	public Member createUser(final UserCreateDto userCreateDto) {
-		encryptPassword(userCreateDto);
-		final Member member = UserMapper.INSTANCE.createDtoToUser(userCreateDto);
+	public Member createUser(final MemberCreateDto memberCreateDto) {
+		encryptPassword(memberCreateDto);
+		final Member member = UserMapper.INSTANCE.createDtoToUser(memberCreateDto);
 		return userPort.save(member);
 	}
 
-	private void encryptPassword(UserCreateDto userCreateDto) {
+	private void encryptPassword(MemberCreateDto memberCreateDto) {
 		try {
-			userCreateDto.setPassword(SHA256.encrypt(userCreateDto.getPassword()));
+			memberCreateDto.setPassword(SHA256.encrypt(memberCreateDto.getPassword()));
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
 	}
 
 	@Transactional(readOnly = true)
-	public UserDto getUserByUserSeq(final Long userSeq) {
+	public MemberDto getUserByUserSeq(final Long userSeq) {
 		final Member member = userPort.getUserByUserSeq(userSeq);
 		return UserMapper.INSTANCE.toUserSearchDto(member);
 	}
 
 	@Transactional
-	public void updateUser(final UserDto userDto) {
-		final Member member = userPort.getUserByUserSeq(userDto.getUserSeq());
-		member.setPassword(userDto.getPassword());
-		member.setMemberName(userDto.getUserName());
-		member.setEmail(userDto.getUserEmail());
+	public void updateUser(final MemberDto memberDto) {
+		final Member member = userPort.getUserByUserSeq(memberDto.getMemberSeq());
+		member.setPassword(memberDto.getPassword());
+		member.setMemberName(memberDto.getMemberName());
+		member.setEmail(memberDto.getEmail());
 		member.setLastModifiedDate(LocalDateTime.now());
 		userPort.save(member);
 	}

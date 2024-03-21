@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class BoardDto {
 	private Long boardSeq;
-	private UserDto user;
+	private MemberDto user;
 	private String content;
 	private String boardImage;
 	private LocalDateTime createdDate;
 	private LocalDateTime lastModifiedDate;
 
-	public BoardDto(final Long boardSeq, final UserDto user, final String content, final String boardImage, final LocalDateTime createdDate) {
+	public BoardDto(final Long boardSeq, final MemberDto user, final String content, final String boardImage, final LocalDateTime createdDate) {
 		Assert.notNull(boardSeq, "게시물 SEQ 정보는 필수입니다.");
 		Assert.notNull(user, "게시물을 작성한 유저 정보는 필수입니다.");
 		Assert.hasText(boardImage, "게시물의 이미지는 필수입니다.");

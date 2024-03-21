@@ -4,7 +4,7 @@ import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Board;
 import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Member;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;
-import com.lgmpjt.websnsspringboot.application.port.in.dto.UserDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -21,24 +21,24 @@ public interface BoardMapper {
 	Board createDtoToBoard(BoardCreateDto boardCreateDto);
 
 	@Named("userDtoToUser")
-	default Member userDtoToUser(UserDto userDto) {
-		if ( userDto == null ) {
+	default Member userDtoToUser(MemberDto memberDto) {
+		if ( memberDto == null ) {
 			return null;
 		}
 
-		Member.UserBuilder user = Member.builder();
+		Member.MemberBuilder builder = Member.builder();
 
-		user.userSeq(userDto.getUserSeq() );
-		user.userId( userDto.getUserId() );
-		user.password( userDto.getPassword() );
-		user.userName( userDto.getUserName() );
-		user.userEmail( userDto.getUserEmail() );
-		user.createdDate( userDto.getCreatedDate() );
-		user.lastModifiedDate( userDto.getLastModifiedDate() );
-		user.isAdmin( userDto.isAdmin() );
-		user.isPrivate(userDto.isPrivate() );
+		builder.memberSeq(memberDto.getMemberSeq() );
+		builder.memberId( memberDto.getMemberId() );
+		builder.password( memberDto.getPassword() );
+		builder.memberName( memberDto.getMemberName() );
+		builder.email( memberDto.getEmail() );
+		builder.createdDate( memberDto.getCreatedDate() );
+		builder.lastModifiedDate( memberDto.getLastModifiedDate() );
+		builder.isAdmin( memberDto.isAdmin() );
+		builder.isPrivate(memberDto.isPrivate() );
 
-		return user.build();
+		return builder.build();
 	}
 
 	BoardDto boardToDto(Board board);
