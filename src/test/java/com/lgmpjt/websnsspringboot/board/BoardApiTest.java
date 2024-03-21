@@ -7,7 +7,7 @@ import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
-import com.lgmpjt.websnsspringboot.mapper.UserMapper;
+import com.lgmpjt.websnsspringboot.mapper.MemberMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -32,7 +32,7 @@ public class BoardApiTest extends ApiTest {
 	@Test
 	void createBoard() {
 		// 유저 생성
-		MemberDto memberDto = UserMapper.INSTANCE.toUserSearchDto(
+		MemberDto memberDto = MemberMapper.INSTANCE.toMemberSearchDto(
 			memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
@@ -49,7 +49,7 @@ public class BoardApiTest extends ApiTest {
 	@Test
 	void searchBoard() {
 		// 유저 생성
-		MemberDto memberDto = UserMapper.INSTANCE.toUserSearchDto(
+		MemberDto memberDto = MemberMapper.INSTANCE.toMemberSearchDto(
 				memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
@@ -66,7 +66,7 @@ public class BoardApiTest extends ApiTest {
 	@Test
 	void searchBoardsByUserSeq() {
 		// 유저 생성
-		MemberDto memberDto = UserMapper.INSTANCE.toUserSearchDto(
+		MemberDto memberDto = MemberMapper.INSTANCE.toMemberSearchDto(
 				memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
@@ -82,7 +82,7 @@ public class BoardApiTest extends ApiTest {
 	@Test
 	void updateBoard() {
 		// 유저 생성
-		MemberDto memberDto = UserMapper.INSTANCE.toUserSearchDto(
+		MemberDto memberDto = MemberMapper.INSTANCE.toMemberSearchDto(
 				memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
@@ -102,7 +102,7 @@ public class BoardApiTest extends ApiTest {
 	@Test
 	void deleteBoard() {
 		// 유저 생성
-		MemberDto memberDto = UserMapper.INSTANCE.toUserSearchDto(
+		MemberDto memberDto = MemberMapper.INSTANCE.toMemberSearchDto(
 				memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 

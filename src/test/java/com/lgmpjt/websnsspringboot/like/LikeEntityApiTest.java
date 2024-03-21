@@ -7,7 +7,7 @@ import com.lgmpjt.websnsspringboot.application.port.in.MemberCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
-import com.lgmpjt.websnsspringboot.mapper.UserMapper;
+import com.lgmpjt.websnsspringboot.mapper.MemberMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -35,7 +35,7 @@ public class LikeEntityApiTest extends ApiTest {
 	@Test
 	void doLike() {
 		// 유저 생성
-		MemberDto memberDto = UserMapper.INSTANCE.toUserSearchDto(
+		MemberDto memberDto = MemberMapper.INSTANCE.toMemberSearchDto(
 				memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
@@ -55,7 +55,7 @@ public class LikeEntityApiTest extends ApiTest {
 	@Test
 	void undoLike() {
 		// 유저 생성
-		MemberDto memberDto = UserMapper.INSTANCE.toUserSearchDto(
+		MemberDto memberDto = MemberMapper.INSTANCE.toMemberSearchDto(
 				memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
@@ -79,7 +79,7 @@ public class LikeEntityApiTest extends ApiTest {
 	@Test
 	void getLikeListByUser() {
 		// 유저 생성
-		MemberDto memberDto = UserMapper.INSTANCE.toUserSearchDto(
+		MemberDto memberDto = MemberMapper.INSTANCE.toMemberSearchDto(
 				memberCommandUseCase.createMember(requestUserCreateDto("adam123", "1234", "Adam", "adam@example.com"))
 		);
 

@@ -6,7 +6,7 @@ import com.lgmpjt.websnsspringboot.application.port.in.MemberSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
 import com.lgmpjt.websnsspringboot.application.port.out.MemberPort;
-import com.lgmpjt.websnsspringboot.mapper.UserMapper;
+import com.lgmpjt.websnsspringboot.mapper.MemberMapper;
 import com.lgmpjt.websnsspringboot.utils.SHA256;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ public class MemberService implements MemberSearchUseCase, MemberCommandUseCase 
 	@Transactional
 	public Member createMember(final MemberCreateDto memberCreateDto) {
 		encryptPassword(memberCreateDto);
-		final Member member = UserMapper.INSTANCE.createDtoToUser(memberCreateDto);
+		final Member member = MemberMapper.INSTANCE.createDtoToMember(memberCreateDto);
 		return memberPort.save(member);
 	}
 
@@ -41,7 +41,7 @@ public class MemberService implements MemberSearchUseCase, MemberCommandUseCase 
 	@Transactional(readOnly = true)
 	public MemberDto getMemberByMemberSeq(final Long memberSeq) {
 		final Member member = memberPort.getMemberByMemberSeq(memberSeq);
-		return UserMapper.INSTANCE.toUserSearchDto(member);
+		return MemberMapper.INSTANCE.toMemberSearchDto(member);
 	}
 
 	@Transactional

@@ -12,10 +12,10 @@ componentModel = "spring": spring 컨테이너에 Bean 등록
 unmappedTargetPolicy = ReportingPolicy.IGNORE: target class에 매핑되지 않는 필드가 있다면 null로 넣은 후 리포팅하지 않음
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface UserMapper {
-	UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
+public interface MemberMapper {
+	MemberMapper INSTANCE = Mappers.getMapper(MemberMapper.class);
 
-	Member createDtoToUser(MemberCreateDto memberCreateDto);
+	Member createDtoToMember(MemberCreateDto memberCreateDto);
 
-	MemberDto toUserSearchDto(Member entity);
+	MemberDto toMemberSearchDto(Member entity);
 }
