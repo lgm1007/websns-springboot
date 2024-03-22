@@ -24,6 +24,11 @@ class MemberAdapter implements MemberPort {
 	}
 
 	@Override
+	public Member getMemberByMemberId(String memberId) {
+		return memberRepository.findByMemberId(memberId).orElseThrow(() -> new UnsupportedOperationException("Not found member by memberId"));
+	}
+
+	@Override
 	public void delete(final Member member) {
 		memberRepository.delete(member);
 	}

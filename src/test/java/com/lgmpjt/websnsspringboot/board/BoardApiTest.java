@@ -32,7 +32,7 @@ public class BoardApiTest extends ApiTest {
 	@Test
 	void createBoard() {
 		// 유저 생성
-		MemberDto memberDto = MemberMapper.INSTANCE.toMemberSearchDto(
+		MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
 			memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
@@ -49,7 +49,7 @@ public class BoardApiTest extends ApiTest {
 	@Test
 	void searchBoard() {
 		// 유저 생성
-		MemberDto memberDto = MemberMapper.INSTANCE.toMemberSearchDto(
+		MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
 				memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
@@ -66,7 +66,7 @@ public class BoardApiTest extends ApiTest {
 	@Test
 	void searchBoardsByMemberSeq() {
 		// 유저 생성
-		MemberDto memberDto = MemberMapper.INSTANCE.toMemberSearchDto(
+		MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
 				memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
@@ -82,7 +82,7 @@ public class BoardApiTest extends ApiTest {
 	@Test
 	void updateBoard() {
 		// 유저 생성
-		MemberDto memberDto = MemberMapper.INSTANCE.toMemberSearchDto(
+		MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
 				memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
@@ -102,7 +102,7 @@ public class BoardApiTest extends ApiTest {
 	@Test
 	void deleteBoard() {
 		// 유저 생성
-		MemberDto memberDto = MemberMapper.INSTANCE.toMemberSearchDto(
+		MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
 				memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 

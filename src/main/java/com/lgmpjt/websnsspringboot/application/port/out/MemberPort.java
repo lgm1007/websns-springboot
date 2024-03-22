@@ -7,5 +7,7 @@ public interface MemberPort {
 
 	Member getMemberByMemberSeq(final Long memberSeq);
 
+	Member getMemberByMemberId(final String memberId);
+
 	void delete(final Member member);
 }
