@@ -41,7 +41,13 @@ public class MemberService implements MemberSearchUseCase, MemberCommandUseCase 
 	@Transactional(readOnly = true)
 	public MemberDto getMemberByMemberSeq(final Long memberSeq) {
 		final Member member = memberPort.getMemberByMemberSeq(memberSeq);
-		return MemberMapper.INSTANCE.toMemberSearchDto(member);
+		return MemberMapper.INSTANCE.toMemberDto(member);
+	}
+
+	@Override
+	public MemberDto getMemberByMemberId(String memberId) {
+		final Member member = memberPort.getMemberByMemberId(memberId);
+		return MemberMapper.INSTANCE.toMemberDto(member);
 	}
 
 	@Transactional

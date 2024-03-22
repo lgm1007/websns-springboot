@@ -17,5 +17,5 @@ public interface MemberMapper {
 
 	Member createDtoToMember(MemberCreateDto memberCreateDto);
 
-	MemberDto toMemberSearchDto(Member entity);
+	MemberDto toMemberDto(Member entity);
 }

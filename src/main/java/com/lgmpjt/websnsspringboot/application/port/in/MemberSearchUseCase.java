@@ -6,4 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface MemberSearchUseCase {
 	@Transactional(readOnly = true)
 	MemberDto getMemberByMemberSeq(final Long memberSeq);
+
+	@Transactional(readOnly = true)
+	MemberDto getMemberByMemberId(final String memberId);
 }
