@@ -27,7 +27,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
-    implementation 'io.jsonwebtoken:jwt'
+    implementation 'io.jsonwebtoken:jjwt'
     implementation 'com.google.guava:guava:31.1-jre'
     implementation 'org.mapstruct:mapstruct:1.5.5.Final'
 //    스웨거 연동 시 Spring 3 버전부터 webmvc 의존성으로 추가해야 함
