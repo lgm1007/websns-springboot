@@ -1,5 +1,6 @@
 package com.lgmpjt.websnsspringboot.application.port.in.dto;
 
+import com.lgmpjt.websnsspringboot.application.port.in.enumeration.MemberGrant;
 import lombok.*;
 import org.springframework.util.Assert;
 
@@ -37,5 +38,9 @@ public class MemberDto {
 		this.isPrivate = isPrivate;
 		this.createdDate = createdDate;
 		this.lastModifiedDate = LocalDateTime.now();
+	}
+
+	public MemberGrant getMemberGrant() {
+		return (isAdmin) ? MemberGrant.ADMIN : MemberGrant.USER;
 	}
 }
