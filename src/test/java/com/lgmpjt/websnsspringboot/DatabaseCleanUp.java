@@ -15,9 +15,10 @@ import java.util.List;
 import java.util.Set;
 
 @Component
-@ActiveProfiles(value = "local")
+@ActiveProfiles(value = "test")
 public class DatabaseCleanUp implements InitializingBean {
 	// DB에 테스트 데이터를 초기화해주기 위한 클래스
+	// h2 in-memory 모드로 테스트 실행하면 안 해줘도 될 동작
 	@PersistenceContext
 	private EntityManager entityManager;
 
