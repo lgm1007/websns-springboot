@@ -8,7 +8,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles(value = "local")
+@ActiveProfiles(value = "test")
 public class ApiTest {
 
 	@Autowired
@@ -21,8 +21,8 @@ public class ApiTest {
 	void setUp() {
 		if (RestAssured.port == RestAssured.UNDEFINED_PORT) {
 			RestAssured.port = port;
-			databaseCleanUp.afterPropertiesSet();
+//			databaseCleanUp.afterPropertiesSet();
 		}
-		databaseCleanUp.execute();
+//		databaseCleanUp.execute();
 	}
 }
