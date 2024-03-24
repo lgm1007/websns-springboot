@@ -5,6 +5,7 @@ import com.lgmpjt.websnsspringboot.application.port.in.MemberCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.MemberSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
+import com.lgmpjt.websnsspringboot.application.port.in.enumeration.MemberGrant;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -56,6 +57,19 @@ class MemberApiTest extends ApiTest {
 
 		// 조회 검증
 		AssertionsForClassTypes.assertThat(memberByMemberId.getMemberName()).isEqualTo("홍길동");
+	}
+
+	@Test
+	void isMemberGrant() {
+		// 유저 생성
+		memberCommandUseCase.createMember(requestMemberCreateDto());
+		final Long memberSeq = 1L;
+
+		// 유저 조회
+		ResponseBody body = requestFindMemberApi(memberSeq);
+
+		// 검증
+		AssertionsForClassTypes.assertThat(body.as(MemberDto.class).getMemberGrant()).isEqualTo(MemberGrant.USER);
 	}
 
 	@Test
