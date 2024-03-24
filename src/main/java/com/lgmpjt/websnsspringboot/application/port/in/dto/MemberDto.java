@@ -1,5 +1,6 @@
 package com.lgmpjt.websnsspringboot.application.port.in.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lgmpjt.websnsspringboot.application.port.in.enumeration.MemberGrant;
 import lombok.*;
 import org.springframework.util.Assert;
@@ -40,6 +41,7 @@ public class MemberDto {
 		this.lastModifiedDate = LocalDateTime.now();
 	}
 
+	@JsonIgnore
 	public MemberGrant getMemberGrant() {
 		return (isAdmin) ? MemberGrant.ADMIN : MemberGrant.USER;
 	}
