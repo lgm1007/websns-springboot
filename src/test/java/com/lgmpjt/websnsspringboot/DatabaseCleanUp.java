@@ -65,4 +65,11 @@ public class DatabaseCleanUp implements InitializingBean {
 
 		entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS = 1").executeUpdate();
 	}
+
+	@Transactional
+	public void executeInitializeAutoIncrement() {
+		for (final String tableName : tableNames) {
+			entityManager.createNativeQuery("ALTER TABLE " + tableName + " AUTO_INCREMENT = 1").executeUpdate();
+		}
+	}
 }
