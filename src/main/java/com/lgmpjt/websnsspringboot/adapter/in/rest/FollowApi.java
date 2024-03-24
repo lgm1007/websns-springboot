@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/follow")
 @RequiredArgsConstructor
-public class FollowController {
+public class FollowApi {
 	private FollowSearchUseCase searchUseCase;
 	private FollowCommandUseCase commandUseCase;
 
