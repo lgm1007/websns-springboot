@@ -21,8 +21,9 @@ public class ApiTest {
 	void setUp() {
 		if (RestAssured.port == RestAssured.UNDEFINED_PORT) {
 			RestAssured.port = port;
-//			databaseCleanUp.afterPropertiesSet();
+			databaseCleanUp.afterPropertiesSet();
 		}
 //		databaseCleanUp.execute();
+		databaseCleanUp.executeInitializeAutoIncrement();
 	}
 }
