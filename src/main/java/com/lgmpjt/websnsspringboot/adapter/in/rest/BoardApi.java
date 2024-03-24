@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/board")
 @RequiredArgsConstructor
-public class BoardController {
+public class BoardApi {
 	private final BoardSearchUseCase searchUseCase;
 	private final BoardCommandUseCase commandUseCase;
 

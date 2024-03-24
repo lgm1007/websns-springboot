@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/like")
 @RequiredArgsConstructor
-public class LikeController {
+public class LikeApi {
 
 	private final LikeSearchUseCase searchUseCase;
 	private final LikeCommandUseCase commandUseCase;
