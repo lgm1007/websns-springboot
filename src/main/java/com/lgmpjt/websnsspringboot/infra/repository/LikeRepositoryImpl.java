@@ -15,7 +15,7 @@ public class LikeRepositoryImpl implements LikeRepository {
 
 	@Override
 	public LikeEntity findByMemberSeqAndBoardSeq(Long memberSeq, Long boardSeq) {
-		return jpaRepository.findByMemberSeqAndBoardSeq(memberSeq, boardSeq);
+		return jpaRepository.findByMemberSeqAndBoardSeq(memberSeq, boardSeq).orElse(null);
 	}
 
 	@Override

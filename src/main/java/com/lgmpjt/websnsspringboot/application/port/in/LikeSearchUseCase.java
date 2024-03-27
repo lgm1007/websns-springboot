@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface LikeSearchUseCase {
 	@Transactional(readOnly = true)
-	List<BoardDto> getLikeBoardByMember(final Long memberSeq);
+	List<BoardDto> findAllLikeBoardByMember(final Long memberSeq);
 }
