@@ -41,12 +41,14 @@ public class LikeService implements LikeSearchUseCase, LikeCommandUseCase {
 	@Transactional
 	public void deleteLike(final Long memberSeq, final Long boardSeq) {
 		LikeEntity like = likePort.findByMemberSeqAndBoardSeq(memberSeq, boardSeq);
-		likePort.delete(like);
+		if (like != null) {
+			likePort.delete(like);
+		}
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<BoardDto> getLikeBoardByMember(final Long memberSeq) {
+	public List<BoardDto> findAllLikeBoardByMember(final Long memberSeq) {
 		return likePort.findAllByMemberSeq(memberSeq).stream()
 				.map(like -> BoardMapper.INSTANCE.boardToDto(like.getBoard()))
 				.toList();
