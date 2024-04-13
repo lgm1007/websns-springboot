@@ -6,7 +6,6 @@ import lombok.*;
 @Entity
 @Table(name = "Follow")
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
