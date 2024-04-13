@@ -1,13 +1,10 @@
 package com.lgmpjt.websnsspringboot.application.port.service;
 
 import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.LikeEntity;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.id.LikeId;
 import com.lgmpjt.websnsspringboot.application.port.in.LikeCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.LikeSearchUseCase;
-import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;
-import com.lgmpjt.websnsspringboot.application.port.out.BoardPort;
 import com.lgmpjt.websnsspringboot.application.port.out.LikePort;
-import com.lgmpjt.websnsspringboot.application.port.out.MemberPort;
-import com.lgmpjt.websnsspringboot.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,15 +18,17 @@ import java.util.List;
 public class LikeService implements LikeSearchUseCase, LikeCommandUseCase {
 
 	private final LikePort likePort;
-	private final MemberPort memberPort;
-	private final BoardPort boardPort;
 
 	@Override
 	public LikeEntity createLike(final Long memberSeq, final Long boardSeq) {
 
 		LikeEntity like = LikeEntity.builder()
-				.member(memberPort.getMemberByMemberSeq(memberSeq))
-				.board(boardPort.getBoardByBoardSeq(boardSeq))
+				.likeId(
+					LikeId.builder()
+						.memberSeq(memberSeq)
+						.boardSeq(boardSeq)
+						.build()
+				)
 				.createdDate(LocalDateTime.now())
 				.build();
 		return likePort.save(like);
@@ -44,9 +43,9 @@ public class LikeService implements LikeSearchUseCase, LikeCommandUseCase {
 	}
 
 	@Override
-	public List<BoardDto> findAllLikeBoardByMember(final Long memberSeq) {
+	public List<Long> findAllLikeBoardSeqByMemberSeq(final Long memberSeq) {
 		return likePort.findAllByMemberSeq(memberSeq).stream()
-				.map(like -> BoardMapper.INSTANCE.boardToDto(like.getBoard()))
+				.map(like -> like.getLikeId().getBoardSeq())
 				.toList();
 	}
 }
