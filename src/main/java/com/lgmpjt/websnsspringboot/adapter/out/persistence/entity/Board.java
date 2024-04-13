@@ -34,12 +34,8 @@ public class Board {
 
 	private LocalDateTime lastModifiedDate;
 
-	public void updateBoardContent(final String content) {
+	public void updateBoard(final String content, final String boardImage) {
 		this.content = content;
-		this.lastModifiedDate = LocalDateTime.now();
-	}
-
-	public void updateBoardImage(final String boardImage) {
 		this.boardImage = boardImage;
 		this.lastModifiedDate = LocalDateTime.now();
 	}

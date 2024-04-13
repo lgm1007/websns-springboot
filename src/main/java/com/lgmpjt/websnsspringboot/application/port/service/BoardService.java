@@ -45,14 +45,10 @@ public class BoardService implements BoardSearchUseCase, BoardCommandUseCase {
 	@Transactional
 	public void updateBoard(final BoardDto boardDto) {
 		final Board board = boardPort.getBoardByBoardSeq(boardDto.getBoardSeq());
-
-		if (boardDto.getBoardImage() != null) {
-			board.updateBoardImage(boardDto.getBoardImage());
-		}
-		if (boardDto.getContent() != null) {
-			board.updateBoardContent(boardDto.getContent());
-		}
-
+		board.updateBoard(
+				boardDto.getContent(),
+				boardDto.getBoardImage()
+		);
 		boardPort.save(board);
 	}
 
