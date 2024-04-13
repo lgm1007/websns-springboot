@@ -11,7 +11,6 @@ import com.lgmpjt.websnsspringboot.utils.SHA256;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -19,9 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService implements MemberSearchUseCase, MemberCommandUseCase {
 	private final MemberPort memberPort;
 
-	private final SHA256 sha256;
-
-	@Transactional
+	@Override
 	public Member createMember(final MemberCreateDto memberCreateDto) {
 		encryptPassword(memberCreateDto);
 		final Member member = MemberMapper.INSTANCE.createDtoToMember(memberCreateDto);
@@ -36,7 +33,7 @@ public class MemberService implements MemberSearchUseCase, MemberCommandUseCase 
 		}
 	}
 
-	@Transactional(readOnly = true)
+	@Override
 	public MemberDto getMemberByMemberSeq(final Long memberSeq) {
 		final Member member = memberPort.getMemberByMemberSeq(memberSeq);
 		return MemberMapper.INSTANCE.toMemberDto(member);
@@ -48,7 +45,7 @@ public class MemberService implements MemberSearchUseCase, MemberCommandUseCase 
 		return MemberMapper.INSTANCE.toMemberDto(member);
 	}
 
-	@Transactional
+	@Override
 	public void updateMember(final MemberDto memberDto) {
 		final Member member = memberPort.getMemberByMemberSeq(memberDto.getMemberSeq());
 
@@ -64,7 +61,7 @@ public class MemberService implements MemberSearchUseCase, MemberCommandUseCase 
 		}
 	}
 
-	@Transactional
+	@Override
 	public void deleteMember(final Long memberSeq) {
 		final Member member = memberPort.getMemberByMemberSeq(memberSeq);
 		memberPort.delete(member);

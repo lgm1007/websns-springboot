@@ -10,7 +10,6 @@ import com.lgmpjt.websnsspringboot.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,28 +20,24 @@ public class BoardService implements BoardSearchUseCase, BoardCommandUseCase {
 	private final BoardPort boardPort;
 
 	@Override
-	@Transactional
 	public Board createBoard(final BoardCreateDto boardCreateDto) {
 		Board board = BoardMapper.INSTANCE.createDtoToBoard(boardCreateDto);
 		return boardPort.save(board);
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public BoardDto getBoardByBoardSeq(final Long boardSeq) {
 		Board board = boardPort.getBoardByBoardSeq(boardSeq);
 		return BoardMapper.INSTANCE.boardToDto(board);
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public List<BoardDto> findAllBoardsByMemberSeq(final Long memberSeq) {
 		List<Board> boards = boardPort.findAllBoardsByMemberSeq(memberSeq);
 		return BoardMapper.INSTANCE.boardsToDtos(boards);
 	}
 
 	@Override
-	@Transactional
 	public void updateBoard(final BoardDto boardDto) {
 		final Board board = boardPort.getBoardByBoardSeq(boardDto.getBoardSeq());
 		board.updateBoard(
@@ -53,7 +48,6 @@ public class BoardService implements BoardSearchUseCase, BoardCommandUseCase {
 	}
 
 	@Override
-	@Transactional
 	public void deleteBoard(final Long boardSeq) {
 		final Board board = boardPort.getBoardByBoardSeq(boardSeq);
 		boardPort.delete(board);

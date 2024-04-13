@@ -9,7 +9,6 @@ import com.lgmpjt.websnsspringboot.application.port.out.MemberPort;
 import com.lgmpjt.websnsspringboot.mapper.FollowMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,7 +20,6 @@ public class FollowService implements FollowSearchUseCase, FollowCommandUseCase 
 	private final MemberPort memberPort;
 
 	@Override
-	@Transactional
 	public Follow saveFollow(final Long fromFollowMemberSeq, final Long toFollowMemberSeq) {
 		Follow follow = Follow.builder()
 				.from(memberPort.getMemberByMemberSeq(fromFollowMemberSeq))
@@ -31,19 +29,16 @@ public class FollowService implements FollowSearchUseCase, FollowCommandUseCase 
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public List<FollowDto> findAllFollowingByMember(final Long memberSeq) {
 		return FollowMapper.INSTANCE.followToSearchDtos(followPort.findAllByFrom(memberSeq));
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public List<FollowDto> findAllFollowerByMember(final Long memberSeq) {
 		return FollowMapper.INSTANCE.followToSearchDtos(followPort.findAllByTo(memberSeq));
 	}
 
 	@Override
-	@Transactional
 	public void deleteFollow(final Long fromFollowMemberSeq, final Long toFollowMemberSeq) {
 		final Follow follow = followPort.findByFromAndTo(fromFollowMemberSeq, toFollowMemberSeq);
 		followPort.delete(follow);

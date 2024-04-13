@@ -11,7 +11,6 @@ import com.lgmpjt.websnsspringboot.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,7 +25,6 @@ public class LikeService implements LikeSearchUseCase, LikeCommandUseCase {
 	private final BoardPort boardPort;
 
 	@Override
-	@Transactional
 	public LikeEntity createLike(final Long memberSeq, final Long boardSeq) {
 
 		LikeEntity like = LikeEntity.builder()
@@ -38,7 +36,6 @@ public class LikeService implements LikeSearchUseCase, LikeCommandUseCase {
 	}
 
 	@Override
-	@Transactional
 	public void deleteLike(final Long memberSeq, final Long boardSeq) {
 		LikeEntity like = likePort.findByMemberSeqAndBoardSeq(memberSeq, boardSeq);
 		if (like != null) {
@@ -47,7 +44,6 @@ public class LikeService implements LikeSearchUseCase, LikeCommandUseCase {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public List<BoardDto> findAllLikeBoardByMember(final Long memberSeq) {
 		return likePort.findAllByMemberSeq(memberSeq).stream()
 				.map(like -> BoardMapper.INSTANCE.boardToDto(like.getBoard()))
