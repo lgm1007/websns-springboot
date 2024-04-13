@@ -3,7 +3,6 @@ package com.lgmpjt.websnsspringboot.like;
 import com.lgmpjt.websnsspringboot.ApiTest;
 import com.lgmpjt.websnsspringboot.application.port.in.BoardCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.LikeCommandUseCase;
-import com.lgmpjt.websnsspringboot.application.port.in.LikeSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.MemberCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
@@ -33,9 +32,6 @@ public class LikeEntityApiTest extends ApiTest {
 	@Autowired
 	private LikeCommandUseCase likeCommandUseCase;
 
-	@Autowired
-	private LikeSearchUseCase likeSearchUseCase;
-
 	@Test
 	void doLike() {
 		// 유저 생성
@@ -43,14 +39,14 @@ public class LikeEntityApiTest extends ApiTest {
 				memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
-		Long userSeq = memberDto.getMemberSeq();
+		Long memberSeq = memberDto.getMemberSeq();
 
 		// 게시물 생성
 		Long boardSeq = boardCommandUseCase.createBoard(requestBoardCreateDto(memberDto))
 				.getBoardSeq();
 
 		// 게시물 좋아요하기
-		ExtractableResponse<Response> response = requestDoLike(userSeq, boardSeq);
+		ExtractableResponse<Response> response = requestDoLike(memberSeq, boardSeq);
 
 		// 응답값 검증
 		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
@@ -63,7 +59,7 @@ public class LikeEntityApiTest extends ApiTest {
 				memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
-		Long userSeq = memberDto.getMemberSeq();
+		Long memberSeq = memberDto.getMemberSeq();
 
 		// 게시물 생성
 		Long boardSeq = boardCommandUseCase.createBoard(requestBoardCreateDto(memberDto))
@@ -71,10 +67,10 @@ public class LikeEntityApiTest extends ApiTest {
 
 		
 		// 좋아요 하기
-		likeCommandUseCase.createLike(userSeq, boardSeq);
+		likeCommandUseCase.createLike(memberSeq, boardSeq);
 
 		// 좋아요 취소하기
-		ExtractableResponse<Response> response = requestUndoLike(userSeq, boardSeq);
+		ExtractableResponse<Response> response = requestUndoLike(memberSeq, boardSeq);
 
 		// 응답값 검증
 		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
@@ -87,17 +83,17 @@ public class LikeEntityApiTest extends ApiTest {
 				memberCommandUseCase.createMember(requestMemberCreateDto("adam123", "1234", "Adam", "adam@example.com"))
 		);
 
-		Long userSeq = memberDto.getMemberSeq();
+		Long memberSeq = memberDto.getMemberSeq();
 
 		// 게시물 생성
 		Long boardSeq = boardCommandUseCase.createBoard(requestBoardCreateDto(memberDto))
 				.getBoardSeq();
 
 		// 좋아요 하기
-		likeCommandUseCase.createLike(userSeq, boardSeq);
+		likeCommandUseCase.createLike(memberSeq, boardSeq);
 
 		// 특정 유저가 좋아요 한 게시글 리스트 조회하기 요청
-		ResponseBody body = requestLikeListByUser(userSeq);
+		ResponseBody body = requestLikeListByMember(memberSeq);
 
 		// 응답값 검증
 		AssertionsForClassTypes.assertThat(body.as(ArrayList.class).size()).isEqualTo(1);
@@ -121,7 +117,7 @@ public class LikeEntityApiTest extends ApiTest {
 				.log().all().extract();
 	}
 
-	private static ResponseBody requestLikeListByUser(final Long userSeq) {
+	private static ResponseBody requestLikeListByMember(final Long userSeq) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
