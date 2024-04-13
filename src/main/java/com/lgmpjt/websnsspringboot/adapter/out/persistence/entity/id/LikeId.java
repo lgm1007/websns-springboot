@@ -2,7 +2,6 @@ package com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.id;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,7 @@ import java.util.Objects;
 
 @Getter
 @Embeddable
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class LikeId implements Serializable {
 	@Column(name = "memberSeq")
 	private Long memberSeq;

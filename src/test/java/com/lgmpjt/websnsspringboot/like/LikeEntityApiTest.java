@@ -3,6 +3,7 @@ package com.lgmpjt.websnsspringboot.like;
 import com.lgmpjt.websnsspringboot.ApiTest;
 import com.lgmpjt.websnsspringboot.application.port.in.BoardCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.LikeCommandUseCase;
+import com.lgmpjt.websnsspringboot.application.port.in.LikeSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.MemberCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
@@ -31,6 +32,9 @@ public class LikeEntityApiTest extends ApiTest {
 
 	@Autowired
 	private LikeCommandUseCase likeCommandUseCase;
+
+	@Autowired
+	private LikeSearchUseCase likeSearchUseCase;
 
 	@Test
 	void doLike() {
@@ -97,7 +101,6 @@ public class LikeEntityApiTest extends ApiTest {
 
 		// 응답값 검증
 		AssertionsForClassTypes.assertThat(body.as(ArrayList.class).size()).isEqualTo(1);
-
 	}
 
 	private static ExtractableResponse<Response> requestDoLike(final Long userSeq, final Long boardSeq) {
