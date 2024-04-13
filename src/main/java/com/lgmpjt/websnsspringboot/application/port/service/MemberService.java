@@ -13,8 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -53,11 +51,17 @@ public class MemberService implements MemberSearchUseCase, MemberCommandUseCase 
 	@Transactional
 	public void updateMember(final MemberDto memberDto) {
 		final Member member = memberPort.getMemberByMemberSeq(memberDto.getMemberSeq());
-		member.setPassword(memberDto.getPassword());
-		member.setMemberName(memberDto.getMemberName());
-		member.setEmail(memberDto.getEmail());
-		member.setLastModifiedDate(LocalDateTime.now());
-		memberPort.save(member);
+
+		try {
+			member.updateMember(
+					SHA256.encrypt(memberDto.getPassword()),
+					memberDto.getMemberName(),
+					memberDto.getEmail()
+			);
+			memberPort.save(member);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
 	}
 
 	@Transactional

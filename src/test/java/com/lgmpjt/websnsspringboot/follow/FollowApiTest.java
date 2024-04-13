@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class FollowApiTest extends ApiTest {
@@ -142,6 +143,14 @@ public class FollowApiTest extends ApiTest {
 	private static MemberCreateDto requestMemberCreateDto(String memberId, String password, String memberName, String email) {
 		boolean isAdmin = false;
 		boolean isPrivate = false;
-		return new MemberCreateDto(memberId, password, memberName, email, isAdmin, isPrivate);
+		return MemberCreateDto.builder()
+				.memberId(memberId)
+				.password(password)
+				.memberName(memberName)
+				.email(email)
+				.isAdmin(isAdmin)
+				.isPrivate(isPrivate)
+				.createdDate(LocalDateTime.now())
+				.build();
 	}
 }

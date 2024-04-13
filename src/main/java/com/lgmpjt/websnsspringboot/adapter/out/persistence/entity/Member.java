@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "Member")
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -36,4 +35,10 @@ public class Member {
 
 	private boolean deleted;
 
+	public void updateMember(final String password, final String memberName, final String email) {
+		this.password = password;
+		this.memberName = memberName;
+		this.email = email;
+		this.lastModifiedDate = LocalDateTime.now();
+	}
 }

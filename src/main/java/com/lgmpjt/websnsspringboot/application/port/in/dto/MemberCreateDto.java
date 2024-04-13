@@ -8,8 +8,6 @@ import java.time.LocalDateTime;
 @ToString
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
 public class MemberCreateDto {
 	private String memberId;
@@ -21,7 +19,8 @@ public class MemberCreateDto {
 	private boolean isAdmin;
 	private boolean isPrivate;
 
-	public MemberCreateDto(String memberId, String password, String memberName, String email, boolean isAdmin, boolean isPrivate) {
+	@Builder
+	public MemberCreateDto(String memberId, String password, String memberName, String email, boolean isAdmin, boolean isPrivate, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
 		Assert.hasText(memberId, "유저 아이디 값은 필수입니다.");
 		Assert.notNull(password, "패스워드 값은 필수입니다.");
 		Assert.hasText(memberName, "유저 이름 값은 필수입니다.");

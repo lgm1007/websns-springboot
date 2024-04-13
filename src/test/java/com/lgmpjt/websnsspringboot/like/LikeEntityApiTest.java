@@ -36,7 +36,7 @@ public class LikeEntityApiTest extends ApiTest {
 	void doLike() {
 		// 유저 생성
 		MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
-				memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+				memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		Long userSeq = memberDto.getMemberSeq();
@@ -56,7 +56,7 @@ public class LikeEntityApiTest extends ApiTest {
 	void undoLike() {
 		// 유저 생성
 		MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
-				memberCommandUseCase.createMember(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+				memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
 		);
 
 		Long userSeq = memberDto.getMemberSeq();
@@ -80,7 +80,7 @@ public class LikeEntityApiTest extends ApiTest {
 	void getLikeListByUser() {
 		// 유저 생성
 		MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
-				memberCommandUseCase.createMember(requestUserCreateDto("adam123", "1234", "Adam", "adam@example.com"))
+				memberCommandUseCase.createMember(requestMemberCreateDto("adam123", "1234", "Adam", "adam@example.com"))
 		);
 
 		Long userSeq = memberDto.getMemberSeq();
@@ -128,10 +128,18 @@ public class LikeEntityApiTest extends ApiTest {
 				.body();
 	}
 
-	private static MemberCreateDto requestUserCreateDto(String userId, String password, String userName, String userEmail) {
+	private static MemberCreateDto requestMemberCreateDto(String memberId, String password, String memberName, String memberEmail) {
 		boolean isAdmin = false;
 		boolean isPrivate = false;
-		return new MemberCreateDto(userId, password, userName, userEmail, isAdmin, isPrivate);
+		return MemberCreateDto.builder()
+				.memberId(memberId)
+				.password(password)
+				.memberName(memberName)
+				.email(memberEmail)
+				.isAdmin(isAdmin)
+				.isPrivate(isPrivate)
+				.createdDate(LocalDateTime.now())
+				.build();
 	}
 
 	private static BoardCreateDto requestBoardCreateDto(MemberDto memberDto) {

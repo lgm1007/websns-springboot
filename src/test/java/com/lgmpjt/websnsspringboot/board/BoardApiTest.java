@@ -191,6 +191,14 @@ public class BoardApiTest extends ApiTest {
 	private static MemberCreateDto requestMemberCreateDto(String memberId, String password, String memberName, String email) {
 		boolean isAdmin = false;
 		boolean isPrivate = false;
-		return new MemberCreateDto(memberId, password, memberName, email, isAdmin, isPrivate);
+		return MemberCreateDto.builder()
+				.memberId(memberId)
+				.password(password)
+				.memberName(memberName)
+				.email(email)
+				.isAdmin(isAdmin)
+				.isPrivate(isPrivate)
+				.createdDate(LocalDateTime.now())
+				.build();
 	}
 }
