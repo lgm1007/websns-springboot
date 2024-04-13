@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -46,9 +45,14 @@ public class BoardService implements BoardSearchUseCase, BoardCommandUseCase {
 	@Transactional
 	public void updateBoard(final BoardDto boardDto) {
 		final Board board = boardPort.getBoardByBoardSeq(boardDto.getBoardSeq());
-		board.setContent(boardDto.getContent());
-		board.setBoardImage(boardDto.getBoardImage());
-		board.setLastModifiedDate(LocalDateTime.now());
+
+		if (boardDto.getBoardImage() != null) {
+			board.updateBoardImage(boardDto.getBoardImage());
+		}
+		if (boardDto.getContent() != null) {
+			board.updateBoardContent(boardDto.getContent());
+		}
+
 		boardPort.save(board);
 	}
 

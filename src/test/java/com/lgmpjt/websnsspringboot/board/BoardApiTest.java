@@ -168,13 +168,24 @@ public class BoardApiTest extends ApiTest {
 	private static BoardCreateDto requestBoardCreateDto(MemberDto memberDto) {
 		String content = "새로운 게시물입니다.";
 		String boardImage = "images/img01.jpg";
-		return new BoardCreateDto(memberDto, content, boardImage, LocalDateTime.now());
+		return BoardCreateDto.builder()
+				.member(memberDto)
+				.content(content)
+				.boardImage(boardImage)
+				.createdDate(LocalDateTime.now())
+				.build();
 	}
 
 	private static BoardDto requestBoardDto(Long boardSeq, MemberDto memberDto, LocalDateTime createdDate) {
 		String content = "업데이트된 게시물입니다.";
 		String boardImage = "imags/update01.jpg";
-		return new BoardDto(boardSeq, memberDto, content, boardImage, createdDate);
+		return BoardDto.builder()
+				.boardSeq(boardSeq)
+				.member(memberDto)
+				.content(content)
+				.boardImage(boardImage)
+				.createdDate(createdDate)
+				.build();
 	}
 
 	private static MemberCreateDto requestMemberCreateDto(String memberId, String password, String memberName, String email) {

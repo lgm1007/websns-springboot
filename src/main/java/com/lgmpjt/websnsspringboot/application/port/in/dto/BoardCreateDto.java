@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @ToString
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 public class BoardCreateDto {
 	private MemberDto member;
@@ -16,6 +15,7 @@ public class BoardCreateDto {
 	private String boardImage;
 	private LocalDateTime createdDate;
 
+	@Builder
 	public BoardCreateDto(MemberDto member, String content, String boardImage, LocalDateTime createdDate) {
 		Assert.notNull(member, "게시물을 작성한 유저 정보는 필수입니다.");
 		Assert.hasText(boardImage, "게시물의 이미지는 필수입니다.");
