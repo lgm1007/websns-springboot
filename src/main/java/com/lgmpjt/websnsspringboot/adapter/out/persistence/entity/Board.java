@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "Board")
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -34,4 +33,10 @@ public class Board {
 	private LocalDateTime createdDate;
 
 	private LocalDateTime lastModifiedDate;
+
+	public void updateBoard(final String content, final String boardImage) {
+		this.content = content;
+		this.boardImage = boardImage;
+		this.lastModifiedDate = LocalDateTime.now();
+	}
 }

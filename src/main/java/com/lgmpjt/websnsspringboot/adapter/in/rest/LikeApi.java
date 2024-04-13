@@ -2,7 +2,6 @@ package com.lgmpjt.websnsspringboot.adapter.in.rest;
 
 import com.lgmpjt.websnsspringboot.application.port.in.LikeCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.LikeSearchUseCase;
-import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -37,8 +36,8 @@ public class LikeApi {
 
 	@GetMapping("/list/{memberSeq}")
 	@Operation(summary = "특정 유저가 좋아요 한 게시글 목록", description = "특정 유저가 좋아요 한 게시글 목록을 조회합니다.")
-	public List<BoardDto> getBoardsByMemberLike(@PathVariable final Long memberSeq) {
-		return searchUseCase.findAllLikeBoardByMember(memberSeq);
+	public List<Long> getBoardsByMemberLike(@PathVariable final Long memberSeq) {
+		return searchUseCase.findAllLikeBoardSeqByMemberSeq(memberSeq);
 	}
 
 }

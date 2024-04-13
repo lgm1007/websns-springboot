@@ -1,17 +1,13 @@
 package com.lgmpjt.websnsspringboot.application.port.service;
 
 import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.LikeEntity;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.id.LikeId;
 import com.lgmpjt.websnsspringboot.application.port.in.LikeCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.LikeSearchUseCase;
-import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;
-import com.lgmpjt.websnsspringboot.application.port.out.BoardPort;
 import com.lgmpjt.websnsspringboot.application.port.out.LikePort;
-import com.lgmpjt.websnsspringboot.application.port.out.MemberPort;
-import com.lgmpjt.websnsspringboot.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,23 +18,23 @@ import java.util.List;
 public class LikeService implements LikeSearchUseCase, LikeCommandUseCase {
 
 	private final LikePort likePort;
-	private final MemberPort memberPort;
-	private final BoardPort boardPort;
 
 	@Override
-	@Transactional
 	public LikeEntity createLike(final Long memberSeq, final Long boardSeq) {
 
 		LikeEntity like = LikeEntity.builder()
-				.member(memberPort.getMemberByMemberSeq(memberSeq))
-				.board(boardPort.getBoardByBoardSeq(boardSeq))
+				.likeId(
+					LikeId.builder()
+						.memberSeq(memberSeq)
+						.boardSeq(boardSeq)
+						.build()
+				)
 				.createdDate(LocalDateTime.now())
 				.build();
 		return likePort.save(like);
 	}
 
 	@Override
-	@Transactional
 	public void deleteLike(final Long memberSeq, final Long boardSeq) {
 		LikeEntity like = likePort.findByMemberSeqAndBoardSeq(memberSeq, boardSeq);
 		if (like != null) {
@@ -47,10 +43,9 @@ public class LikeService implements LikeSearchUseCase, LikeCommandUseCase {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
-	public List<BoardDto> findAllLikeBoardByMember(final Long memberSeq) {
+	public List<Long> findAllLikeBoardSeqByMemberSeq(final Long memberSeq) {
 		return likePort.findAllByMemberSeq(memberSeq).stream()
-				.map(like -> BoardMapper.INSTANCE.boardToDto(like.getBoard()))
+				.map(like -> like.getLikeId().getBoardSeq())
 				.toList();
 	}
 }

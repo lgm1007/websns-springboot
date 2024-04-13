@@ -25,7 +25,7 @@ public class LikeRepositoryImpl implements LikeRepository {
 
 	@Override
 	public LikeEntity save(LikeEntity like) {
-		return jpaRepository.save(like);
+		return jpaRepository.saveAndFlush(like);
 	}
 
 	@Override

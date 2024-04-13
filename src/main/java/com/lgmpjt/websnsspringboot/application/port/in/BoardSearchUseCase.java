@@ -5,10 +5,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional(readOnly = true)
 public interface BoardSearchUseCase {
-	@Transactional(readOnly = true)
+
 	BoardDto getBoardByBoardSeq(final Long boardSeq);
 
-	@Transactional(readOnly = true)
 	List<BoardDto> findAllBoardsByMemberSeq(final Long memberSeq);
 }

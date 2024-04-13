@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 @ToString
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
 public class MemberDto {
 	Long memberSeq;
@@ -25,7 +23,8 @@ public class MemberDto {
 	boolean isPrivate;
 	boolean deleted;
 
-	public MemberDto(final Long memberSeq, final String memberId, final String password, final String memberName, final String email, final LocalDateTime createdDate, final boolean isAdmin, final boolean isPrivate) {
+	@Builder
+	public MemberDto(final Long memberSeq, final String memberId, final String password, final String memberName, final String email, final LocalDateTime createdDate, final LocalDateTime lastModifiedDate, final boolean isAdmin, final boolean isPrivate) {
 		Assert.notNull(memberSeq, "유저 SEQ 값은 필수입니다.");
 		Assert.notNull(password, "패스워드 값은 필수입니다.");
 		Assert.hasText(memberId, "유저 ID 값은 필수입니다.");

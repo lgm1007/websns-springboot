@@ -11,9 +11,6 @@ import com.lgmpjt.websnsspringboot.utils.SHA256;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
 
 @Slf4j
 @Service
@@ -21,9 +18,7 @@ import java.time.LocalDateTime;
 public class MemberService implements MemberSearchUseCase, MemberCommandUseCase {
 	private final MemberPort memberPort;
 
-	private final SHA256 sha256;
-
-	@Transactional
+	@Override
 	public Member createMember(final MemberCreateDto memberCreateDto) {
 		encryptPassword(memberCreateDto);
 		final Member member = MemberMapper.INSTANCE.createDtoToMember(memberCreateDto);
@@ -38,7 +33,7 @@ public class MemberService implements MemberSearchUseCase, MemberCommandUseCase 
 		}
 	}
 
-	@Transactional(readOnly = true)
+	@Override
 	public MemberDto getMemberByMemberSeq(final Long memberSeq) {
 		final Member member = memberPort.getMemberByMemberSeq(memberSeq);
 		return MemberMapper.INSTANCE.toMemberDto(member);
@@ -50,17 +45,23 @@ public class MemberService implements MemberSearchUseCase, MemberCommandUseCase 
 		return MemberMapper.INSTANCE.toMemberDto(member);
 	}
 
-	@Transactional
+	@Override
 	public void updateMember(final MemberDto memberDto) {
 		final Member member = memberPort.getMemberByMemberSeq(memberDto.getMemberSeq());
-		member.setPassword(memberDto.getPassword());
-		member.setMemberName(memberDto.getMemberName());
-		member.setEmail(memberDto.getEmail());
-		member.setLastModifiedDate(LocalDateTime.now());
-		memberPort.save(member);
+
+		try {
+			member.updateMember(
+					SHA256.encrypt(memberDto.getPassword()),
+					memberDto.getMemberName(),
+					memberDto.getEmail()
+			);
+			memberPort.save(member);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
 	}
 
-	@Transactional
+	@Override
 	public void deleteMember(final Long memberSeq) {
 		final Member member = memberPort.getMemberByMemberSeq(memberSeq);
 		memberPort.delete(member);

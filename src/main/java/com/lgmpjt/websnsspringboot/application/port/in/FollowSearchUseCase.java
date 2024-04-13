@@ -5,10 +5,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional(readOnly = true)
 public interface FollowSearchUseCase {
-	@Transactional(readOnly = true)
+
 	List<FollowDto> findAllFollowingByMember(final Long memberSeq);
 
-	@Transactional(readOnly = true)
 	List<FollowDto> findAllFollowerByMember(final Long memberSeq);
 }

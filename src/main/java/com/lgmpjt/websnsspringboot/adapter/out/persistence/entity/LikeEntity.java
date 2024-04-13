@@ -1,6 +1,9 @@
 package com.lgmpjt.websnsspringboot.adapter.out.persistence.entity;
 
-import jakarta.persistence.*;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.id.LikeId;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -8,29 +11,12 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "Likes")
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class LikeEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long likeSeq;
-
-
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "memberSeq")
-	private Member member;
-
-	@Column(insertable = false, updatable = false)
-	private Long memberSeq;
-
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "boardSeq")
-	private Board board;
-
-	@Column(insertable = false, updatable = false)
-	private Long boardSeq;
+	@EmbeddedId
+	private LikeId likeId;
 
 	private LocalDateTime createdDate;
 }
