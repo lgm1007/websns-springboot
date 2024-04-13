@@ -16,8 +16,8 @@ import java.util.List;
 @RequestMapping("/api/follow")
 @RequiredArgsConstructor
 public class FollowApi {
-	private FollowSearchUseCase searchUseCase;
-	private FollowCommandUseCase commandUseCase;
+	private final FollowSearchUseCase searchUseCase;
+	private final FollowCommandUseCase commandUseCase;
 
 	@PostMapping("/{fromFollow}/to/{toFollow}")
 	@Operation(summary = "팔로우 수행", description = "{fromFollow} 유저가 {toFollow} 유저를 팔로우합니다.")
