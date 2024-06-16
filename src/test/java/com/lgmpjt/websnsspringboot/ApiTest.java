@@ -24,6 +24,6 @@ public class ApiTest {
 			databaseCleanUp.afterPropertiesSet();
 		}
 //		databaseCleanUp.execute();
-		databaseCleanUp.executeInitializeAutoIncrement();
+		databaseCleanUp.executeInitializeTable();
 	}
 }
