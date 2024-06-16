@@ -26,9 +26,9 @@ public class FollowApiTest extends ApiTest {
 	@Test
 	void doFollow() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromFollow = memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
+		Long fromFollow = memberCommandUseCase.createMember(requestMemberCreateDto("memberId1", "1234", "David", "david@example.com"))
 				.getMemberSeq();
-		Long toFollow = memberCommandUseCase.createMember(requestMemberCreateDto("userId2", "5678", "John", "john@example.com"))
+		Long toFollow = memberCommandUseCase.createMember(requestMemberCreateDto("memberId2", "5678", "John", "john@example.com"))
 				.getMemberSeq();
 
 		// API 요청
@@ -41,9 +41,9 @@ public class FollowApiTest extends ApiTest {
 	@Test
 	void doUnfollow() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromFollow = memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
+		Long fromFollow = memberCommandUseCase.createMember(requestMemberCreateDto("memberId3", "1234", "White", "white@example.com"))
 				.getMemberSeq();
-		Long toFollow = memberCommandUseCase.createMember(requestMemberCreateDto("userId2", "5678", "John", "john@example.com"))
+		Long toFollow = memberCommandUseCase.createMember(requestMemberCreateDto("memberId4", "5678", "Paul", "paul@example.com"))
 				.getMemberSeq();
 
 		// 팔로우 생성
@@ -59,11 +59,11 @@ public class FollowApiTest extends ApiTest {
 	@Test
 	void doSearchFollowing() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromMemberSeq = memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
+		Long fromMemberSeq = memberCommandUseCase.createMember(requestMemberCreateDto("memberId5", "1234", "Tom", "tom@example.com"))
 				.getMemberSeq();
-		Long toFollow1 = memberCommandUseCase.createMember(requestMemberCreateDto("userId2", "5678", "John", "john@example.com"))
+		Long toFollow1 = memberCommandUseCase.createMember(requestMemberCreateDto("memberId6", "5678", "Grace", "grace@example.com"))
 				.getMemberSeq();
-		Long toFollow2 = memberCommandUseCase.createMember(requestMemberCreateDto("userId3", "9012", "Raychel", "raychel@example.com"))
+		Long toFollow2 = memberCommandUseCase.createMember(requestMemberCreateDto("memberId7", "9012", "Raychel", "raychel@example.com"))
 				.getMemberSeq();
 
 		// 팔로우 생성
@@ -80,13 +80,13 @@ public class FollowApiTest extends ApiTest {
 	@Test
 	void doSearchFollower() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromMemberSeq1 = memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
+		Long fromMemberSeq1 = memberCommandUseCase.createMember(requestMemberCreateDto("memberId8", "1234", "Tomas", "tomas@example.com"))
 				.getMemberSeq();
-		Long fromMemberSeq2 = memberCommandUseCase.createMember(requestMemberCreateDto("userId2", "5678", "John", "john@example.com"))
+		Long fromMemberSeq2 = memberCommandUseCase.createMember(requestMemberCreateDto("memberId9", "5678", "Jake", "jake@example.com"))
 				.getMemberSeq();
-		Long fromMemberSeq3 = memberCommandUseCase.createMember(requestMemberCreateDto("userId3", "9012", "Raychel", "raychel@example.com"))
+		Long fromMemberSeq3 = memberCommandUseCase.createMember(requestMemberCreateDto("memberId10", "9012", "Ulice", "ulice@example.com"))
 				.getMemberSeq();
-		Long toMemberSeq = memberCommandUseCase.createMember(requestMemberCreateDto("userId4", "1111", "Celeb", "celeb@example.com"))
+		Long toMemberSeq = memberCommandUseCase.createMember(requestMemberCreateDto("memberId11", "1111", "Celeb", "celeb@example.com"))
 				.getMemberSeq();
 
 		// 팔로우 생성
