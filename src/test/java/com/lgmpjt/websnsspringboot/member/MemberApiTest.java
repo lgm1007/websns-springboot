@@ -16,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-import java.time.LocalDateTime;
-
 class MemberApiTest extends ApiTest {
 
 	@Autowired
@@ -161,7 +159,6 @@ class MemberApiTest extends ApiTest {
 				.email(email)
 				.isAdmin(isAdmin)
 				.isPrivate(isPrivate)
-				.createdDate(LocalDateTime.now())
 				.build();
 	}
 

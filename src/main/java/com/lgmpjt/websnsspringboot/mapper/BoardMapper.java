@@ -33,8 +33,6 @@ public interface BoardMapper {
 		builder.password( memberDto.getPassword() );
 		builder.memberName( memberDto.getMemberName() );
 		builder.email( memberDto.getEmail() );
-		builder.createdDate( memberDto.getCreatedDate() );
-		builder.lastModifiedDate( memberDto.getLastModifiedDate() );
 		builder.isAdmin( memberDto.isAdmin() );
 		builder.isPrivate(memberDto.isPrivate() );
 

@@ -3,15 +3,13 @@ package com.lgmpjt.websnsspringboot.adapter.out.persistence.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Table(name = "Member")
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Member {
+public class Member extends CommonEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +23,6 @@ public class Member {
 
 	private String email;
 
-	private LocalDateTime createdDate;
-
-	private LocalDateTime lastModifiedDate;
-
 	private boolean isAdmin;
 
 	private boolean isPrivate;
@@ -39,6 +33,5 @@ public class Member {
 		this.password = password;
 		this.memberName = memberName;
 		this.email = email;
-		this.lastModifiedDate = LocalDateTime.now();
 	}
 }
