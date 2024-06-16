@@ -67,13 +67,14 @@ public class DatabaseCleanUp implements InitializingBean {
 	}
 
 	@Transactional
-	public void executeInitializeAutoIncrement() {
+	public void executeInitializeTable() {
+		entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS = 0").executeUpdate();
+		entityManager.flush();
+
 		for (final String tableName : tableNames) {
-			// Likes 테이블은 AUTO_INCREMENT 컬럼 없음
-			if (tableName.equals("Likes")) {
-				continue;
-			}
-			entityManager.createNativeQuery("ALTER TABLE " + tableName + " AUTO_INCREMENT = 1").executeUpdate();
+			entityManager.createNativeQuery("TRUNCATE TABLE " + tableName).executeUpdate();
 		}
+
+		entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS = 1").executeUpdate();
 	}
 }

@@ -1,6 +1,7 @@
 package com.lgmpjt.websnsspringboot.member;
 
 import com.lgmpjt.websnsspringboot.ApiTest;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Member;
 import com.lgmpjt.websnsspringboot.application.port.in.MemberCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.MemberSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
@@ -10,11 +11,12 @@ import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
-import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class MemberApiTest extends ApiTest {
 
@@ -25,60 +27,85 @@ class MemberApiTest extends ApiTest {
 
 	@Test
 	void createMember() {
-		final MemberCreateDto memberCreateDto = requestMemberCreateDto();
+		final MemberCreateDto memberCreateDto = requestMemberCreateDto(
+			"memberId1",
+			"password",
+			"memberName1",
+			"memberId1@example.com"
+		);
 
 		// API 요청
 		final ExtractableResponse<Response> response = requestMemberCreateApi(memberCreateDto);
 
-		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
+		assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
 	}
 
 	@Test
 	void searchMember() {
 		// 유저 생성
-		memberCommandUseCase.createMember(requestMemberCreateDto());
-		final Long memberSeq = 1L;
+		Member member = memberCommandUseCase.createMember(requestMemberCreateDto(
+			"memberId2",
+			"password",
+			"memberName2",
+			"memberId2@example.com"
+		));
+		final Long memberSeq = member.getMemberSeq();
 
 		// 유저 조회
 		ResponseBody body = requestFindMemberApi(memberSeq);
 
 		// 조회 응답 검증
-		AssertionsForClassTypes.assertThat(body.as(MemberDto.class).getMemberName()).isEqualTo("홍길동");
+		assertThat(body.as(MemberDto.class).getMemberName()).isEqualTo(member.getMemberName());
 	}
 
 	@Test
 	void searchMemberByMemberId() {
 		// 유저 생성
-		memberCommandUseCase.createMember(requestMemberCreateDto());
-		final String memberId = "memberId";
+		Member member = memberCommandUseCase.createMember(requestMemberCreateDto(
+			"memberId3",
+			"password",
+			"memberName3",
+			"memberId3@example.com"
+		));
+		final String memberId = member.getMemberId();
 
 		// 유저 ID로 유저 조회
 		MemberDto memberByMemberId = memberSearchUseCase.getMemberByMemberId(memberId);
 
 		// 조회 검증
-		AssertionsForClassTypes.assertThat(memberByMemberId.getMemberName()).isEqualTo("홍길동");
+		assertThat(memberByMemberId.getMemberName()).isEqualTo(member.getMemberName());
 	}
 
 	@Test
 	void isMemberGrant() {
 		// 유저 생성
-		memberCommandUseCase.createMember(requestMemberCreateDto());
-		final Long memberSeq = 1L;
+		Member member = memberCommandUseCase.createMember(requestMemberCreateDto(
+			"memberId4",
+			"password",
+			"memberName4",
+			"memberId4@example.com"
+		));
+		final Long memberSeq = member.getMemberSeq();
 
 		// 유저 조회
 		ResponseBody body = requestFindMemberApi(memberSeq);
 
 		// 검증
-		AssertionsForClassTypes.assertThat(body.as(MemberDto.class).getMemberGrant()).isEqualTo(MemberGrant.USER);
+		assertThat(body.as(MemberDto.class).getMemberGrant()).isEqualTo(MemberGrant.USER);
 	}
 
 	@Test
 	void updateMember() {
 		// 유저 생성
-		memberCommandUseCase.createMember(requestMemberCreateDto());
+		Member member = memberCommandUseCase.createMember(requestMemberCreateDto(
+			"memberId5",
+			"password",
+			"memberName5",
+			"memberId5@example.com"
+		));
 
 		// 유저 조회
-		final Long memberSeq = 1L;
+		final Long memberSeq = member.getMemberSeq();
 		MemberDto memberDto = memberSearchUseCase.getMemberByMemberSeq(memberSeq);
 
 		memberDto.setEmail("mytest1user@example.mail");
@@ -88,20 +115,25 @@ class MemberApiTest extends ApiTest {
 		ExtractableResponse<Response> response = requestUpdateMemberApi(memberSeq, memberDto);
 
 		// 업데이트 응답 검증
-		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+		assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
 	}
 
 	@Test
 	void withdrawMember() {
 		// 유저 생성
-		memberCommandUseCase.createMember(requestMemberCreateDto());
+		Member member = memberCommandUseCase.createMember(requestMemberCreateDto(
+			"memberId6",
+			"password",
+			"memberName6",
+			"memberId6@example.com"
+		));
 
-		final Long memberSeq = 1L;
+		final Long memberSeq = member.getMemberSeq();
 		// 유저 회원탈퇴
 		ExtractableResponse<Response> response = requestMemberWithdrawApi(memberSeq);
 		
 		// 유저 회원탈퇴 응답 검증
-		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+		assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
 	}
 
 
@@ -145,11 +177,10 @@ class MemberApiTest extends ApiTest {
 				.log().all().extract();
 	}
 
-	private static MemberCreateDto requestMemberCreateDto() {
-		String memberId = "memberId";
-		String password = "password";
-		String memberName = "홍길동";
-		String email = "mysns@example.com";
+	private static MemberCreateDto requestMemberCreateDto(String memberId,
+														  String password,
+														  String memberName,
+														  String email) {
 		boolean isAdmin = false;
 		boolean isPrivate = false;
 		return MemberCreateDto.builder()

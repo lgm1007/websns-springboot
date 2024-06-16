@@ -35,7 +35,7 @@ public class LikeEntityApiTest extends ApiTest {
 	void doLike() {
 		// 유저 생성
 		MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
-				memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
+				memberCommandUseCase.createMember(requestMemberCreateDto("memberId1", "1234", "David", "david@example.com"))
 		);
 
 		Long memberSeq = memberDto.getMemberSeq();
@@ -55,7 +55,7 @@ public class LikeEntityApiTest extends ApiTest {
 	void undoLike() {
 		// 유저 생성
 		MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
-				memberCommandUseCase.createMember(requestMemberCreateDto("userId1", "1234", "David", "david@example.com"))
+				memberCommandUseCase.createMember(requestMemberCreateDto("memberId2", "1234", "White", "white@example.com"))
 		);
 
 		Long memberSeq = memberDto.getMemberSeq();
@@ -79,7 +79,7 @@ public class LikeEntityApiTest extends ApiTest {
 	void getLikeListByUser() {
 		// 유저 생성
 		MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
-				memberCommandUseCase.createMember(requestMemberCreateDto("adam123", "1234", "Adam", "adam@example.com"))
+				memberCommandUseCase.createMember(requestMemberCreateDto("memberId3", "1234", "Adam", "adam@example.com"))
 		);
 
 		Long memberSeq = memberDto.getMemberSeq();
