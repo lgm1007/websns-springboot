@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class LikeEntityApiTest extends ApiTest {
@@ -137,13 +136,12 @@ public class LikeEntityApiTest extends ApiTest {
 				.email(memberEmail)
 				.isAdmin(isAdmin)
 				.isPrivate(isPrivate)
-				.createdDate(LocalDateTime.now())
 				.build();
 	}
 
 	private static BoardCreateDto requestBoardCreateDto(MemberDto memberDto) {
 		String content = "새로운 게시물입니다.";
 		String boardImage = "images/img01.jpg";
-		return new BoardCreateDto(memberDto, content, boardImage, LocalDateTime.now());
+		return new BoardCreateDto(memberDto, content, boardImage);
 	}
 }

@@ -4,15 +4,13 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Table(name = "Board")
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Board {
+public class Board extends CommonEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,13 +28,8 @@ public class Board {
 	@NotNull
 	private String boardImage;
 
-	private LocalDateTime createdDate;
-
-	private LocalDateTime lastModifiedDate;
-
 	public void updateBoard(final String content, final String boardImage) {
 		this.content = content;
 		this.boardImage = boardImage;
-		this.lastModifiedDate = LocalDateTime.now();
 	}
 }

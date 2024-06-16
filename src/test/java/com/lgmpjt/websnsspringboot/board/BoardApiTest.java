@@ -172,7 +172,6 @@ public class BoardApiTest extends ApiTest {
 				.member(memberDto)
 				.content(content)
 				.boardImage(boardImage)
-				.createdDate(LocalDateTime.now())
 				.build();
 	}
 
@@ -184,7 +183,6 @@ public class BoardApiTest extends ApiTest {
 				.member(memberDto)
 				.content(content)
 				.boardImage(boardImage)
-				.createdDate(createdDate)
 				.build();
 	}
 
@@ -198,7 +196,6 @@ public class BoardApiTest extends ApiTest {
 				.email(email)
 				.isAdmin(isAdmin)
 				.isPrivate(isPrivate)
-				.createdDate(LocalDateTime.now())
 				.build();
 	}
 }
