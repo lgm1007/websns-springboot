@@ -1,13 +1,13 @@
 package com.lgmpjt.websnsspringboot.board;
 
 import com.lgmpjt.websnsspringboot.ApiTest;
-import com.lgmpjt.websnsspringboot.domain.board.data.BoardCreateDto;
-import com.lgmpjt.websnsspringboot.domain.board.data.BoardDto;
-import com.lgmpjt.websnsspringboot.domain.board.service.BoardService;
-import com.lgmpjt.websnsspringboot.domain.user.data.UserCreateDto;
-import com.lgmpjt.websnsspringboot.domain.user.data.UserDto;
-import com.lgmpjt.websnsspringboot.domain.user.service.UserService;
-import com.lgmpjt.websnsspringboot.mapper.user.UserMapper;
+import com.lgmpjt.websnsspringboot.adapter.in.rest.request.BoardCreateRequest;
+import com.lgmpjt.websnsspringboot.application.port.in.BoardCommandUseCase;
+import com.lgmpjt.websnsspringboot.application.port.in.MemberCommandUseCase;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
+import com.lgmpjt.websnsspringboot.mapper.MemberMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -24,23 +24,23 @@ import java.util.ArrayList;
 public class BoardApiTest extends ApiTest {
 
 	@Autowired
-	private UserService userService;
+	private MemberCommandUseCase memberCommandUseCase;
 
 	@Autowired
-	private BoardService boardService;
+	private BoardCommandUseCase boardCommandUseCase;
 
 	@Test
 	void createBoard() {
 		// 유저 생성
-		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
-			userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+		MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
+			memberCommandUseCase.createMember(createMemberCreateDto("memberId1", "1234", "David", "david@example.com"))
 		);
 
 		// 게시물 생성
-		BoardCreateDto boardDto = requestBoardCreateDto(userDto);
+		BoardCreateRequest boardCreateRequest = createBoardCreateRequest(memberDto.getMemberSeq());
 
 		// 게시물 업로드 API 요청
-		ExtractableResponse<Response> response = requestBoardCreateApi(userDto.getUserSeq(), boardDto);
+		ExtractableResponse<Response> response = requestBoardCreateApi(memberDto.getMemberSeq(), boardCreateRequest);
 
 		// 업로드 응답 검증
 		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
@@ -49,12 +49,12 @@ public class BoardApiTest extends ApiTest {
 	@Test
 	void searchBoard() {
 		// 유저 생성
-		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
-				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+		MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
+				memberCommandUseCase.createMember(createMemberCreateDto("memberId2", "1234", "Tom", "tom@example.com"))
 		);
 
 		// 게시물 생성
-		Long boardSeq = boardService.createBoard(requestBoardCreateDto(userDto)).getBoardSeq();
+		Long boardSeq = boardCommandUseCase.createBoard(createBoardCreateRequest(memberDto.getMemberSeq())).getBoardSeq();
 
 		// 게시물 조회 API 요청
 		ResponseBody body = requestSearchBoardApi(boardSeq);
@@ -64,16 +64,16 @@ public class BoardApiTest extends ApiTest {
 	}
 	
 	@Test
-	void searchBoardsByUserSeq() {
+	void searchBoardsByMemberSeq() {
 		// 유저 생성
-		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
-				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+		MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
+				memberCommandUseCase.createMember(createMemberCreateDto("memberId3", "1234", "White", "white@example.com"))
 		);
 
 		// 게시물 생성
-		boardService.createBoard(requestBoardCreateDto(userDto));
+		boardCommandUseCase.createBoard(createBoardCreateRequest(memberDto.getMemberSeq()));
 
-		ResponseBody body = requestSearchBoardsByUserApi(userDto.getUserSeq());
+		ResponseBody body = requestSearchBoardsByMemberApi(memberDto.getMemberSeq());
 
 		// 조회 응답 검증
 		AssertionsForClassTypes.assertThat(body.as(ArrayList.class).size()).isEqualTo(1);
@@ -82,15 +82,16 @@ public class BoardApiTest extends ApiTest {
 	@Test
 	void updateBoard() {
 		// 유저 생성
-		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
-				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+		MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
+				memberCommandUseCase.createMember(createMemberCreateDto("memberId4", "1234", "Grace", "grace@example.com"))
 		);
 
 		// 게시물 생성
-		Long boardSeq = boardService.createBoard(requestBoardCreateDto(userDto)).getBoardSeq();
+		final Long memberSeq = memberDto.getMemberSeq();
+		Long boardSeq = boardCommandUseCase.createBoard(createBoardCreateRequest(memberSeq)).getBoardSeq();
 
 		// 업데이트 내용 포함된 BoardDto 생성
-		BoardDto boardDto = requestBoardDto(boardSeq, userDto, LocalDateTime.now());
+		BoardDto boardDto = createBoardDto(boardSeq, memberSeq, LocalDateTime.now());
 
 		// 업데이트 API 요청
 		ExtractableResponse<Response> response = requestUpdateBoard(boardSeq, boardDto);
@@ -102,12 +103,12 @@ public class BoardApiTest extends ApiTest {
 	@Test
 	void deleteBoard() {
 		// 유저 생성
-		UserDto userDto = UserMapper.INSTANCE.toUserSearchDto(
-				userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
+		MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
+				memberCommandUseCase.createMember(createMemberCreateDto("memberId5", "1234", "Paul", "paul@example.com"))
 		);
 
 		// 게시물 생성
-		Long boardSeq = boardService.createBoard(requestBoardCreateDto(userDto)).getBoardSeq();
+		Long boardSeq = boardCommandUseCase.createBoard(createBoardCreateRequest(memberDto.getMemberSeq())).getBoardSeq();
 
 		// 게시물 삭제 API 요청
 		ExtractableResponse<Response> response = requestBoardDeleteApi(boardSeq);
@@ -116,12 +117,12 @@ public class BoardApiTest extends ApiTest {
 		AssertionsForClassTypes.assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
 	}
 
-	private static ExtractableResponse<Response> requestBoardCreateApi(Long userSeq, BoardCreateDto boardCreateDto) {
+	private static ExtractableResponse<Response> requestBoardCreateApi(Long memberSeq, BoardCreateRequest boardCreateRequest) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.body(boardCreateDto)
+				.body(boardCreateRequest)
 				.when()
-				.post("/api/board/{userSeq}/upload", userSeq)
+				.post("/api/board/{memberSeq}/upload", memberSeq)
 				.then()
 				.log().all().extract();
 	}
@@ -136,11 +137,11 @@ public class BoardApiTest extends ApiTest {
 				.getBody();
 	}
 
-	private static ResponseBody requestSearchBoardsByUserApi(Long userSeq) {
+	private static ResponseBody requestSearchBoardsByMemberApi(Long memberSeq) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
-				.get("/api/board/user/{userSeq}", userSeq)
+				.get("/api/board/member/{memberSeq}", memberSeq)
 				.then()
 				.log().all().extract().response()
 				.getBody();
@@ -165,21 +166,33 @@ public class BoardApiTest extends ApiTest {
 				.log().all().extract();
 	}
 
-	private static BoardCreateDto requestBoardCreateDto(UserDto userDto) {
+	private static BoardCreateRequest createBoardCreateRequest(Long memberSeq) {
 		String content = "새로운 게시물입니다.";
 		String boardImage = "images/img01.jpg";
-		return new BoardCreateDto(userDto, content, boardImage, LocalDateTime.now());
+		return BoardCreateRequest.of(content, boardImage, memberSeq);
 	}
 
-	private static BoardDto requestBoardDto(Long boardSeq, UserDto userDto, LocalDateTime createdDate) {
+	private static BoardDto createBoardDto(Long boardSeq, Long memberSeq, LocalDateTime createdDate) {
 		String content = "업데이트된 게시물입니다.";
 		String boardImage = "imags/update01.jpg";
-		return new BoardDto(boardSeq, userDto, content, boardImage, createdDate);
+		return BoardDto.builder()
+				.boardSeq(boardSeq)
+				.memberSeq(memberSeq)
+				.content(content)
+				.boardImage(boardImage)
+				.build();
 	}
 
-	private static UserCreateDto requestUserCreateDto(String userId, String password, String userName, String userEmail) {
+	private static MemberCreateDto createMemberCreateDto(String memberId, String password, String memberName, String email) {
 		boolean isAdmin = false;
 		boolean isPrivate = false;
-		return new UserCreateDto(userId, password, userName, userEmail, isAdmin, isPrivate);
+		return MemberCreateDto.builder()
+				.memberId(memberId)
+				.password(password)
+				.memberName(memberName)
+				.email(email)
+				.isAdmin(isAdmin)
+				.isPrivate(isPrivate)
+				.build();
 	}
 }

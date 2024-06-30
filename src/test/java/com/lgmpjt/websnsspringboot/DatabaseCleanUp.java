@@ -18,6 +18,7 @@ import java.util.Set;
 @ActiveProfiles(value = "test")
 public class DatabaseCleanUp implements InitializingBean {
 	// DB에 테스트 데이터를 초기화해주기 위한 클래스
+	// h2 in-memory 모드로 테스트 실행하면 안 해줘도 될 동작
 	@PersistenceContext
 	private EntityManager entityManager;
 
@@ -60,6 +61,18 @@ public class DatabaseCleanUp implements InitializingBean {
 		for (final String tableName : tableNames) {
 			entityManager.createNativeQuery("TRUNCATE TABLE " + tableName).executeUpdate();
 			entityManager.createNativeQuery("ALTER TABLE " + tableName + " AUTO_INCREMENT = 1").executeUpdate();
+		}
+
+		entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS = 1").executeUpdate();
+	}
+
+	@Transactional
+	public void executeInitializeTable() {
+		entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS = 0").executeUpdate();
+		entityManager.flush();
+
+		for (final String tableName : tableNames) {
+			entityManager.createNativeQuery("TRUNCATE TABLE " + tableName).executeUpdate();
 		}
 
 		entityManager.createNativeQuery("SET FOREIGN_KEY_CHECKS = 1").executeUpdate();

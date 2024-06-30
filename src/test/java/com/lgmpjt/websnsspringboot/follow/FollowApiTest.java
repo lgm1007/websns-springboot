@@ -1,9 +1,9 @@
 package com.lgmpjt.websnsspringboot.follow;
 
 import com.lgmpjt.websnsspringboot.ApiTest;
-import com.lgmpjt.websnsspringboot.domain.follow.service.FollowService;
-import com.lgmpjt.websnsspringboot.domain.user.data.UserCreateDto;
-import com.lgmpjt.websnsspringboot.domain.user.service.UserService;
+import com.lgmpjt.websnsspringboot.application.port.in.FollowCommandUseCase;
+import com.lgmpjt.websnsspringboot.application.port.in.MemberCommandUseCase;
+import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -18,18 +18,18 @@ import java.util.ArrayList;
 
 public class FollowApiTest extends ApiTest {
 	@Autowired
-	private FollowService followService;
+	private FollowCommandUseCase followCommandUseCase;
 
 	@Autowired
-	private UserService userService;
+	private MemberCommandUseCase memberCommandUseCase;
 
 	@Test
 	void doFollow() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromFollow = userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
-				.getUserSeq();
-		Long toFollow = userService.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
-				.getUserSeq();
+		Long fromFollow = memberCommandUseCase.createMember(requestMemberCreateDto("memberId1", "1234", "David", "david@example.com"))
+				.getMemberSeq();
+		Long toFollow = memberCommandUseCase.createMember(requestMemberCreateDto("memberId2", "5678", "John", "john@example.com"))
+				.getMemberSeq();
 
 		// API 요청
 		ExtractableResponse<Response> response = requestDoFollow(fromFollow, toFollow);
@@ -41,13 +41,13 @@ public class FollowApiTest extends ApiTest {
 	@Test
 	void doUnfollow() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromFollow = userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
-				.getUserSeq();
-		Long toFollow = userService.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
-				.getUserSeq();
+		Long fromFollow = memberCommandUseCase.createMember(requestMemberCreateDto("memberId3", "1234", "White", "white@example.com"))
+				.getMemberSeq();
+		Long toFollow = memberCommandUseCase.createMember(requestMemberCreateDto("memberId4", "5678", "Paul", "paul@example.com"))
+				.getMemberSeq();
 
 		// 팔로우 생성
-		followService.saveFollow(fromFollow, toFollow);
+		followCommandUseCase.saveFollow(fromFollow, toFollow);
 		
 		// 언팔로우 API 요청
 		ExtractableResponse<Response> response = requestDoUnfollow(fromFollow, toFollow);
@@ -59,19 +59,19 @@ public class FollowApiTest extends ApiTest {
 	@Test
 	void doSearchFollowing() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromUserSeq = userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
-				.getUserSeq();
-		Long toFollow1 = userService.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
-				.getUserSeq();
-		Long toFollow2 = userService.createUser(requestUserCreateDto("userId3", "9012", "Raychel", "raychel@example.com"))
-				.getUserSeq();
+		Long fromMemberSeq = memberCommandUseCase.createMember(requestMemberCreateDto("memberId5", "1234", "Tom", "tom@example.com"))
+				.getMemberSeq();
+		Long toFollow1 = memberCommandUseCase.createMember(requestMemberCreateDto("memberId6", "5678", "Grace", "grace@example.com"))
+				.getMemberSeq();
+		Long toFollow2 = memberCommandUseCase.createMember(requestMemberCreateDto("memberId7", "9012", "Raychel", "raychel@example.com"))
+				.getMemberSeq();
 
 		// 팔로우 생성
-		followService.saveFollow(fromUserSeq, toFollow1);
-		followService.saveFollow(fromUserSeq, toFollow2);
+		followCommandUseCase.saveFollow(fromMemberSeq, toFollow1);
+		followCommandUseCase.saveFollow(fromMemberSeq, toFollow2);
 		
 		// 조회 API 요청
-		ResponseBody body = requestSearchFollowing(fromUserSeq);
+		ResponseBody body = requestSearchFollowing(fromMemberSeq);
 		
 		// API 응답값 검증
 		AssertionsForClassTypes.assertThat(body.as(ArrayList.class).size()).isEqualTo(2);
@@ -80,22 +80,22 @@ public class FollowApiTest extends ApiTest {
 	@Test
 	void doSearchFollower() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromUserSeq1 = userService.createUser(requestUserCreateDto("userId1", "1234", "David", "david@example.com"))
-				.getUserSeq();
-		Long fromUserSeq2 = userService.createUser(requestUserCreateDto("userId2", "5678", "John", "john@example.com"))
-				.getUserSeq();
-		Long fromUserSeq3 = userService.createUser(requestUserCreateDto("userId3", "9012", "Raychel", "raychel@example.com"))
-				.getUserSeq();
-		Long toUserSeq = userService.createUser(requestUserCreateDto("userId4", "1111", "Celeb", "celeb@example.com"))
-				.getUserSeq();
+		Long fromMemberSeq1 = memberCommandUseCase.createMember(requestMemberCreateDto("memberId8", "1234", "Tomas", "tomas@example.com"))
+				.getMemberSeq();
+		Long fromMemberSeq2 = memberCommandUseCase.createMember(requestMemberCreateDto("memberId9", "5678", "Jake", "jake@example.com"))
+				.getMemberSeq();
+		Long fromMemberSeq3 = memberCommandUseCase.createMember(requestMemberCreateDto("memberId10", "9012", "Ulice", "ulice@example.com"))
+				.getMemberSeq();
+		Long toMemberSeq = memberCommandUseCase.createMember(requestMemberCreateDto("memberId11", "1111", "Celeb", "celeb@example.com"))
+				.getMemberSeq();
 
 		// 팔로우 생성
-		followService.saveFollow(fromUserSeq1, toUserSeq);
-		followService.saveFollow(fromUserSeq2, toUserSeq);
-		followService.saveFollow(fromUserSeq3, toUserSeq);
+		followCommandUseCase.saveFollow(fromMemberSeq1, toMemberSeq);
+		followCommandUseCase.saveFollow(fromMemberSeq2, toMemberSeq);
+		followCommandUseCase.saveFollow(fromMemberSeq3, toMemberSeq);
 
 		// 조회 API 요청
-		ResponseBody body = requestSearchFollower(toUserSeq);
+		ResponseBody body = requestSearchFollower(toMemberSeq);
 
 		// API 응답값 검증
 		AssertionsForClassTypes.assertThat(body.as(ArrayList.class).size()).isEqualTo(3);
@@ -119,29 +119,36 @@ public class FollowApiTest extends ApiTest {
 				.log().all().extract();
 	}
 
-	private static ResponseBody requestSearchFollowing(Long fromUserSeq) {
+	private static ResponseBody requestSearchFollowing(Long fromMemberSeq) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
-				.get("/api/follow/{userSeq}/following", fromUserSeq)
+				.get("/api/follow/{memberSeq}/following", fromMemberSeq)
 				.then()
 				.log().all().extract().response()
 				.getBody();
 	}
 
-	private static ResponseBody requestSearchFollower(Long toUserSeq) {
+	private static ResponseBody requestSearchFollower(Long toMemberSeq) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
-				.get("/api/follow/{userSeq}/follower", toUserSeq)
+				.get("/api/follow/{memberSeq}/follower", toMemberSeq)
 				.then()
 				.log().all().extract().response()
 				.getBody();
 	}
 
-	private static UserCreateDto requestUserCreateDto(String userId, String password, String userName, String userEmail) {
+	private static MemberCreateDto requestMemberCreateDto(String memberId, String password, String memberName, String email) {
 		boolean isAdmin = false;
 		boolean isPrivate = false;
-		return new UserCreateDto(userId, password, userName, userEmail, isAdmin, isPrivate);
+		return MemberCreateDto.builder()
+				.memberId(memberId)
+				.password(password)
+				.memberName(memberName)
+				.email(email)
+				.isAdmin(isAdmin)
+				.isPrivate(isPrivate)
+				.build();
 	}
 }

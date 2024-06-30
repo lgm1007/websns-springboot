@@ -23,6 +23,7 @@ public class ApiTest {
 			RestAssured.port = port;
 			databaseCleanUp.afterPropertiesSet();
 		}
-		databaseCleanUp.execute();
+//		databaseCleanUp.execute();
+		databaseCleanUp.executeInitializeTable();
 	}
 }
