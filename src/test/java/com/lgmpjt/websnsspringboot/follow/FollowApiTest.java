@@ -123,7 +123,7 @@ public class FollowApiTest extends ApiTest {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
-				.get("/api/follow/{memberSeq}/following", fromMemberSeq)
+				.get("/api/follow/following/{memberSeq}", fromMemberSeq)
 				.then()
 				.log().all().extract().response()
 				.getBody();
@@ -133,7 +133,7 @@ public class FollowApiTest extends ApiTest {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.when()
-				.get("/api/follow/{memberSeq}/follower", toMemberSeq)
+				.get("/api/follow/follower/{memberSeq}", toMemberSeq)
 				.then()
 				.log().all().extract().response()
 				.getBody();
