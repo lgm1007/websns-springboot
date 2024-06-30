@@ -22,9 +22,9 @@ public class FollowService implements FollowSearchUseCase, FollowCommandUseCase 
 	@Override
 	public Follow saveFollow(final Long fromFollowMemberSeq, final Long toFollowMemberSeq) {
 		Follow follow = Follow.builder()
-				.from(memberPort.getMemberByMemberSeq(fromFollowMemberSeq))
-				.to(memberPort.getMemberByMemberSeq(toFollowMemberSeq))
-				.build();
+			.fromFollow(fromFollowMemberSeq)
+			.toFollow(toFollowMemberSeq)
+			.build();
 		return followPort.save(follow);
 	}
 
