@@ -1,8 +1,8 @@
 package com.lgmpjt.websnsspringboot.adapter.out.persistence.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.antlr.v4.runtime.misc.NotNull;
 
 @Entity
 @Table(name = "Board")
@@ -16,11 +16,7 @@ public class Board extends CommonEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long boardSeq;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "memberSeq")
-	private Member member;
-
-	@Column(insertable = false, updatable = false)
+	@NotNull
 	private Long memberSeq;
 
 	private String content;
