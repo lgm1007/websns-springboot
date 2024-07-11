@@ -1,6 +1,7 @@
 package com.lgmpjt.websnsspringboot.application.port.in.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Member;
 import com.lgmpjt.websnsspringboot.application.port.in.enumeration.MemberGrant;
 import lombok.*;
 import org.springframework.util.Assert;
@@ -37,5 +38,17 @@ public class MemberDto {
 	@JsonIgnore
 	public MemberGrant getMemberGrant() {
 		return (isAdmin) ? MemberGrant.ADMIN : MemberGrant.USER;
+	}
+
+	public static MemberDto from(final Member member) {
+		return MemberDto.builder()
+			.memberSeq(member.getMemberSeq())
+			.password(member.getPassword())
+			.memberId(member.getMemberId())
+			.memberName(member.getMemberName())
+			.email(member.getEmail())
+			.isAdmin(member.isAdmin())
+			.isPrivate(member.isPrivate())
+			.build();
 	}
 }

@@ -6,7 +6,6 @@ import com.lgmpjt.websnsspringboot.application.port.in.MemberSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
 import com.lgmpjt.websnsspringboot.application.port.out.MemberPort;
 import com.lgmpjt.websnsspringboot.application.port.service.dto.MemberServiceDto;
-import com.lgmpjt.websnsspringboot.mapper.MemberMapper;
 import com.lgmpjt.websnsspringboot.utils.SHA256;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,13 +36,13 @@ public class MemberService implements MemberSearchUseCase, MemberCommandUseCase 
 	@Override
 	public MemberDto getMemberByMemberSeq(final Long memberSeq) {
 		final Member member = memberPort.getMemberByMemberSeq(memberSeq);
-		return MemberMapper.INSTANCE.toMemberDto(member);
+		return MemberDto.from(member);
 	}
 
 	@Override
 	public MemberDto getMemberByMemberId(String memberId) {
 		final Member member = memberPort.getMemberByMemberId(memberId);
-		return MemberMapper.INSTANCE.toMemberDto(member);
+		return MemberDto.from(member);
 	}
 
 	@Override
@@ -52,9 +51,9 @@ public class MemberService implements MemberSearchUseCase, MemberCommandUseCase 
 
 		try {
 			member.updateMember(
-					SHA256.encrypt(memberDto.getPassword()),
-					memberDto.getMemberName(),
-					memberDto.getEmail()
+				SHA256.encrypt(memberDto.getPassword()),
+				memberDto.getMemberName(),
+				memberDto.getEmail()
 			);
 			memberPort.save(member);
 		} catch (Exception e) {
