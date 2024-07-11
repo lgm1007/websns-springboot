@@ -4,6 +4,7 @@ import com.lgmpjt.websnsspringboot.adapter.in.rest.request.BoardCreateRequest;
 import com.lgmpjt.websnsspringboot.application.port.in.BoardCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.BoardSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;
+import com.lgmpjt.websnsspringboot.application.port.service.dto.BoardServiceDto;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class BoardApi {
 	@Operation(summary = "게시물 업로드", description = "유저가 게시물을 업로드합니다.")
 	public ResponseEntity<Void> createNewBoard(@PathVariable final Long memberSeq,
 											   @RequestBody final BoardCreateRequest boardCreateRequest) {
-		commandUseCase.createBoard(boardCreateRequest);
+		commandUseCase.createBoard(BoardServiceDto.from(boardCreateRequest));
 
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}

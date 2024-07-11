@@ -7,15 +7,15 @@ import lombok.Getter;
 @Getter
 @Builder
 public class BoardCreateRequest {
+	@NotNull
+	private final Long memberSeq;
 	private final String content;
 	@NotNull
 	private final String boardImage;
-	@NotNull
-	private final Long memberSeq;
 
-	public static BoardCreateRequest of(final String content,
-											   final String boardImage,
-											   final Long memberSeq) {
-		return new BoardCreateRequest(content, boardImage, memberSeq);
+	public static BoardCreateRequest of(final Long memberSeq,
+										final String content,
+										final String boardImage) {
+		return new BoardCreateRequest(memberSeq, content, boardImage);
 	}
 }

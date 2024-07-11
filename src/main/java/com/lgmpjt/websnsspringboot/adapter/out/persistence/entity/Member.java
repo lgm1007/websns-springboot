@@ -1,5 +1,6 @@
 package com.lgmpjt.websnsspringboot.adapter.out.persistence.entity;
 
+import com.lgmpjt.websnsspringboot.application.port.service.dto.MemberServiceDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,5 +34,16 @@ public class Member extends CommonEntity {
 		this.password = password;
 		this.memberName = memberName;
 		this.email = email;
+	}
+
+	public static Member from(final MemberServiceDto memberServiceDto) {
+		return Member.builder()
+			.memberId(memberServiceDto.getMemberId())
+			.password(memberServiceDto.getPassword())
+			.memberName(memberServiceDto.getMemberName())
+			.email(memberServiceDto.getEmail())
+			.isAdmin(memberServiceDto.isAdmin())
+			.isPrivate(memberServiceDto.isPrivate())
+			.build();
 	}
 }

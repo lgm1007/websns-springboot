@@ -1,12 +1,13 @@
 package com.lgmpjt.websnsspringboot.member;
 
 import com.lgmpjt.websnsspringboot.ApiTest;
+import com.lgmpjt.websnsspringboot.adapter.in.rest.request.MemberCreateRequest;
 import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Member;
 import com.lgmpjt.websnsspringboot.application.port.in.MemberCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.MemberSearchUseCase;
-import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
 import com.lgmpjt.websnsspringboot.application.port.in.enumeration.MemberGrant;
+import com.lgmpjt.websnsspringboot.application.port.service.dto.MemberServiceDto;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -27,7 +28,7 @@ class MemberApiTest extends ApiTest {
 
 	@Test
 	void createMember() {
-		final MemberCreateDto memberCreateDto = requestMemberCreateDto(
+		final MemberCreateRequest memberCreateRequest = requestMemberCreateRequest(
 			"memberId1",
 			"password",
 			"memberName1",
@@ -35,7 +36,7 @@ class MemberApiTest extends ApiTest {
 		);
 
 		// API 요청
-		final ExtractableResponse<Response> response = requestMemberCreateApi(memberCreateDto);
+		final ExtractableResponse<Response> response = requestMemberCreateApi(memberCreateRequest);
 
 		assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
 	}
@@ -43,12 +44,13 @@ class MemberApiTest extends ApiTest {
 	@Test
 	void searchMember() {
 		// 유저 생성
-		Member member = memberCommandUseCase.createMember(requestMemberCreateDto(
+		final MemberCreateRequest memberCreateRequest = requestMemberCreateRequest(
 			"memberId2",
 			"password",
 			"memberName2",
 			"memberId2@example.com"
-		));
+		);
+		Member member = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest));
 		final Long memberSeq = member.getMemberSeq();
 
 		// 유저 조회
@@ -61,12 +63,13 @@ class MemberApiTest extends ApiTest {
 	@Test
 	void searchMemberByMemberId() {
 		// 유저 생성
-		Member member = memberCommandUseCase.createMember(requestMemberCreateDto(
+		final MemberCreateRequest memberCreateRequest = requestMemberCreateRequest(
 			"memberId3",
 			"password",
 			"memberName3",
 			"memberId3@example.com"
-		));
+		);
+		final Member member = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest));
 		final String memberId = member.getMemberId();
 
 		// 유저 ID로 유저 조회
@@ -79,12 +82,13 @@ class MemberApiTest extends ApiTest {
 	@Test
 	void isMemberGrant() {
 		// 유저 생성
-		Member member = memberCommandUseCase.createMember(requestMemberCreateDto(
+		final MemberCreateRequest memberCreateRequest = requestMemberCreateRequest(
 			"memberId4",
 			"password",
 			"memberName4",
 			"memberId4@example.com"
-		));
+		);
+		final Member member = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest));
 		final Long memberSeq = member.getMemberSeq();
 
 		// 유저 조회
@@ -97,12 +101,13 @@ class MemberApiTest extends ApiTest {
 	@Test
 	void updateMember() {
 		// 유저 생성
-		Member member = memberCommandUseCase.createMember(requestMemberCreateDto(
+		final MemberCreateRequest memberCreateRequest = requestMemberCreateRequest(
 			"memberId5",
 			"password",
 			"memberName5",
 			"memberId5@example.com"
-		));
+		);
+		Member member = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest));
 
 		// 유저 조회
 		final Long memberSeq = member.getMemberSeq();
@@ -121,12 +126,13 @@ class MemberApiTest extends ApiTest {
 	@Test
 	void withdrawMember() {
 		// 유저 생성
-		Member member = memberCommandUseCase.createMember(requestMemberCreateDto(
+		final MemberCreateRequest memberCreateRequest = requestMemberCreateRequest(
 			"memberId6",
 			"password",
 			"memberName6",
 			"memberId6@example.com"
-		));
+		);
+		Member member = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest));
 
 		final Long memberSeq = member.getMemberSeq();
 		// 유저 회원탈퇴
@@ -138,10 +144,10 @@ class MemberApiTest extends ApiTest {
 
 
 
-	private static ExtractableResponse<Response> requestMemberCreateApi(MemberCreateDto memberCreateDto) {
+	private static ExtractableResponse<Response> requestMemberCreateApi(MemberCreateRequest memberCreateRequest) {
 		return RestAssured.given().log().all()
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.body(memberCreateDto)
+				.body(memberCreateRequest)
 				.when()
 				.post("/api/member")
 				.then()
@@ -177,20 +183,20 @@ class MemberApiTest extends ApiTest {
 				.log().all().extract();
 	}
 
-	private static MemberCreateDto requestMemberCreateDto(String memberId,
-														  String password,
-														  String memberName,
-														  String email) {
+	private static MemberCreateRequest requestMemberCreateRequest(String memberId,
+																  String password,
+																  String memberName,
+																  String email) {
 		boolean isAdmin = false;
 		boolean isPrivate = false;
-		return MemberCreateDto.builder()
-				.memberId(memberId)
-				.password(password)
-				.memberName(memberName)
-				.email(email)
-				.isAdmin(isAdmin)
-				.isPrivate(isPrivate)
-				.build();
+		return MemberCreateRequest.builder()
+			.memberId(memberId)
+			.password(password)
+			.memberName(memberName)
+			.email(email)
+			.isAdmin(isAdmin)
+			.isPrivate(isPrivate)
+			.build();
 	}
 
 }

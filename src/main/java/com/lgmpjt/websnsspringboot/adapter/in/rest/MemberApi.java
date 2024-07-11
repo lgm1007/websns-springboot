@@ -1,9 +1,10 @@
 package com.lgmpjt.websnsspringboot.adapter.in.rest;
 
+import com.lgmpjt.websnsspringboot.adapter.in.rest.request.MemberCreateRequest;
 import com.lgmpjt.websnsspringboot.application.port.in.MemberCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.MemberSearchUseCase;
-import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
+import com.lgmpjt.websnsspringboot.application.port.service.dto.MemberServiceDto;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,8 +20,8 @@ public class MemberApi {
 
 	@PostMapping
 	@Operation(summary = "신규 유저 생성", description = "회원가입한 신규 유저를 생성해줍니다.")
-	public ResponseEntity<Void> createNewMember(@RequestBody final MemberCreateDto memberCreateDto) {
-		commandUseCase.createMember(memberCreateDto);
+	public ResponseEntity<Void> createNewMember(@RequestBody final MemberCreateRequest memberCreateRequest) {
+		commandUseCase.createMember(MemberServiceDto.from(memberCreateRequest));
 
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}

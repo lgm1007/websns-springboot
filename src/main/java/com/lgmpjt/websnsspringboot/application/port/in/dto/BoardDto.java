@@ -1,5 +1,6 @@
 package com.lgmpjt.websnsspringboot.application.port.in.dto;
 
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Board;
 import lombok.*;
 import org.springframework.util.Assert;
 
@@ -21,5 +22,14 @@ public class BoardDto {
 		this.memberSeq = memberSeq;
 		this.content = content;
 		this.boardImage = boardImage;
+	}
+
+	public static BoardDto from(final Board board) {
+		return BoardDto.builder()
+			.boardSeq(board.getBoardSeq())
+			.memberSeq(board.getMemberSeq())
+			.content(board.getContent())
+			.boardImage(board.getBoardImage())
+			.build();
 	}
 }

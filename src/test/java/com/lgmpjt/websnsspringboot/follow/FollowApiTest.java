@@ -1,9 +1,10 @@
 package com.lgmpjt.websnsspringboot.follow;
 
 import com.lgmpjt.websnsspringboot.ApiTest;
+import com.lgmpjt.websnsspringboot.adapter.in.rest.request.MemberCreateRequest;
 import com.lgmpjt.websnsspringboot.application.port.in.FollowCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.MemberCommandUseCase;
-import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
+import com.lgmpjt.websnsspringboot.application.port.service.dto.MemberServiceDto;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -26,10 +27,10 @@ public class FollowApiTest extends ApiTest {
 	@Test
 	void doFollow() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromFollow = memberCommandUseCase.createMember(requestMemberCreateDto("memberId1", "1234", "David", "david@example.com"))
-				.getMemberSeq();
-		Long toFollow = memberCommandUseCase.createMember(requestMemberCreateDto("memberId2", "5678", "John", "john@example.com"))
-				.getMemberSeq();
+		final MemberCreateRequest memberCreateRequest1 = requestMemberCreateDto("memberId1", "1234", "David", "david@example.com");
+		final MemberCreateRequest memberCreateRequest2 = requestMemberCreateDto("memberId2", "5678", "John", "john@example.com");
+		final Long fromFollow = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest1)).getMemberSeq();
+		final Long toFollow = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest2)).getMemberSeq();
 
 		// API 요청
 		ExtractableResponse<Response> response = requestDoFollow(fromFollow, toFollow);
@@ -41,10 +42,10 @@ public class FollowApiTest extends ApiTest {
 	@Test
 	void doUnfollow() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromFollow = memberCommandUseCase.createMember(requestMemberCreateDto("memberId3", "1234", "White", "white@example.com"))
-				.getMemberSeq();
-		Long toFollow = memberCommandUseCase.createMember(requestMemberCreateDto("memberId4", "5678", "Paul", "paul@example.com"))
-				.getMemberSeq();
+		final MemberCreateRequest memberCreateRequest1 = requestMemberCreateDto("memberId3", "1234", "White", "white@example.com");
+		final MemberCreateRequest memberCreateRequest2 = requestMemberCreateDto("memberId4", "5678", "Paul", "paul@example.com");
+		final Long fromFollow = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest1)).getMemberSeq();
+		final Long toFollow = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest2)).getMemberSeq();
 
 		// 팔로우 생성
 		followCommandUseCase.saveFollow(fromFollow, toFollow);
@@ -59,12 +60,12 @@ public class FollowApiTest extends ApiTest {
 	@Test
 	void doSearchFollowing() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromMemberSeq = memberCommandUseCase.createMember(requestMemberCreateDto("memberId5", "1234", "Tom", "tom@example.com"))
-				.getMemberSeq();
-		Long toFollow1 = memberCommandUseCase.createMember(requestMemberCreateDto("memberId6", "5678", "Grace", "grace@example.com"))
-				.getMemberSeq();
-		Long toFollow2 = memberCommandUseCase.createMember(requestMemberCreateDto("memberId7", "9012", "Raychel", "raychel@example.com"))
-				.getMemberSeq();
+		final MemberCreateRequest memberCreateRequest1 = requestMemberCreateDto("memberId5", "1234", "Tom", "tom@example.com");
+		final MemberCreateRequest memberCreateRequest2 = requestMemberCreateDto("memberId6", "5678", "Grace", "grace@example.com");
+		final MemberCreateRequest memberCreateRequest3 = requestMemberCreateDto("memberId7", "9012", "Raychel", "raychel@example.com");
+		final Long fromMemberSeq = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest1)).getMemberSeq();
+		final Long toFollow1 = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest2)).getMemberSeq();
+		final Long toFollow2 = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest3)).getMemberSeq();
 
 		// 팔로우 생성
 		followCommandUseCase.saveFollow(fromMemberSeq, toFollow1);
@@ -80,14 +81,15 @@ public class FollowApiTest extends ApiTest {
 	@Test
 	void doSearchFollower() {
 		// 팔로우 수행, 팔로우 대상 유저 생성
-		Long fromMemberSeq1 = memberCommandUseCase.createMember(requestMemberCreateDto("memberId8", "1234", "Tomas", "tomas@example.com"))
-				.getMemberSeq();
-		Long fromMemberSeq2 = memberCommandUseCase.createMember(requestMemberCreateDto("memberId9", "5678", "Jake", "jake@example.com"))
-				.getMemberSeq();
-		Long fromMemberSeq3 = memberCommandUseCase.createMember(requestMemberCreateDto("memberId10", "9012", "Ulice", "ulice@example.com"))
-				.getMemberSeq();
-		Long toMemberSeq = memberCommandUseCase.createMember(requestMemberCreateDto("memberId11", "1111", "Celeb", "celeb@example.com"))
-				.getMemberSeq();
+		final MemberCreateRequest memberCreateRequest1 = requestMemberCreateDto("memberId8", "1234", "Tomas", "tomas@example.com");
+		final MemberCreateRequest memberCreateRequest2 = requestMemberCreateDto("memberId9", "5678", "Jake", "jake@example.com");
+		final MemberCreateRequest memberCreateRequest3 = requestMemberCreateDto("memberId10", "9012", "Ulice", "ulice@example.com");
+		final MemberCreateRequest memberCreateRequest4 = requestMemberCreateDto("memberId11", "1111", "Celeb", "celeb@example.com");
+
+		final Long fromMemberSeq1 = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest1)).getMemberSeq();
+		final Long fromMemberSeq2 = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest2)).getMemberSeq();
+		final Long fromMemberSeq3 = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest3)).getMemberSeq();
+		final Long toMemberSeq = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest4)).getMemberSeq();
 
 		// 팔로우 생성
 		followCommandUseCase.saveFollow(fromMemberSeq1, toMemberSeq);
@@ -139,10 +141,10 @@ public class FollowApiTest extends ApiTest {
 				.getBody();
 	}
 
-	private static MemberCreateDto requestMemberCreateDto(String memberId, String password, String memberName, String email) {
+	private static MemberCreateRequest requestMemberCreateDto(String memberId, String password, String memberName, String email) {
 		boolean isAdmin = false;
 		boolean isPrivate = false;
-		return MemberCreateDto.builder()
+		return MemberCreateRequest.builder()
 				.memberId(memberId)
 				.password(password)
 				.memberName(memberName)
