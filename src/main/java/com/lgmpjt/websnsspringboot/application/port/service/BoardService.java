@@ -6,7 +6,6 @@ import com.lgmpjt.websnsspringboot.application.port.in.BoardSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;
 import com.lgmpjt.websnsspringboot.application.port.out.BoardPort;
 import com.lgmpjt.websnsspringboot.application.port.service.dto.BoardServiceDto;
-import com.lgmpjt.websnsspringboot.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,13 +27,15 @@ public class BoardService implements BoardSearchUseCase, BoardCommandUseCase {
 	@Override
 	public BoardDto getBoardByBoardSeq(final Long boardSeq) {
 		Board board = boardPort.getBoardByBoardSeq(boardSeq);
-		return BoardMapper.INSTANCE.boardToDto(board);
+		return BoardDto.from(board);
 	}
 
 	@Override
 	public List<BoardDto> findAllBoardsByMemberSeq(final Long memberSeq) {
 		List<Board> boards = boardPort.findAllBoardsByMemberSeq(memberSeq);
-		return BoardMapper.INSTANCE.boardsToDtos(boards);
+		return boards.stream()
+			.map(BoardDto::from)
+			.toList();
 	}
 
 	@Override
