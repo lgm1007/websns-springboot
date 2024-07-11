@@ -2,12 +2,13 @@ package com.lgmpjt.websnsspringboot.like;
 
 import com.lgmpjt.websnsspringboot.ApiTest;
 import com.lgmpjt.websnsspringboot.adapter.in.rest.request.BoardCreateRequest;
+import com.lgmpjt.websnsspringboot.adapter.in.rest.request.MemberCreateRequest;
 import com.lgmpjt.websnsspringboot.application.port.in.BoardCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.LikeCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.MemberCommandUseCase;
-import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
 import com.lgmpjt.websnsspringboot.application.port.service.dto.BoardServiceDto;
+import com.lgmpjt.websnsspringboot.application.port.service.dto.MemberServiceDto;
 import com.lgmpjt.websnsspringboot.mapper.MemberMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
@@ -35,8 +36,9 @@ public class LikeEntityApiTest extends ApiTest {
 	@Test
 	void doLike() {
 		// 유저 생성
-		MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
-				memberCommandUseCase.createMember(createMemberCreateDto("memberId1", "1234", "David", "david@example.com"))
+		final MemberCreateRequest memberCreateRequest = createMemberCreateRequest("memberId1", "1234", "David", "david@example.com");
+		final MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
+			memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest))
 		);
 
 		final Long memberSeq = memberDto.getMemberSeq();
@@ -44,7 +46,7 @@ public class LikeEntityApiTest extends ApiTest {
 		// 게시물 생성
 		final BoardCreateRequest boardCreateRequest = createBoardCreateRequest(memberDto.getMemberSeq());
 		final Long boardSeq = boardCommandUseCase.createBoard(BoardServiceDto.from(boardCreateRequest))
-				.getBoardSeq();
+			.getBoardSeq();
 
 		// 게시물 좋아요하기
 		ExtractableResponse<Response> response = requestDoLike(memberSeq, boardSeq);
@@ -56,8 +58,9 @@ public class LikeEntityApiTest extends ApiTest {
 	@Test
 	void undoLike() {
 		// 유저 생성
-		MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
-				memberCommandUseCase.createMember(createMemberCreateDto("memberId2", "1234", "White", "white@example.com"))
+		final MemberCreateRequest memberCreateRequest = createMemberCreateRequest("memberId2", "1234", "White", "white@example.com");
+		final MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
+			memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest))
 		);
 
 		final Long memberSeq = memberDto.getMemberSeq();
@@ -65,7 +68,7 @@ public class LikeEntityApiTest extends ApiTest {
 		// 게시물 생성
 		final BoardCreateRequest boardCreateRequest = createBoardCreateRequest(memberDto.getMemberSeq());
 		final Long boardSeq = boardCommandUseCase.createBoard(BoardServiceDto.from(boardCreateRequest))
-				.getBoardSeq();
+			.getBoardSeq();
 
 		
 		// 좋아요 하기
@@ -81,8 +84,9 @@ public class LikeEntityApiTest extends ApiTest {
 	@Test
 	void getLikeListByUser() {
 		// 유저 생성
-		MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
-				memberCommandUseCase.createMember(createMemberCreateDto("memberId3", "1234", "Adam", "adam@example.com"))
+		final MemberCreateRequest memberCreateRequest = createMemberCreateRequest("memberId3", "1234", "Adam", "adam@example.com");
+		final MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
+			memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest))
 		);
 
 		final Long memberSeq = memberDto.getMemberSeq();
@@ -90,7 +94,7 @@ public class LikeEntityApiTest extends ApiTest {
 		// 게시물 생성
 		final BoardCreateRequest boardCreateRequest = createBoardCreateRequest(memberDto.getMemberSeq());
 		final Long boardSeq = boardCommandUseCase.createBoard(BoardServiceDto.from(boardCreateRequest))
-				.getBoardSeq();
+			.getBoardSeq();
 
 		// 좋아요 하기
 		likeCommandUseCase.createLike(memberSeq, boardSeq);
@@ -104,43 +108,43 @@ public class LikeEntityApiTest extends ApiTest {
 
 	private static ExtractableResponse<Response> requestDoLike(final Long userSeq, final Long boardSeq) {
 		return RestAssured.given().log().all()
-				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.when()
-				.post("/api/like/{userSeq}/to/{boardSeq}", userSeq, boardSeq)
-				.then()
-				.log().all().extract();
+			.contentType(MediaType.APPLICATION_JSON_VALUE)
+			.when()
+			.post("/api/like/{userSeq}/to/{boardSeq}", userSeq, boardSeq)
+			.then()
+			.log().all().extract();
 	}
 
 	private static ExtractableResponse<Response> requestUndoLike(final Long userSeq, final Long boardSeq) {
 		return RestAssured.given().log().all()
-				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.when()
-				.delete("/api/like/undo/{userSeq}/to/{boardSeq}", userSeq, boardSeq)
-				.then()
-				.log().all().extract();
+			.contentType(MediaType.APPLICATION_JSON_VALUE)
+			.when()
+			.delete("/api/like/undo/{userSeq}/to/{boardSeq}", userSeq, boardSeq)
+			.then()
+			.log().all().extract();
 	}
 
 	private static ResponseBody requestLikeListByMember(final Long userSeq) {
 		return RestAssured.given().log().all()
-				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.when()
-				.get("/api/like/list/{userSeq}", userSeq)
-				.then()
-				.log().all().extract().response()
-				.body();
+			.contentType(MediaType.APPLICATION_JSON_VALUE)
+			.when()
+			.get("/api/like/list/{userSeq}", userSeq)
+			.then()
+			.log().all().extract().response()
+			.body();
 	}
 
-	private static MemberCreateDto createMemberCreateDto(String memberId, String password, String memberName, String memberEmail) {
+	private static MemberCreateRequest createMemberCreateRequest(String memberId, String password, String memberName, String memberEmail) {
 		boolean isAdmin = false;
 		boolean isPrivate = false;
-		return MemberCreateDto.builder()
-				.memberId(memberId)
-				.password(password)
-				.memberName(memberName)
-				.email(memberEmail)
-				.isAdmin(isAdmin)
-				.isPrivate(isPrivate)
-				.build();
+		return MemberCreateRequest.builder()
+			.memberId(memberId)
+			.password(password)
+			.memberName(memberName)
+			.email(memberEmail)
+			.isAdmin(isAdmin)
+			.isPrivate(isPrivate)
+			.build();
 	}
 
 	private static BoardCreateRequest createBoardCreateRequest(Long memberSeq) {
