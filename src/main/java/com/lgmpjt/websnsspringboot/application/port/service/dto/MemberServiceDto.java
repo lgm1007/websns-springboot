@@ -18,17 +18,6 @@ public class MemberServiceDto {
 	private final boolean isAdmin;
 	private final boolean isPrivate;
 
-	public static MemberServiceDto from(final MemberCreateRequest memberCreateRequest) {
-		return MemberServiceDto.builder()
-			.memberId(memberCreateRequest.getMemberId())
-			.password(memberCreateRequest.getPassword())
-			.memberName(memberCreateRequest.getMemberName())
-			.email(memberCreateRequest.getEmail())
-			.isAdmin(memberCreateRequest.isAdmin())
-			.isPrivate(memberCreateRequest.isPrivate())
-			.build();
-	}
-
 	public MemberServiceDto fetchPassword(final String password) {
 		return MemberServiceDto.builder()
 			.memberId(this.memberId)
@@ -37,6 +26,17 @@ public class MemberServiceDto {
 			.email(this.email)
 			.isAdmin(this.isAdmin)
 			.isPrivate(this.isPrivate)
+			.build();
+	}
+
+	public static MemberServiceDto from(final MemberCreateRequest memberCreateRequest) {
+		return MemberServiceDto.builder()
+			.memberId(memberCreateRequest.getMemberId())
+			.password(memberCreateRequest.getPassword())
+			.memberName(memberCreateRequest.getMemberName())
+			.email(memberCreateRequest.getEmail())
+			.isAdmin(memberCreateRequest.isAdmin())
+			.isPrivate(memberCreateRequest.isPrivate())
 			.build();
 	}
 }
