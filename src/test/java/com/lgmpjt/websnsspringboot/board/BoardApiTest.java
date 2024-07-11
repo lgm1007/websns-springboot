@@ -7,6 +7,7 @@ import com.lgmpjt.websnsspringboot.application.port.in.MemberCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
+import com.lgmpjt.websnsspringboot.application.port.service.dto.BoardServiceDto;
 import com.lgmpjt.websnsspringboot.mapper.MemberMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
@@ -54,7 +55,8 @@ public class BoardApiTest extends ApiTest {
 		);
 
 		// 게시물 생성
-		Long boardSeq = boardCommandUseCase.createBoard(createBoardCreateRequest(memberDto.getMemberSeq())).getBoardSeq();
+		final BoardCreateRequest boardCreateRequest = createBoardCreateRequest(memberDto.getMemberSeq());
+		final Long boardSeq = boardCommandUseCase.createBoard(BoardServiceDto.from(boardCreateRequest)).getBoardSeq();
 
 		// 게시물 조회 API 요청
 		ResponseBody body = requestSearchBoardApi(boardSeq);
@@ -71,7 +73,8 @@ public class BoardApiTest extends ApiTest {
 		);
 
 		// 게시물 생성
-		boardCommandUseCase.createBoard(createBoardCreateRequest(memberDto.getMemberSeq()));
+		final BoardCreateRequest boardCreateRequest = createBoardCreateRequest(memberDto.getMemberSeq());
+		boardCommandUseCase.createBoard(BoardServiceDto.from(boardCreateRequest));
 
 		ResponseBody body = requestSearchBoardsByMemberApi(memberDto.getMemberSeq());
 
@@ -88,7 +91,8 @@ public class BoardApiTest extends ApiTest {
 
 		// 게시물 생성
 		final Long memberSeq = memberDto.getMemberSeq();
-		Long boardSeq = boardCommandUseCase.createBoard(createBoardCreateRequest(memberSeq)).getBoardSeq();
+		final BoardCreateRequest boardCreateRequest = createBoardCreateRequest(memberSeq);
+		final Long boardSeq = boardCommandUseCase.createBoard(BoardServiceDto.from(boardCreateRequest)).getBoardSeq();
 
 		// 업데이트 내용 포함된 BoardDto 생성
 		BoardDto boardDto = createBoardDto(boardSeq, memberSeq, LocalDateTime.now());
@@ -108,7 +112,8 @@ public class BoardApiTest extends ApiTest {
 		);
 
 		// 게시물 생성
-		Long boardSeq = boardCommandUseCase.createBoard(createBoardCreateRequest(memberDto.getMemberSeq())).getBoardSeq();
+		final BoardCreateRequest boardCreateRequest = createBoardCreateRequest(memberDto.getMemberSeq());
+		final Long boardSeq = boardCommandUseCase.createBoard(BoardServiceDto.from(boardCreateRequest)).getBoardSeq();
 
 		// 게시물 삭제 API 요청
 		ExtractableResponse<Response> response = requestBoardDeleteApi(boardSeq);
@@ -169,7 +174,7 @@ public class BoardApiTest extends ApiTest {
 	private static BoardCreateRequest createBoardCreateRequest(Long memberSeq) {
 		String content = "새로운 게시물입니다.";
 		String boardImage = "images/img01.jpg";
-		return BoardCreateRequest.of(content, boardImage, memberSeq);
+		return BoardCreateRequest.of(memberSeq, content, boardImage);
 	}
 
 	private static BoardDto createBoardDto(Long boardSeq, Long memberSeq, LocalDateTime createdDate) {

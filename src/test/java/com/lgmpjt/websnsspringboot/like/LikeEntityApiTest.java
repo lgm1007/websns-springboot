@@ -7,6 +7,7 @@ import com.lgmpjt.websnsspringboot.application.port.in.LikeCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.MemberCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberCreateDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
+import com.lgmpjt.websnsspringboot.application.port.service.dto.BoardServiceDto;
 import com.lgmpjt.websnsspringboot.mapper.MemberMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
@@ -38,10 +39,11 @@ public class LikeEntityApiTest extends ApiTest {
 				memberCommandUseCase.createMember(createMemberCreateDto("memberId1", "1234", "David", "david@example.com"))
 		);
 
-		Long memberSeq = memberDto.getMemberSeq();
+		final Long memberSeq = memberDto.getMemberSeq();
 
 		// 게시물 생성
-		Long boardSeq = boardCommandUseCase.createBoard(createBoardCreateRequest(memberDto.getMemberSeq()))
+		final BoardCreateRequest boardCreateRequest = createBoardCreateRequest(memberDto.getMemberSeq());
+		final Long boardSeq = boardCommandUseCase.createBoard(BoardServiceDto.from(boardCreateRequest))
 				.getBoardSeq();
 
 		// 게시물 좋아요하기
@@ -58,10 +60,11 @@ public class LikeEntityApiTest extends ApiTest {
 				memberCommandUseCase.createMember(createMemberCreateDto("memberId2", "1234", "White", "white@example.com"))
 		);
 
-		Long memberSeq = memberDto.getMemberSeq();
+		final Long memberSeq = memberDto.getMemberSeq();
 
 		// 게시물 생성
-		Long boardSeq = boardCommandUseCase.createBoard(createBoardCreateRequest(memberDto.getMemberSeq()))
+		final BoardCreateRequest boardCreateRequest = createBoardCreateRequest(memberDto.getMemberSeq());
+		final Long boardSeq = boardCommandUseCase.createBoard(BoardServiceDto.from(boardCreateRequest))
 				.getBoardSeq();
 
 		
@@ -82,10 +85,11 @@ public class LikeEntityApiTest extends ApiTest {
 				memberCommandUseCase.createMember(createMemberCreateDto("memberId3", "1234", "Adam", "adam@example.com"))
 		);
 
-		Long memberSeq = memberDto.getMemberSeq();
+		final Long memberSeq = memberDto.getMemberSeq();
 
 		// 게시물 생성
-		Long boardSeq = boardCommandUseCase.createBoard(createBoardCreateRequest(memberDto.getMemberSeq()))
+		final BoardCreateRequest boardCreateRequest = createBoardCreateRequest(memberDto.getMemberSeq());
+		final Long boardSeq = boardCommandUseCase.createBoard(BoardServiceDto.from(boardCreateRequest))
 				.getBoardSeq();
 
 		// 좋아요 하기
@@ -142,6 +146,6 @@ public class LikeEntityApiTest extends ApiTest {
 	private static BoardCreateRequest createBoardCreateRequest(Long memberSeq) {
 		String content = "새로운 게시물입니다.";
 		String boardImage = "images/img01.jpg";
-		return BoardCreateRequest.of(content, boardImage, memberSeq);
+		return BoardCreateRequest.of(memberSeq, content, boardImage);
 	}
 }

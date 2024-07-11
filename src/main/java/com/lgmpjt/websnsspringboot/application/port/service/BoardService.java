@@ -1,11 +1,11 @@
 package com.lgmpjt.websnsspringboot.application.port.service;
 
-import com.lgmpjt.websnsspringboot.adapter.in.rest.request.BoardCreateRequest;
 import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Board;
 import com.lgmpjt.websnsspringboot.application.port.in.BoardCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.BoardSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;
 import com.lgmpjt.websnsspringboot.application.port.out.BoardPort;
+import com.lgmpjt.websnsspringboot.application.port.service.dto.BoardServiceDto;
 import com.lgmpjt.websnsspringboot.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,8 +20,8 @@ public class BoardService implements BoardSearchUseCase, BoardCommandUseCase {
 	private final BoardPort boardPort;
 
 	@Override
-	public Board createBoard(final BoardCreateRequest boardCreateRequest) {
-		Board board = BoardMapper.INSTANCE.createRequestToBoard(boardCreateRequest);
+	public Board createBoard(final BoardServiceDto boardServiceDto) {
+		Board board = Board.from(boardServiceDto);
 		return boardPort.save(board);
 	}
 
