@@ -6,7 +6,6 @@ import com.lgmpjt.websnsspringboot.application.port.in.FollowSearchUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.FollowDto;
 import com.lgmpjt.websnsspringboot.application.port.out.FollowPort;
 import com.lgmpjt.websnsspringboot.application.port.out.MemberPort;
-import com.lgmpjt.websnsspringboot.mapper.FollowMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,12 +29,18 @@ public class FollowService implements FollowSearchUseCase, FollowCommandUseCase 
 
 	@Override
 	public List<FollowDto> findAllFollowingByMember(final Long memberSeq) {
-		return FollowMapper.INSTANCE.followToSearchDtos(followPort.findAllByFrom(memberSeq));
+		final List<Follow> follows = followPort.findAllByFrom(memberSeq);
+		return follows.stream()
+			.map(FollowDto::from)
+			.toList();
 	}
 
 	@Override
 	public List<FollowDto> findAllFollowerByMember(final Long memberSeq) {
-		return FollowMapper.INSTANCE.followToSearchDtos(followPort.findAllByTo(memberSeq));
+		final List<Follow> follows = followPort.findAllByTo(memberSeq);
+		return follows.stream()
+			.map(FollowDto::from)
+			.toList();
 	}
 
 	@Override
