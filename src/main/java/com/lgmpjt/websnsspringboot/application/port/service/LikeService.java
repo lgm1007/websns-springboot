@@ -21,7 +21,6 @@ public class LikeService implements LikeSearchUseCase, LikeCommandUseCase {
 
 	@Override
 	public LikeEntity createLike(final Long memberSeq, final Long boardSeq) {
-
 		LikeEntity like = LikeEntity.builder()
 			.likeId(
 				LikeId.builder()
