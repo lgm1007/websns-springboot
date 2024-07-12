@@ -1,5 +1,6 @@
 package com.lgmpjt.websnsspringboot.application.port.in.dto;
 
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Follow;
 import lombok.*;
 import org.springframework.util.Assert;
 
@@ -20,5 +21,13 @@ public class FollowDto {
 		this.followSeq = followSeq;
 		this.fromFollow = fromFollow;
 		this.toFollow = toFollow;
+	}
+
+	public static FollowDto from(final Follow follow) {
+		return FollowDto.builder()
+			.followSeq(follow.getFollowSeq())
+			.fromFollow(follow.getFromFollow())
+			.toFollow(follow.getToFollow())
+			.build();
 	}
 }

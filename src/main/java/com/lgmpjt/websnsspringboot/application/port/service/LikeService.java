@@ -21,16 +21,15 @@ public class LikeService implements LikeSearchUseCase, LikeCommandUseCase {
 
 	@Override
 	public LikeEntity createLike(final Long memberSeq, final Long boardSeq) {
-
 		LikeEntity like = LikeEntity.builder()
-				.likeId(
-					LikeId.builder()
-						.memberSeq(memberSeq)
-						.boardSeq(boardSeq)
-						.build()
-				)
-				.createdDate(LocalDateTime.now())
-				.build();
+			.likeId(
+				LikeId.builder()
+					.memberSeq(memberSeq)
+					.boardSeq(boardSeq)
+					.build()
+			)
+			.createdDate(LocalDateTime.now())
+			.build();
 		return likePort.save(like);
 	}
 
@@ -45,7 +44,7 @@ public class LikeService implements LikeSearchUseCase, LikeCommandUseCase {
 	@Override
 	public List<Long> findAllLikeBoardSeqByMemberSeq(final Long memberSeq) {
 		return likePort.findAllByMemberSeq(memberSeq).stream()
-				.map(like -> like.getLikeId().getBoardSeq())
-				.toList();
+			.map(like -> like.getLikeId().getBoardSeq())
+			.toList();
 	}
 }

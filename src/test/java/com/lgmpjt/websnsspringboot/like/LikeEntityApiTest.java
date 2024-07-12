@@ -3,13 +3,13 @@ package com.lgmpjt.websnsspringboot.like;
 import com.lgmpjt.websnsspringboot.ApiTest;
 import com.lgmpjt.websnsspringboot.adapter.in.rest.request.BoardCreateRequest;
 import com.lgmpjt.websnsspringboot.adapter.in.rest.request.MemberCreateRequest;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Member;
 import com.lgmpjt.websnsspringboot.application.port.in.BoardCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.LikeCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.MemberCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
 import com.lgmpjt.websnsspringboot.application.port.service.dto.BoardServiceDto;
 import com.lgmpjt.websnsspringboot.application.port.service.dto.MemberServiceDto;
-import com.lgmpjt.websnsspringboot.mapper.MemberMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -37,9 +37,8 @@ public class LikeEntityApiTest extends ApiTest {
 	void doLike() {
 		// 유저 생성
 		final MemberCreateRequest memberCreateRequest = createMemberCreateRequest("memberId1", "1234", "David", "david@example.com");
-		final MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
-			memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest))
-		);
+		final Member member = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest));
+		final MemberDto memberDto = MemberDto.from(member);
 
 		final Long memberSeq = memberDto.getMemberSeq();
 
@@ -59,9 +58,8 @@ public class LikeEntityApiTest extends ApiTest {
 	void undoLike() {
 		// 유저 생성
 		final MemberCreateRequest memberCreateRequest = createMemberCreateRequest("memberId2", "1234", "White", "white@example.com");
-		final MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
-			memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest))
-		);
+		final Member member = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest));
+		final MemberDto memberDto = MemberDto.from(member);
 
 		final Long memberSeq = memberDto.getMemberSeq();
 
@@ -85,9 +83,8 @@ public class LikeEntityApiTest extends ApiTest {
 	void getLikeListByUser() {
 		// 유저 생성
 		final MemberCreateRequest memberCreateRequest = createMemberCreateRequest("memberId3", "1234", "Adam", "adam@example.com");
-		final MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
-			memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest))
-		);
+		final Member member = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest));
+		final MemberDto memberDto = MemberDto.from(member);
 
 		final Long memberSeq = memberDto.getMemberSeq();
 

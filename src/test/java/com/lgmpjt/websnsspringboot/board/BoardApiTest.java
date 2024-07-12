@@ -3,13 +3,13 @@ package com.lgmpjt.websnsspringboot.board;
 import com.lgmpjt.websnsspringboot.ApiTest;
 import com.lgmpjt.websnsspringboot.adapter.in.rest.request.BoardCreateRequest;
 import com.lgmpjt.websnsspringboot.adapter.in.rest.request.MemberCreateRequest;
+import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Member;
 import com.lgmpjt.websnsspringboot.application.port.in.BoardCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.MemberCommandUseCase;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.BoardDto;
 import com.lgmpjt.websnsspringboot.application.port.in.dto.MemberDto;
 import com.lgmpjt.websnsspringboot.application.port.service.dto.BoardServiceDto;
 import com.lgmpjt.websnsspringboot.application.port.service.dto.MemberServiceDto;
-import com.lgmpjt.websnsspringboot.mapper.MemberMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -35,9 +35,8 @@ public class BoardApiTest extends ApiTest {
 	void createBoard() {
 		// 유저 생성
 		final MemberCreateRequest memberCreateRequest = createMemberCreateRequest("memberId1", "1234", "David", "david@example.com");
-		final MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
-			memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest))
-		);
+		final Member member = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest));
+		final MemberDto memberDto = MemberDto.from(member);
 
 		// 게시물 생성
 		BoardCreateRequest boardCreateRequest = createBoardCreateRequest(memberDto.getMemberSeq());
@@ -53,9 +52,8 @@ public class BoardApiTest extends ApiTest {
 	void searchBoard() {
 		// 유저 생성
 		final MemberCreateRequest memberCreateRequest = createMemberCreateRequest("memberId2", "1234", "Tom", "tom@example.com");
-		final MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
-			memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest))
-		);
+		final Member member = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest));
+		final MemberDto memberDto = MemberDto.from(member);
 
 		// 게시물 생성
 		final BoardCreateRequest boardCreateRequest = createBoardCreateRequest(memberDto.getMemberSeq());
@@ -72,9 +70,8 @@ public class BoardApiTest extends ApiTest {
 	void searchBoardsByMemberSeq() {
 		// 유저 생성
 		final MemberCreateRequest memberCreateRequest = createMemberCreateRequest("memberId3", "1234", "White", "white@example.com");
-		MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
-			memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest))
-		);
+		final Member member = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest));
+		final MemberDto memberDto = MemberDto.from(member);
 
 		// 게시물 생성
 		final BoardCreateRequest boardCreateRequest = createBoardCreateRequest(memberDto.getMemberSeq());
@@ -90,9 +87,8 @@ public class BoardApiTest extends ApiTest {
 	void updateBoard() {
 		// 유저 생성
 		final MemberCreateRequest memberCreateRequest = createMemberCreateRequest("memberId4", "1234", "Grace", "grace@example.com");
-		final MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
-			memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest))
-		);
+		final Member member = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest));
+		final MemberDto memberDto = MemberDto.from(member);
 
 		// 게시물 생성
 		final Long memberSeq = memberDto.getMemberSeq();
@@ -113,9 +109,8 @@ public class BoardApiTest extends ApiTest {
 	void deleteBoard() {
 		// 유저 생성
 		final MemberCreateRequest memberCreateRequest = createMemberCreateRequest("memberId5", "1234", "Paul", "paul@example.com");
-		final MemberDto memberDto = MemberMapper.INSTANCE.toMemberDto(
-			memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest))
-		);
+		final Member member = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest));
+		final MemberDto memberDto = MemberDto.from(member);
 
 		// 게시물 생성
 		final BoardCreateRequest boardCreateRequest = createBoardCreateRequest(memberDto.getMemberSeq());
