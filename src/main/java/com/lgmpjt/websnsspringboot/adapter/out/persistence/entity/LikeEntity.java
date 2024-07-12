@@ -19,4 +19,16 @@ public class LikeEntity {
 	private LikeId likeId;
 
 	private LocalDateTime createdDate;
+
+	public static LikeEntity to(final Long memberSeq, final Long boardSeq) {
+		return LikeEntity.builder()
+			.likeId(
+				LikeId.builder()
+					.memberSeq(memberSeq)
+					.boardSeq(boardSeq)
+					.build()
+			)
+			.createdDate(LocalDateTime.now())
+			.build();
+	}
 }
