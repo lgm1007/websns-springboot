@@ -20,7 +20,7 @@ public class LikeEntity {
 
 	private LocalDateTime createdDate;
 
-	public static LikeEntity to(final Long memberSeq, final Long boardSeq) {
+	public static LikeEntity of(final Long memberSeq, final Long boardSeq) {
 		return LikeEntity.builder()
 			.likeId(
 				LikeId.builder()
