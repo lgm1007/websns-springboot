@@ -19,7 +19,7 @@ public class LikeService implements LikeSearchUseCase, LikeCommandUseCase {
 
 	@Override
 	public LikeEntity createLike(final Long memberSeq, final Long boardSeq) {
-		LikeEntity like = LikeEntity.to(memberSeq, boardSeq);
+		LikeEntity like = LikeEntity.of(memberSeq, boardSeq);
 		return likePort.save(like);
 	}
 
