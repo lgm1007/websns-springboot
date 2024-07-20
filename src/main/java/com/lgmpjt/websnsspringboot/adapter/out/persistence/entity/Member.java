@@ -1,8 +1,11 @@
 package com.lgmpjt.websnsspringboot.adapter.out.persistence.entity;
 
 import com.lgmpjt.websnsspringboot.application.port.service.dto.MemberServiceDto;
+import com.lgmpjt.websnsspringboot.utils.SHA256;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.security.NoSuchAlgorithmException;
 
 @Entity
 @Table(name = "Member")
@@ -30,10 +33,14 @@ public class Member extends CommonEntity {
 
 	private boolean deleted;
 
-	public void updateMember(final String password, final String memberName, final String email) {
-		this.password = password;
-		this.memberName = memberName;
-		this.email = email;
+	public void updateMember(final String password, final String memberName, final String email) throws NoSuchAlgorithmException {
+		try {
+			this.password = SHA256.encrypt(password);
+			this.memberName = memberName;
+			this.email = email;
+		} catch (Exception e) {
+			throw new NoSuchAlgorithmException(e.getMessage());
+		}
 	}
 
 	public static Member from(final MemberServiceDto memberServiceDto) {

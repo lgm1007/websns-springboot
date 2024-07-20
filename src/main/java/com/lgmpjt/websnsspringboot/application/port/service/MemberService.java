@@ -51,7 +51,7 @@ public class MemberService implements MemberSearchUseCase, MemberCommandUseCase 
 
 		try {
 			member.updateMember(
-				SHA256.encrypt(memberDto.getPassword()),
+				memberDto.getPassword(),
 				memberDto.getMemberName(),
 				memberDto.getEmail()
 			);
