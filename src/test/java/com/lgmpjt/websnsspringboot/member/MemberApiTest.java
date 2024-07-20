@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
+import java.security.NoSuchAlgorithmException;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class MemberApiTest extends ApiTest {
@@ -99,7 +101,7 @@ class MemberApiTest extends ApiTest {
 	}
 
 	@Test
-	void updateMember() {
+	void updateMember() throws NoSuchAlgorithmException {
 		// 유저 생성
 		final MemberCreateRequest memberCreateRequest = requestMemberCreateRequest(
 			"memberId5",
@@ -110,14 +112,11 @@ class MemberApiTest extends ApiTest {
 		Member member = memberCommandUseCase.createMember(MemberServiceDto.from(memberCreateRequest));
 
 		// 유저 조회
-		final Long memberSeq = member.getMemberSeq();
-		MemberDto memberDto = memberSearchUseCase.getMemberByMemberSeq(memberSeq);
-
-		memberDto.setEmail("mytest1user@example.mail");
-		memberDto.setMemberName("홍두께");
+		member.updateMember("password", "mytest1user@example.mail", "홍두께");
+		MemberDto memberDto = MemberDto.from(member);
 
 		// 유저 정보 업데이트
-		ExtractableResponse<Response> response = requestUpdateMemberApi(memberSeq, memberDto);
+		ExtractableResponse<Response> response = requestUpdateMemberApi(memberDto.getMemberSeq(), memberDto);
 
 		// 업데이트 응답 검증
 		assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
