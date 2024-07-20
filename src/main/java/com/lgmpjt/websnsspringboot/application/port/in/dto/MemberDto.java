@@ -3,25 +3,25 @@ package com.lgmpjt.websnsspringboot.application.port.in.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Member;
 import com.lgmpjt.websnsspringboot.application.port.in.enumeration.MemberGrant;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 import org.springframework.util.Assert;
 
 @ToString
 @Getter
-@Setter
-@NoArgsConstructor
 public class MemberDto {
-	Long memberSeq;
-	String memberId;
-	String password;
-	String memberName;
-	String email;
-	boolean isAdmin;
-	boolean isPrivate;
-	boolean deleted;
+	private final Long memberSeq;
+	private final String memberId;
+	private final String password;
+	private final String memberName;
+	private final String email;
+	private final boolean isAdmin;
+	private final boolean isPrivate;
+	private final boolean deleted;
 
 	@Builder
-	public MemberDto(final Long memberSeq, final String memberId, final String password, final String memberName, final String email, final boolean isAdmin, final boolean isPrivate) {
+	public MemberDto(final Long memberSeq, final String memberId, final String password, final String memberName, final String email, final boolean isAdmin, final boolean isPrivate, final boolean deleted) {
 		Assert.notNull(memberSeq, "유저 SEQ 값은 필수입니다.");
 		Assert.notNull(password, "패스워드 값은 필수입니다.");
 		Assert.hasText(memberId, "유저 ID 값은 필수입니다.");
@@ -33,6 +33,7 @@ public class MemberDto {
 		this.email = email;
 		this.isAdmin = isAdmin;
 		this.isPrivate = isPrivate;
+		this.deleted = deleted;
 	}
 
 	@JsonIgnore

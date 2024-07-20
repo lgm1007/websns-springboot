@@ -1,18 +1,18 @@
 package com.lgmpjt.websnsspringboot.application.port.in.dto;
 
 import com.lgmpjt.websnsspringboot.adapter.out.persistence.entity.Board;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 import org.springframework.util.Assert;
 
 @ToString
 @Getter
-@Setter
-@NoArgsConstructor
 public class BoardDto {
-	private Long boardSeq;
-	private Long memberSeq;
-	private String content;
-	private String boardImage;
+	private final Long boardSeq;
+	private final Long memberSeq;
+	private final String content;
+	private final String boardImage;
 
 	@Builder
 	public BoardDto(final Long boardSeq, final Long memberSeq, final String content, final String boardImage) {

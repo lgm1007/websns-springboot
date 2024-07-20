@@ -1,15 +1,15 @@
 package com.lgmpjt.websnsspringboot.application.port.in.dto;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 import org.springframework.util.Assert;
 
 @Getter
-@Setter
 @ToString
-@NoArgsConstructor
 public class LikeDto {
-	private Long memberSeq;
-	private Long boardSeq;
+	private final Long memberSeq;
+	private final Long boardSeq;
 
 	@Builder
 	public LikeDto(final Long memberSeq, final Long boardSeq) {

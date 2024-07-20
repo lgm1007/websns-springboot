@@ -22,7 +22,7 @@ import org.springframework.http.MediaType;
 
 import java.util.ArrayList;
 
-public class LikeEntityApiTest extends ApiTest {
+public class LikeApiTest extends ApiTest {
 
 	@Autowired
 	private MemberCommandUseCase memberCommandUseCase;
